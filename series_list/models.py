@@ -26,6 +26,7 @@ class Subtitle(db.Entity):
     episode = Required(Episode)
     url = Required(unicode)
     name = Required(unicode)
+    language = Required(unicode)
 
 
 class Download(db.Entity):
@@ -33,6 +34,7 @@ class Download(db.Entity):
     episode = Required(Episode)
     url = Required(unicode)
     name = Required(unicode)
+    language = Required(unicode)
 
 
 db.generate_mapping(create_tables=True)

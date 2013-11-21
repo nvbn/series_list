@@ -53,6 +53,7 @@ class SubtitleCase(FlushModelsMixin, TestCase):
             episode=episode,
             url='test',
             name='test',
+            language='en',
         )
         commit()
         Subtitle.get().should.be.equal(subtitle)
@@ -75,6 +76,7 @@ class DownloadCase(FlushModelsMixin, TestCase):
             episode=episode,
             url='test',
             name='test',
+            language='en',
         )
         commit()
         Download.get().should.be.equal(download)
