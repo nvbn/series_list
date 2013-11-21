@@ -10,11 +10,14 @@ class FlushModelsMixin(object):
         with in_memory_db:
             from series_list import models
         with db_session:
-            for episode in models.Episode.select():
-                episode.delete()
-            for series in models.Series.select():
-                series.delete()
+            self._delete_all(models.Episode)
+            self._delete_all(models.Series)
             commit()
+
+    def _delete_all(self, model):
+        """Delete all model items"""
+        for item in model.select():
+            item.delete()
 
 
 class InMemoryDB(object):

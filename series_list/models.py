@@ -17,6 +17,13 @@ class Episode(db.Entity):
     season = Required(int)
     number = Required(int)
     name = Required(unicode)
+    subtitles = Set('Subtitle')
 
+
+class Subtitle(db.Entity):
+    """Subtitle for episode"""
+    episode = Required(Episode)
+    url = Required(unicode)
+    name = Required(unicode)
 
 db.generate_mapping(create_tables=True)
