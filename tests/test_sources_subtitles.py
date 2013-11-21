@@ -49,8 +49,8 @@ class SubtitleSourceCase(FlushModelsMixin, TestCase):
         count(Subtitle.select()).should.be.equal(10)
 
     @db_session
-    def test_no_fetch_subtitles(self):
-        """Test fetch subtitles"""
+    def test_no_fetch_duplicated_subtitles(self):
+        """Test no fetch duplicated subtitles"""
         episode = self._create_episode()
         self.source._get_subtitles.return_value = [
             {
