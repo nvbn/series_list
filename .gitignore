@@ -1,0 +1,9 @@
+syntax: glob
+
+*.pyc
+*pip-delete-this-directory.txt
+/build
+/.idea
+/dist
+*.egg
+*.egg-info
