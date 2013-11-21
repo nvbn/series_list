@@ -5,7 +5,7 @@ from .base import FlushModelsMixin, in_memory_db
 
 
 with in_memory_db:
-    from series_list.models import Series, Episode, Subtitle
+    from series_list.models import Series, Episode, Subtitle, Download
 
 
 class SeriesCase(FlushModelsMixin, TestCase):
@@ -56,3 +56,25 @@ class SubtitleCase(FlushModelsMixin, TestCase):
         )
         commit()
         Subtitle.get().should.be.equal(subtitle)
+
+
+class DownloadCase(FlushModelsMixin, TestCase):
+    """Download test case"""
+
+    @db_session
+    def test_create(self):
+        """Test create episode"""
+        series = Series(name='test')
+        episode = Episode(
+            series=series,
+            season=1,
+            number=2,
+            name='test',
+        )
+        download = Download(
+            episode=episode,
+            url='test',
+            name='test',
+        )
+        commit()
+        Download.get().should.be.equal(download)

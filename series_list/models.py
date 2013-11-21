@@ -18,6 +18,7 @@ class Episode(db.Entity):
     number = Required(int)
     name = Required(unicode)
     subtitles = Set('Subtitle')
+    downloads = Set('Download')
 
 
 class Subtitle(db.Entity):
@@ -25,5 +26,13 @@ class Subtitle(db.Entity):
     episode = Required(Episode)
     url = Required(unicode)
     name = Required(unicode)
+
+
+class Download(db.Entity):
+    """Download for episode"""
+    episode = Required(Episode)
+    url = Required(unicode)
+    name = Required(unicode)
+
 
 db.generate_mapping(create_tables=True)
