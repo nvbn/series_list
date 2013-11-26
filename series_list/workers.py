@@ -16,7 +16,7 @@ class SeriesListWorker(QObject):
     @Slot(int, unicode, int)
     def _get_series(self, page, filters, tick):
         """Get series"""
-        for episode in self.loader.get_series(page):
+        for episode in self.loader.get_series(page, filters):
             self.received.emit(episode, tick)
 
 

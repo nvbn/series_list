@@ -36,3 +36,4 @@ class SeriesWidget(WithUiMixin, QWidget):
         """Clear series widget"""
         for index in range(self.series_layout.count()):
             self.series_layout.itemAt(index).widget().deleteLater()
+        self._page = 0

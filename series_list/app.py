@@ -16,6 +16,7 @@ class SeriesListApp(QApplication):
         self.window = window
         self.eztv_loader = EZTVLoader()
         self._tick = 0
+        self._filter = ''
         self._init_workers()
         self._init_events()
         self._load_episodes()
@@ -31,11 +32,14 @@ class SeriesListApp(QApplication):
         """Init events"""
         self.window.series_widget.need_more.connect(self._load_episodes)
         self.series_worker.receiver.received.connect(self._episode_received)
+        self.window.filter_widget.filter_changed.connect(self._filter_changed)
 
-    @Slot(int, unicode)
-    def _load_episodes(self, page=0, filters=None):
+    @Slot(int)
+    def _load_episodes(self, page=0):
         """Load episodes"""
-        self.series_worker.receiver.need_series.emit(page, filters, self._tick)
+        self.series_worker.receiver.need_series.emit(
+            page, self._filter, self._tick,
+        )
 
     @Slot(SeriesEntry, int)
     def _episode_received(self, episode, tick):
@@ -48,6 +52,14 @@ class SeriesListApp(QApplication):
     def need_poster(self, episode):
         """Send need_poster to worker"""
         self.poster_worker.receiver.need_poster.emit(episode)
+
+    @Slot(unicode)
+    def _filter_changed(self, value):
+        """Filter changed"""
+        self.window.series_widget.clear()
+        self._tick += 1
+        self._filter = value
+        self._load_episodes()
 
 
 def main():

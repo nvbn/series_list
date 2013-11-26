@@ -6,13 +6,23 @@ from ..models import SeriesEntry
 class EZTVLoader(object):
     """eztv.it loader"""
 
-    def _get_url(self, page):
+    def _get_url(self, page, filters):
         """Get url for fetch"""
-        return 'http://eztv.it/page_{}'.format(page)
+        if filters == '':
+            return 'http://eztv.it/page_{}'.format(page)
+        else:
+            return 'http://eztv.it/search/'
 
-    def _fetch_html(self, page):
+    def _fetch_html(self, page, filters):
         """Fetch html"""
-        return requests.get(self._get_url(page)).content
+        url = self._get_url(page, filters)
+        if filters == '':
+            return requests.get(url).content
+        else:
+            return requests.post(url, {
+                'SearchString1': filters,
+                'Page': page,
+            }).content
 
     def _parse_html(self, html):
         """Parse received html"""
@@ -23,7 +33,7 @@ class EZTVLoader(object):
                 magnet=part.findAll('td')[2].find('a')['href'],
             )
 
-    def get_series(self, page=0):
+    def get_series(self, page=0, filters=''):
         """Get series"""
-        data = self._fetch_html(page)
+        data = self._fetch_html(page, filters)
         return list(self._parse_html(data))
