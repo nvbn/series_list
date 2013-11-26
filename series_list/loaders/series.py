@@ -12,7 +12,7 @@ class EZTVLoader(object):
 
     def _fetch_html(self, page):
         """Fetch html"""
-        return requests.get(self._get_url(page)).read()
+        return requests.get(self._get_url(page)).content
 
     def _parse_html(self, html):
         """Parse received html"""
