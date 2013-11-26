@@ -19,6 +19,9 @@ class EZTVLoaderCase(TestCase):
             return_value=get_fixture('eztv.html'),
         )
 
+    def tearDown(self):
+        EZTVLoader._fetch_html = self._orig_fetch
+
     def test_count(self):
         """Test count of fetched"""
         self.loader.get_series().should.have.length_of(50)
