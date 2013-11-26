@@ -24,7 +24,9 @@ setup(
         'nose',
         'mock',
     ],
-    entry_points="""
-      # -*- Entry points: -*-
-    """,
+    entry_points={
+        'gui_scripts': [
+            'series_list=series_list.app:main'
+        ]
+    },
 )
