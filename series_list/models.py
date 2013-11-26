@@ -1,5 +1,7 @@
+import os
 from .loaders.posters import IMDBPosterLoader
 from .loaders.subtitles import Addic7edLoader
+from . import const
 
 
 class BaseModel(object):
@@ -29,6 +31,21 @@ class SeriesEntry(BaseModel):
         """Get subtitles from loader"""
         self.subtitle = Addic7edLoader().get_subtitle_url(self.title)
 
+    @property
+    def file_name(self):
+        return u'{}.avi'.format(self.title)
+
+    @property
+    def path(self):
+        return os.path.join(const.DOWNLOAD_PATH, self.file_name)
+
 
 class Subtitle(BaseModel):
     """Subtitle model"""
+
+    def __repr__(self):
+        return self.name
+
+    @property
+    def path(self):
+        return os.path.join(const.DOWNLOAD_PATH, u'{}.srt'.format(self.name))

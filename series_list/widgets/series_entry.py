@@ -1,4 +1,5 @@
 import subprocess
+import os
 from PySide.QtCore import Slot
 from PySide.QtGui import QWidget, QPixmap, QApplication
 from ..interface.loader import WithUiMixin
@@ -17,13 +18,17 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
     def _set_model(self, model):
         """Ste data from model to entry"""
         self.model = model
+        self._downloading = False
         self.title.setText(model.title)
         self._set_poster_pixmap()
         self._update_subtitle()
+        self._update_download_status()
         QApplication.instance()\
             .poster_received.connect(self._maybe_poster_updated)
         QApplication.instance()\
             .subtitle_received.connect(self._maybe_subtitle_updated)
+        QApplication.instance()\
+            .downloaded.connect(self._maybe_downloaded)
 
     @Slot(SeriesEntry)
     def _maybe_poster_updated(self, entry):
@@ -37,6 +42,12 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
         if entry == self.model:
             self._update_subtitle()
 
+    @Slot(SeriesEntry)
+    def _maybe_downloaded(self, entry):
+        """Maybe downloaded updated"""
+        if entry == self.model:
+            self._update_download_status()
+
     @Slot()
     def _set_poster_pixmap(self):
         """Get poster pixmap"""
@@ -48,21 +59,33 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
     def _update_subtitle(self):
         """Update subtitle status"""
         if self.model.subtitle:
-            self.subtitles.setEnabled(True)
+            self.download.setEnabled(True)
         else:
-            self.subtitles.setEnabled(False)
+            self.download.setEnabled(False)
 
     def _init_events(self):
         """Init events and connect signals"""
         self.download.clicked.connect(self._download)
-        self.subtitles.clicked.connect(self._download_subtitles)
 
     @Slot()
     def _download(self):
         """Start downloading"""
-        subprocess.Popen(['xdg-open', self.model.magnet])
+        self._downloading = True
+        QApplication.instance().need_download(self.model)
+        self._update_download_status()
 
     @Slot()
-    def _download_subtitles(self):
-        """Download subtitles"""
-        subprocess.Popen(['xdg-open', self.model.subtitle.url])
+    def _update_download_status(self):
+        """Update download status"""
+        if os.path.exists(self.model.path):
+            self.download.hide()
+            self.stopButton.hide()
+            self.openButton.show()
+        elif self._downloading:
+            self.download.hide()
+            self.stopButton.show()
+            self.openButton.hide()
+        else:
+            self.download.show()
+            self.stopButton.hide()
+            self.openButton.hide()

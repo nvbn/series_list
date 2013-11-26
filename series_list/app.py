@@ -1,20 +1,24 @@
 import sys
+import subprocess
 from PySide.QtCore import Slot, Signal
 from PySide.QtGui import QApplication
 from .workers.posters import PosterWorkerThread
 from .workers.series import SeriesListWorkerThread
 from .workers.subtitles import SubtitleWorkerThread
+from .workers.downloads import DownloadsWorkerThread
 from .widgets.series_window import SeriesWindow
 from .widgets.series_entry import SeriesEntryWidget
 from .loaders.series import EZTVLoader
 from .models import SeriesEntry
 from .utils import ticked
+from . import const
 
 
 class SeriesListApp(QApplication):
     """Series list application"""
     poster_received = Signal(SeriesEntry)
     subtitle_received = Signal(SeriesEntry)
+    downloaded = Signal(SeriesEntry)
 
     def init(self, window):
         """Init application"""
@@ -34,6 +38,8 @@ class SeriesListApp(QApplication):
         self.poster_worker.start()
         self.subtitle_worker = SubtitleWorkerThread()
         self.subtitle_worker.start()
+        self.downloads_worker = DownloadsWorkerThread()
+        self.downloads_worker.start()
 
     def _init_events(self):
         """Init events"""
@@ -42,6 +48,7 @@ class SeriesListApp(QApplication):
         self.window.filter_widget.filter_changed.connect(self._filter_changed)
         self.poster_worker.received.connect(self._poster_received)
         self.subtitle_worker.received.connect(self._subtitle_received)
+        self.downloads_worker.downloaded.connect(self._downloaded)
 
     @Slot(int)
     def _load_episodes(self, page=0):
@@ -71,6 +78,12 @@ class SeriesListApp(QApplication):
         """Subtitle received"""
         self.subtitle_received.emit(episode)
 
+    @Slot(SeriesEntry, int)
+    @ticked
+    def _downloaded(self, episode, tick):
+        """Downloaded"""
+        self.downloaded.emit(episode)
+
     def need_poster(self, episode):
         """Send need_poster to worker"""
         self.poster_worker.need_poster.emit(episode, self.tick)
@@ -78,6 +91,10 @@ class SeriesListApp(QApplication):
     def need_subtitle(self, episode):
         """Send need_subtitle to worker"""
         self.subtitle_worker.need_subtitle.emit(episode, self.tick)
+
+    def need_download(self, episode):
+        """Send need_subtitle to worker"""
+        self.downloads_worker.need_download.emit(episode, self.tick)
 
     @Slot(unicode)
     def _filter_changed(self, value):
@@ -89,6 +106,7 @@ class SeriesListApp(QApplication):
 
 
 def main():
+    subprocess.call(['mkdir', '-p', const.DOWNLOAD_PATH])
     app = SeriesListApp(sys.argv)
     window = SeriesWindow()
     window.show()

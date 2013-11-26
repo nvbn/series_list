@@ -55,12 +55,22 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="subtitles">
+    <widget class="QPushButton" name="stopButton">
      <property name="text">
       <string/>
      </property>
      <property name="icon">
-      <iconset theme="text-x-generic"/>
+      <iconset theme="stop"/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="openButton">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset theme="player_play"/>
      </property>
     </widget>
    </item>

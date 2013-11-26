@@ -8,7 +8,7 @@ class Addic7edLoader(object):
 
     def _get_url(self, name):
         """Get url for name"""
-        return 'http://www.addic7ed.com/search.php?{}'.format(
+        return u'http://www.addic7ed.com/search.php?{}'.format(
             urlencode({'search': name, 'Submit': 'Search'}),
         )
 
@@ -21,7 +21,7 @@ class Addic7edLoader(object):
         soup = BeautifulSoup(html)
         relative = soup.find('table', {'class': 'tabel'}).find('tr')\
             .findAll('td')[1].find('a')['href']
-        return 'http://www.addic7ed.com/{}'.format(relative)
+        return u'http://www.addic7ed.com/{}'.format(relative)
 
     def _fetch_episode(self, url):
         """Fetch episode"""
@@ -31,7 +31,7 @@ class Addic7edLoader(object):
         """Parse episode page"""
         soup = BeautifulSoup(html)
         relative = soup.find('a', {'class': 'buttonDownload'})['href']
-        return 'http://www.addic7ed.com{}'.format(relative)
+        return u'http://www.addic7ed.com{}'.format(relative)
 
     def get_subtitle_url(self, name):
         """Get subtitle url"""
@@ -47,4 +47,5 @@ class Addic7edLoader(object):
         return Subtitle(
             url=self._parse_episode(episode),
             refer=episode_url,
+            name=name,
         )
