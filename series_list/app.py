@@ -38,15 +38,15 @@ class SeriesListApp(QApplication):
     def _init_events(self):
         """Init events"""
         self.window.series_widget.need_more.connect(self._load_episodes)
-        self.series_worker.receiver.received.connect(self._episode_received)
+        self.series_worker.received.connect(self._episode_received)
         self.window.filter_widget.filter_changed.connect(self._filter_changed)
-        self.poster_worker.receiver.received.connect(self._poster_received)
-        self.subtitle_worker.receiver.received.connect(self._subtitle_received)
+        self.poster_worker.received.connect(self._poster_received)
+        self.subtitle_worker.received.connect(self._subtitle_received)
 
     @Slot(int)
     def _load_episodes(self, page=0):
         """Load episodes"""
-        self.series_worker.receiver.need_series.emit(
+        self.series_worker.need_series.emit(
             page, self._filter, self.tick,
         )
 
@@ -73,11 +73,11 @@ class SeriesListApp(QApplication):
 
     def need_poster(self, episode):
         """Send need_poster to worker"""
-        self.poster_worker.receiver.need_poster.emit(episode, self.tick)
+        self.poster_worker.need_poster.emit(episode, self.tick)
 
     def need_subtitle(self, episode):
         """Send need_subtitle to worker"""
-        self.subtitle_worker.receiver.need_subtitle.emit(episode, self.tick)
+        self.subtitle_worker.need_subtitle.emit(episode, self.tick)
 
     @Slot(unicode)
     def _filter_changed(self, value):

@@ -20,8 +20,10 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
         self.title.setText(model.title)
         self._set_poster_pixmap()
         self._update_subtitle()
-        QApplication.instance().poster_received.connect(self._maybe_poster_updated)
-        QApplication.instance().subtitle_received.connect(self._maybe_subtitle_updated)
+        QApplication.instance()\
+            .poster_received.connect(self._maybe_poster_updated)
+        QApplication.instance()\
+            .subtitle_received.connect(self._maybe_subtitle_updated)
 
     @Slot(SeriesEntry)
     def _maybe_poster_updated(self, entry):
