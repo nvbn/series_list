@@ -2,12 +2,19 @@ from .loaders.posters import IMDBPosterLoader
 from .loaders.subtitles import Addic7edLoader
 
 
-class SeriesEntry(object):
-    """Series entry model"""
+class BaseModel(object):
+    """Base model"""
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
             setattr(self, key, value)
+
+
+class SeriesEntry(BaseModel):
+    """Series entry model"""
+
+    def __init__(self, **kwargs):
+        super(SeriesEntry, self).__init__(**kwargs)
         self.poster = IMDBPosterLoader().get_default_poster_data()
         self.subtitle = None
 
@@ -23,9 +30,5 @@ class SeriesEntry(object):
         self.subtitle = Addic7edLoader().get_subtitle_url(self.title)
 
 
-class Subtitle(object):
+class Subtitle(BaseModel):
     """Subtitle model"""
-
-    def __init__(self, **kwargs):
-        for key, value in kwargs.items():
-            setattr(self, key, value)
