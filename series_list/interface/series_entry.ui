@@ -15,16 +15,19 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QLabel" name="Poster">
+    <widget class="QLabel" name="poster">
      <property name="text">
       <string>Poster</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="Title">
+    <widget class="QLabel" name="title">
      <property name="text">
       <string>Title</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -42,7 +45,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="Download">
+    <widget class="QPushButton" name="download">
      <property name="text">
       <string/>
      </property>
@@ -52,7 +55,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="Subtitles">
+    <widget class="QPushButton" name="subtitles">
      <property name="text">
       <string/>
      </property>
