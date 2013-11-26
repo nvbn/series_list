@@ -15,6 +15,7 @@ class SeriesListApp(QApplication):
         """Init application"""
         self.window = window
         self.eztv_loader = EZTVLoader()
+        self._tick = 0
         self._init_workers()
         self._init_events()
         self._load_episodes()
@@ -34,14 +35,15 @@ class SeriesListApp(QApplication):
     @Slot(int, unicode)
     def _load_episodes(self, page=0, filters=None):
         """Load episodes"""
-        self.series_worker.receiver.need_series.emit(page, filters)
+        self.series_worker.receiver.need_series.emit(page, filters, self._tick)
 
-    @Slot(SeriesEntry)
-    def _episode_received(self, episode):
+    @Slot(SeriesEntry, int)
+    def _episode_received(self, episode, tick):
         """Episode received"""
-        entry = SeriesEntryWidget(episode)
-        self.window.series_widget.add_entry(entry)
-        self.need_poster(episode)
+        if tick == self._tick:
+            entry = SeriesEntryWidget(episode)
+            self.window.series_widget.add_entry(entry)
+            self.need_poster(episode)
 
     def need_poster(self, episode):
         """Send need_poster to worker"""
