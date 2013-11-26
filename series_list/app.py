@@ -1,7 +1,9 @@
 import sys
 from PySide.QtCore import Slot, Signal
 from PySide.QtGui import QApplication
-from .workers import SeriesListWorkerThread, PosterWorkerThread, SubtitleWorkerThread
+from .workers.posters import PosterWorkerThread
+from .workers.series import SeriesListWorkerThread
+from .workers.subtitles import SubtitleWorkerThread
 from .widgets.series_window import SeriesWindow
 from .widgets.series_entry import SeriesEntryWidget
 from .loaders.series import EZTVLoader
