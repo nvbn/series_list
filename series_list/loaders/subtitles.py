@@ -46,5 +46,5 @@ class Addic7edLoader(object):
         episode = self._fetch_episode(episode_url)
         return Subtitle(
             url=self._parse_episode(episode),
-            referer=episode_url,
+            refer=episode_url,
         )

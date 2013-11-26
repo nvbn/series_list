@@ -1,7 +1,6 @@
 from PySide.QtGui import QMainWindow, QVBoxLayout, QWidget
 from .filter_widget import FilterWidget
 from .series_widget import SeriesWidget
-from .downloads_widget import DownloadsWidget
 
 
 class SeriesWindow(QMainWindow):
@@ -19,8 +18,6 @@ class SeriesWindow(QMainWindow):
         layout = QVBoxLayout(widget)
         self.filter_widget = FilterWidget()
         self.series_widget = SeriesWidget()
-        self.downloads_widget = DownloadsWidget()
         layout.addWidget(self.filter_widget)
         layout.addWidget(self.series_widget)
-        layout.addWidget(self.downloads_widget)
         self.setCentralWidget(widget)
