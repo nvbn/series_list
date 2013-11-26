@@ -19,6 +19,7 @@ class SeriesEntry(BaseModel):
         super(SeriesEntry, self).__init__(**kwargs)
         self.poster = IMDBPosterLoader().get_default_poster_data()
         self.subtitle = None
+        self.stop_download = False
 
     def __repr__(self):
         return self.title

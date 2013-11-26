@@ -1,4 +1,5 @@
-from PySide.QtCore import Signal, QObject, Slot
+import os
+from PySide.QtCore import Signal, QObject, Slot, QTimer
 from ..downloads.series import DownloadSeries
 from ..downloads.subtitles import DownloadSubtitle
 from ..models import SeriesEntry
@@ -21,9 +22,20 @@ class DownloadsWorker(QObject):
     @ticked
     def _download(self, entry, tick):
         """Get series"""
-        self.series.download(entry)
+        proc = self.series.download(entry)
         self.subtitles.download(entry.subtitle)
-        self.downloaded.emit(entry, tick)
+
+        @Slot()
+        def _check_download():
+            if entry.stop_download:
+                proc.kill()
+                if os.path.exists(entry.path):
+                    os.unlink(entry.path)
+            if proc.poll() is not None or entry.stop_download:
+                self.downloaded.emit(entry, tick)
+            else:
+                QTimer.singleShot(500, _check_download)
+        _check_download()
 
 
 class DownloadsWorkerThread(BaseWorkerThread):

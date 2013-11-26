@@ -13,4 +13,4 @@ class DownloadSeries(object):
             '--dir={}'.format(const.DOWNLOAD_PATH),
             '--seed-time=0',
         ])
-        proc.wait()
+        return proc

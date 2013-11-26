@@ -66,14 +66,22 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
     def _init_events(self):
         """Init events and connect signals"""
         self.download.clicked.connect(self._download)
+        self.stopButton.clicked.connect(self._stop)
         self.openButton.clicked.connect(self._open)
 
     @Slot()
     def _download(self):
         """Start downloading"""
         self._downloading = True
+        self.model.stop_download = False
         QApplication.instance().need_download(self.model)
         self._update_download_status()
+
+    @Slot()
+    def _stop(self):
+        """Stop downloading"""
+        self.model.stop_download = True
+        self._downloading = False
 
     @Slot()
     def _update_download_status(self):
