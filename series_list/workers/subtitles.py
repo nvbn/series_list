@@ -1,5 +1,4 @@
 from PySide.QtCore import Signal, QObject, Slot
-from PySide.QtGui import QApplication
 from ..models import SeriesEntry
 from ..utils import ticked
 from .base import BaseWorkerThread
