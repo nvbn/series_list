@@ -1,4 +1,5 @@
 from PySide.QtCore import QThread, Signal, QObject, Slot
+from PySide.QtGui import QApplication
 from .loaders.series import EZTVLoader
 from .models import SeriesEntry
 
@@ -41,8 +42,9 @@ class PosterWorker(QObject):
     @Slot(SeriesEntry, int)
     def _get_poster(self, episode, tick):
         """Get poster for episode"""
-        episode.load_poster()
-        self.received.emit(episode, tick)
+        if tick == QApplication.instance().tick:
+            episode.load_poster()
+            self.received.emit(episode, tick)
 
 
 class PosterWorkerThread(QThread):
@@ -66,8 +68,9 @@ class SubtitleWorker(QObject):
     @Slot(SeriesEntry, int)
     def _get_subtitle(self, episode, tick):
         """Get subtitle for episode"""
-        episode.load_subtitle()
-        self.received.emit(episode, tick)
+        if tick == QApplication.instance().tick:
+            episode.load_subtitle()
+            self.received.emit(episode, tick)
 
 
 class SubtitleWorkerThread(QThread):

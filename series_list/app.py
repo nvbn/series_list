@@ -17,7 +17,7 @@ class SeriesListApp(QApplication):
         """Init application"""
         self.window = window
         self.eztv_loader = EZTVLoader()
-        self._tick = 0
+        self.tick = 0
         self._filter = ''
         self._init_workers()
         self._init_events()
@@ -44,13 +44,13 @@ class SeriesListApp(QApplication):
     def _load_episodes(self, page=0):
         """Load episodes"""
         self.series_worker.receiver.need_series.emit(
-            page, self._filter, self._tick,
+            page, self._filter, self.tick,
         )
 
     @Slot(SeriesEntry, int)
     def _episode_received(self, episode, tick):
         """Episode received"""
-        if tick == self._tick:
+        if tick == self.tick:
             entry = SeriesEntryWidget(episode)
             self.window.series_widget.add_entry(entry)
             self.need_poster(episode)
@@ -59,28 +59,28 @@ class SeriesListApp(QApplication):
     @Slot(SeriesEntry, int)
     def _poster_received(self, episode, tick):
         """Poster received"""
-        if tick == self._tick:
+        if tick == self.tick:
             self.poster_received.emit(episode)
 
     @Slot(SeriesEntry, int)
     def _subtitle_received(self, episode, tick):
         """Subtitle received"""
-        if tick == self._tick:
+        if tick == self.tick:
             self.subtitle_received.emit(episode)
 
     def need_poster(self, episode):
         """Send need_poster to worker"""
-        self.poster_worker.receiver.need_poster.emit(episode, self._tick)
+        self.poster_worker.receiver.need_poster.emit(episode, self.tick)
 
     def need_subtitle(self, episode):
         """Send need_subtitle to worker"""
-        self.subtitle_worker.receiver.need_subtitle.emit(episode, self._tick)
+        self.subtitle_worker.receiver.need_subtitle.emit(episode, self.tick)
 
     @Slot(unicode)
     def _filter_changed(self, value):
         """Filter changed"""
         self.window.series_widget.clear()
-        self._tick += 1
+        self.tick += 1
         self._filter = value
         self._load_episodes()
 
