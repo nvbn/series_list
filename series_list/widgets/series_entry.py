@@ -66,6 +66,7 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
     def _init_events(self):
         """Init events and connect signals"""
         self.download.clicked.connect(self._download)
+        self.openButton.clicked.connect(self._open)
 
     @Slot()
     def _download(self):
@@ -89,3 +90,8 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
             self.download.show()
             self.stopButton.hide()
             self.openButton.hide()
+
+    @Slot()
+    def _open(self):
+        """Open downloaded file"""
+        subprocess.Popen(['xdg-open', self.model.path])
