@@ -21,7 +21,11 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QLineEdit" name="filterEdit"/>
+    <widget class="QLineEdit" name="filterEdit">
+     <property name="placeholderText">
+      <string>Type filter</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QPushButton" name="filterButton">
