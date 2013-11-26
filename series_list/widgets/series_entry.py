@@ -65,4 +65,4 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
     @Slot()
     def _download_subtitles(self):
         """Download subtitles"""
-        subprocess.Popen(['xdg-open', self.model.subtitle])
+        subprocess.Popen(['xdg-open', self.model.subtitle.url])

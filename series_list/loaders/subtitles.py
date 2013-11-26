@@ -35,10 +35,16 @@ class Addic7edLoader(object):
 
     def get_subtitle_url(self, name):
         """Get subtitle url"""
+        # avoid recursive import
+        from ..models import Subtitle
+
         search = self._fetch_search(name)
         try:
             episode_url = self._get_episode_url(search)
         except AttributeError:
             return None
         episode = self._fetch_episode(episode_url)
-        return self._parse_episode(episode)
+        return Subtitle(
+            url=self._parse_episode(episode),
+            referer=episode_url,
+        )

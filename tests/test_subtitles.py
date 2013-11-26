@@ -29,7 +29,7 @@ class Addic7edLoaderCase(TestCase):
 
     def test_get_subtitle_url(self):
         """Test get subtitle url"""
-        self.loader.get_subtitle_url('family guy').should.be\
+        self.loader.get_subtitle_url('family guy').url.should.be\
             .equal('http://www.addic7ed.com/original/71889/0')
 
     def test_get_none_when_not_found(self):
