@@ -1,6 +1,7 @@
-from PySide.QtCore import QThread, Signal, QObject, Slot
-from PySide.QtGui import QApplication
+from PySide.QtCore import Signal, QObject, Slot
 from ..models import SeriesEntry
+from ..utils import ticked
+from .base import BaseWorkerThread
 
 
 class PosterWorker(QObject):
@@ -13,17 +14,13 @@ class PosterWorker(QObject):
         self.need_poster.connect(self._get_poster)
 
     @Slot(SeriesEntry, int)
+    @ticked
     def _get_poster(self, episode, tick):
         """Get poster for episode"""
-        if tick == QApplication.instance().tick:
-            episode.load_poster()
-            self.received.emit(episode, tick)
+        episode.load_poster()
+        self.received.emit(episode, tick)
 
 
-class PosterWorkerThread(QThread):
+class PosterWorkerThread(BaseWorkerThread):
     """Poster worker"""
-
-    def __init__(self):
-        super(PosterWorkerThread, self).__init__()
-        self.receiver = PosterWorker()
-        self.receiver.moveToThread(self)
+    worker = PosterWorker

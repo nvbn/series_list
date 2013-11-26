@@ -1,6 +1,8 @@
-from PySide.QtCore import QThread, Signal, QObject, Slot
+from PySide.QtCore import Signal, QObject, Slot
 from PySide.QtGui import QApplication
 from ..models import SeriesEntry
+from ..utils import ticked
+from .base import BaseWorkerThread
 
 
 class SubtitleWorker(QObject):
@@ -13,17 +15,13 @@ class SubtitleWorker(QObject):
         self.need_subtitle.connect(self._get_subtitle)
 
     @Slot(SeriesEntry, int)
+    @ticked
     def _get_subtitle(self, episode, tick):
         """Get subtitle for episode"""
-        if tick == QApplication.instance().tick:
-            episode.load_subtitle()
-            self.received.emit(episode, tick)
+        episode.load_subtitle()
+        self.received.emit(episode, tick)
 
 
-class SubtitleWorkerThread(QThread):
+class SubtitleWorkerThread(BaseWorkerThread):
     """Poster worker"""
-
-    def __init__(self):
-        super(SubtitleWorkerThread, self).__init__()
-        self.receiver = SubtitleWorker()
-        self.receiver.moveToThread(self)
+    worker = SubtitleWorker

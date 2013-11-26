@@ -1,6 +1,8 @@
-from PySide.QtCore import QThread, Signal, QObject, Slot
+from PySide.QtCore import Signal, QObject, Slot
 from ..loaders.series import EZTVLoader
 from ..models import SeriesEntry
+from ..utils import ticked
+from .base import BaseWorkerThread
 
 
 class SeriesListWorker(QObject):
@@ -14,16 +16,13 @@ class SeriesListWorker(QObject):
         self.need_series.connect(self._get_series)
 
     @Slot(int, unicode, int)
+    @ticked
     def _get_series(self, page, filters, tick):
         """Get series"""
         for episode in self.loader.get_series(page, filters):
             self.received.emit(episode, tick)
 
 
-class SeriesListWorkerThread(QThread):
+class SeriesListWorkerThread(BaseWorkerThread):
     """Series list worker"""
-
-    def __init__(self):
-        super(SeriesListWorkerThread, self).__init__()
-        self.receiver = SeriesListWorker()
-        self.receiver.moveToThread(self)
+    worker = SeriesListWorker

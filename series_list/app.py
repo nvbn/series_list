@@ -8,6 +8,7 @@ from .widgets.series_window import SeriesWindow
 from .widgets.series_entry import SeriesEntryWidget
 from .loaders.series import EZTVLoader
 from .models import SeriesEntry
+from .utils import ticked
 
 
 class SeriesListApp(QApplication):
@@ -50,25 +51,25 @@ class SeriesListApp(QApplication):
         )
 
     @Slot(SeriesEntry, int)
+    @ticked
     def _episode_received(self, episode, tick):
         """Episode received"""
-        if tick == self.tick:
-            entry = SeriesEntryWidget(episode)
-            self.window.series_widget.add_entry(entry)
-            self.need_poster(episode)
-            self.need_subtitle(episode)
+        entry = SeriesEntryWidget(episode)
+        self.window.series_widget.add_entry(entry)
+        self.need_poster(episode)
+        self.need_subtitle(episode)
 
     @Slot(SeriesEntry, int)
+    @ticked
     def _poster_received(self, episode, tick):
         """Poster received"""
-        if tick == self.tick:
-            self.poster_received.emit(episode)
+        self.poster_received.emit(episode)
 
     @Slot(SeriesEntry, int)
+    @ticked
     def _subtitle_received(self, episode, tick):
         """Subtitle received"""
-        if tick == self.tick:
-            self.subtitle_received.emit(episode)
+        self.subtitle_received.emit(episode)
 
     def need_poster(self, episode):
         """Send need_poster to worker"""
