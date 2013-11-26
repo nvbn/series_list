@@ -12,6 +12,8 @@ class SeriesWindow(QMainWindow):
 
     def _init_interface(self):
         """Init window interface"""
+        self.setMinimumWidth(640)
+        self.setMinimumHeight(480)
         widget = QWidget()
         layout = QVBoxLayout(widget)
         self.filter_widget = FilterWidget()
