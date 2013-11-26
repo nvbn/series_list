@@ -20,6 +20,8 @@ setup(
     zip_safe=False,
     install_requires=[
         'pyside',
+        'requests',
+        'BeautifulSoup,'
         'sure',
         'nose',
         'mock',
