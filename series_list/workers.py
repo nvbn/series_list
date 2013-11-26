@@ -31,18 +31,18 @@ class SeriesListWorkerThread(QThread):
 
 class PosterWorker(QObject):
     """Poster worker"""
-    need_poster = Signal(SeriesEntry)
-    received = Signal(SeriesEntry)
+    need_poster = Signal(SeriesEntry, int)
+    received = Signal(SeriesEntry, int)
 
     def __init__(self, *args, **kwargs):
         super(PosterWorker, self).__init__(*args, **kwargs)
         self.need_poster.connect(self._get_poster)
 
-    @Slot()
-    def _get_poster(self, episode):
+    @Slot(SeriesEntry, int)
+    def _get_poster(self, episode, tick):
         """Get poster for episode"""
         episode.load_poster()
-        self.received.emit(episode)
+        self.received.emit(episode, tick)
 
 
 class PosterWorkerThread(QThread):
