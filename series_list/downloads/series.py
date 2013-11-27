@@ -18,7 +18,7 @@ class DownloadHandler(object):
     @property
     def percent(self):
         """Downloading percent"""
-        return self._handle.status().progress
+        return self._handle.status().progress * 100
 
     def remove(self):
         """Remove torrent"""

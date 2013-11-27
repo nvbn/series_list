@@ -38,6 +38,8 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
             .subtitle_received.connect(self._maybe_subtitle_updated)
         QApplication.instance()\
             .downloaded.connect(self._maybe_downloaded)
+        QApplication.instance()\
+            .download_progress.connect(self._maybe_progress)
 
     @Slot(SeriesEntry)
     def _maybe_poster_updated(self, entry):
@@ -56,6 +58,12 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
         """Maybe downloaded updated"""
         if entry == self.model:
             self._update_download_status()
+
+    @Slot(SeriesEntry, float)
+    def _maybe_progress(self, entry, value):
+        """Maybe download progress"""
+        if entry == self.model:
+            self.progress.setValue(value)
 
     @Slot()
     def _set_poster_pixmap(self):
@@ -99,14 +107,17 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
             self.download.hide()
             self.stopButton.hide()
             self.openButton.show()
+            self.progress.hide()
         elif self._downloading:
             self.download.hide()
             self.stopButton.show()
             self.openButton.hide()
+            self.progress.show()
         else:
             self.download.show()
             self.stopButton.hide()
             self.openButton.hide()
+            self.progress.hide()
 
     @Slot()
     def _open(self):

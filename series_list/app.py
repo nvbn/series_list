@@ -19,6 +19,7 @@ class SeriesListApp(QApplication):
     poster_received = Signal(SeriesEntry)
     subtitle_received = Signal(SeriesEntry)
     downloaded = Signal(SeriesEntry)
+    download_progress = Signal(SeriesEntry, float)
 
     def init(self, window):
         """Init application"""
@@ -49,6 +50,7 @@ class SeriesListApp(QApplication):
         self.poster_worker.received.connect(self._poster_received)
         self.subtitle_worker.received.connect(self._subtitle_received)
         self.downloads_worker.downloaded.connect(self._downloaded)
+        self.downloads_worker.download_progress.connect(self._download_progress)
 
     @Slot(int)
     def _load_episodes(self, page=0):
@@ -82,6 +84,11 @@ class SeriesListApp(QApplication):
     def _downloaded(self, episode, tick):
         """Downloaded"""
         self.downloaded.emit(episode)
+
+    @Slot(SeriesEntry, float)
+    def _download_progress(self, episode, value):
+        """Download progress"""
+        self.download_progress.emit(episode, value)
 
     def need_poster(self, episode):
         """Send need_poster to worker"""

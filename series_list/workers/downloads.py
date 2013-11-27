@@ -11,6 +11,7 @@ class DownloadsWorker(QObject):
     """Series list worker"""
     need_download = Signal(SeriesEntry, int)
     downloaded = Signal(SeriesEntry, int)
+    download_progress = Signal(SeriesEntry, float)
 
     def __init__(self, *args, **kwargs):
         super(DownloadsWorker, self).__init__(*args, **kwargs)
@@ -27,7 +28,6 @@ class DownloadsWorker(QObject):
 
         @Slot()
         def _check_download():
-            print handler.percent
             if entry.stop_download:
                 handler.remove()
                 if os.path.exists(entry.path):
@@ -36,6 +36,7 @@ class DownloadsWorker(QObject):
                 self.downloaded.emit(entry, tick)
             else:
                 QTimer.singleShot(500, _check_download)
+            self.download_progress.emit(entry, handler.percent)
         _check_download()
 
 

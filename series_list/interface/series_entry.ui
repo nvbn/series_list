@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>235</width>
-    <height>45</height>
+    <width>388</width>
+    <height>68</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,57 +22,78 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="title">
-     <property name="text">
-      <string>Title</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QPushButton" name="download">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset theme="application-x-bittorrent"/>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="stopButton">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset theme="stop"/>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="openButton">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset theme="player_play"/>
-     </property>
-    </widget>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="title">
+         <property name="text">
+          <string>Title</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="download">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="application-x-bittorrent">
+           <normaloff/>
+          </iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="stopButton">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="stop">
+           <normaloff/>
+          </iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="openButton">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="player_play">
+           <normaloff/>
+          </iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="progress">
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
