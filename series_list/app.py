@@ -1,25 +1,24 @@
+from Queue import Empty
 import sys
 import subprocess
-from PySide.QtCore import Slot, Signal
+import multiprocessing
+from PySide.QtCore import Slot, Signal, QTimer
 from PySide.QtGui import QApplication
-from .workers.posters import PosterWorkerThread
-from .workers.series import SeriesListWorkerThread
-from .workers.subtitles import SubtitleWorkerThread
 from .workers.downloads import DownloadsWorkerThread
 from .widgets.series_window import SeriesWindow
 from .widgets.series_entry import SeriesEntryWidget
 from .loaders.series import EZTVLoader
 from .models import SeriesEntry
 from .utils import ticked
+from .fetcher import fetcher
 from . import const
 
 
 class SeriesListApp(QApplication):
     """Series list application"""
-    poster_received = Signal(SeriesEntry)
-    subtitle_received = Signal(SeriesEntry)
     downloaded = Signal(SeriesEntry)
     download_progress = Signal(SeriesEntry, float)
+    entry_updated = Signal(SeriesEntry)
 
     def init(self, window):
         """Init application"""
@@ -33,24 +32,18 @@ class SeriesListApp(QApplication):
 
     def _init_workers(self):
         """Init worker"""
-        self.series_worker = SeriesListWorkerThread()
-        self.series_worker.start()
-        self.poster_worker = PosterWorkerThread()
-        self.poster_worker.start()
-        self.subtitle_worker = SubtitleWorkerThread()
-        self.subtitle_worker.start()
         self.downloads_worker = DownloadsWorkerThread()
         self.downloads_worker.start()
 
     def _init_events(self):
         """Init events"""
         self.window.series_widget.need_more.connect(self._load_episodes)
-        self.series_worker.received.connect(self._episode_received)
         self.window.filter_widget.filter_changed.connect(self._filter_changed)
-        self.poster_worker.received.connect(self._poster_received)
-        self.subtitle_worker.received.connect(self._subtitle_received)
         self.downloads_worker.downloaded.connect(self._downloaded)
         self.downloads_worker.download_progress.connect(self._download_progress)
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.check_queue)
+        self.timer.start(50)
 
     @Slot(int)
     def _load_episodes(self, page=0):
@@ -58,10 +51,9 @@ class SeriesListApp(QApplication):
         if page > 0 and self._filter:
             self.window.series_widget._hide_loader()
             return
-
-        self.series_worker.need_series.emit(
-            page, self._filter, self.tick,
-        )
+        for episode in self.eztv_loader.get_series(page, self._filter):
+            self._episode_received(episode, self.tick)
+            self.out_queue.put((episode, self.tick))
 
     @Slot(SeriesEntry, int)
     @ticked
@@ -69,20 +61,6 @@ class SeriesListApp(QApplication):
         """Episode received"""
         entry = SeriesEntryWidget.get_or_create(episode)
         self.window.series_widget.add_entry(entry)
-        self.need_poster(episode)
-        self.need_subtitle(episode)
-
-    @Slot(SeriesEntry, int)
-    @ticked
-    def _poster_received(self, episode, tick):
-        """Poster received"""
-        self.poster_received.emit(episode)
-
-    @Slot(SeriesEntry, int)
-    @ticked
-    def _subtitle_received(self, episode, tick):
-        """Subtitle received"""
-        self.subtitle_received.emit(episode)
 
     @Slot(SeriesEntry, int)
     def _downloaded(self, episode, tick):
@@ -94,14 +72,6 @@ class SeriesListApp(QApplication):
         """Download progress"""
         self.download_progress.emit(episode, value)
 
-    def need_poster(self, episode):
-        """Send need_poster to worker"""
-        self.poster_worker.need_poster.emit(episode, self.tick)
-
-    def need_subtitle(self, episode):
-        """Send need_subtitle to worker"""
-        self.subtitle_worker.need_subtitle.emit(episode, self.tick)
-
     def need_download(self, episode):
         """Send need_subtitle to worker"""
         self.downloads_worker.need_download.emit(episode, self.tick)
@@ -111,17 +81,49 @@ class SeriesListApp(QApplication):
         """Filter changed"""
         self.window.series_widget.clear()
         self.tick += 1
+        self.shared_tick.value = self.tick
         self._filter = value
         self._load_episodes()
 
+    @ticked
+    def _update_received(self, episode, tick):
+        """Update received"""
+        self.entry_updated.emit(episode)
 
-def main():
+    def check_queue(self):
+        while True:
+            try:
+                data = self.in_queue.get_nowait()
+                self._update_received(*data)
+            except Empty:
+                break
+
+
+def main_gui(in_queue, out_queue, tick):
     subprocess.call(['mkdir', '-p', const.DOWNLOAD_PATH])
     app = SeriesListApp(sys.argv)
+    app.in_queue = in_queue
+    app.out_queue = out_queue
+    app.shared_tick = tick
     window = SeriesWindow()
     window.show()
     app.init(window)
     app.exec_()
+
+
+def main():
+    fetcher_in = multiprocessing.Queue()
+    gui_in = multiprocessing.Queue()
+    tick = multiprocessing.Value('i')
+    tick.value = 0
+    gui = multiprocessing.Process(target=main_gui, args=(
+        gui_in, fetcher_in, tick,
+    ))
+    fetcher_p = multiprocessing.Process(target=fetcher, args=(
+        fetcher_in, gui_in, tick,
+    ))
+    gui.start()
+    fetcher_p.start()
 
 
 if __name__ == '__main__':

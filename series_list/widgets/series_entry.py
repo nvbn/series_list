@@ -34,36 +34,32 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         self._update_subtitle()
         self._update_download_status()
         QApplication.instance()\
-            .poster_received.connect(self._maybe_poster_updated)
-        QApplication.instance()\
-            .subtitle_received.connect(self._maybe_subtitle_updated)
+            .entry_updated.connect(self._maybe_entry_updated)
         QApplication.instance()\
             .downloaded.connect(self._maybe_downloaded)
         QApplication.instance()\
             .download_progress.connect(self._maybe_progress)
 
     @Slot(SeriesEntry)
-    def _maybe_poster_updated(self, entry):
+    def _maybe_entry_updated(self, entry):
         """Maybe poster updated"""
-        if entry == self.model:
-            self._set_poster_pixmap()
-
-    @Slot(SeriesEntry)
-    def _maybe_subtitle_updated(self, entry):
-        """Maybe subtitle updated"""
-        if entry == self.model:
+        if entry.magnet == self.model.magnet:
+            self.model.update(entry)
             self._update_subtitle()
+            self._set_poster_pixmap()
 
     @Slot(SeriesEntry)
     def _maybe_downloaded(self, entry):
         """Maybe downloaded updated"""
-        if entry == self.model:
+        if entry.magnet == self.model.magnet:
+            self.model = entry
             self._update_download_status()
 
     @Slot(SeriesEntry, float)
     def _maybe_progress(self, entry, value):
         """Maybe download progress"""
-        if entry == self.model:
+        if entry.magnet == self.model.magnet:
+            self.model = entry
             self.progress.setValue(value)
 
     @Slot()

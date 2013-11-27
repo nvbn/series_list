@@ -52,6 +52,11 @@ class SeriesEntry(BaseModel):
         if os.path.exists(self.path):
             os.unlink(self.path)
 
+    def update(self, other):
+        """Update from other model"""
+        self.poster = other.poster
+        self.subtitle = other.subtitle
+
 
 class Subtitle(BaseModel):
     """Subtitle model"""
