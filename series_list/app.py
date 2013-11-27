@@ -138,6 +138,9 @@ def main():
     ))
     gui.start()
     fetcher_p.start()
+    gui.join()
+    gui.terminate()
+    fetcher_p.terminate()
 
 
 if __name__ == '__main__':
