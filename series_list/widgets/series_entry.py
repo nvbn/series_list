@@ -99,6 +99,7 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
         """Stop downloading"""
         self.model.stop_download = True
         self._downloading = False
+        self.progress.setValue(0)
 
     @Slot()
     def _update_download_status(self):
