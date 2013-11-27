@@ -33,4 +33,9 @@ setup(
             'series_list=series_list.app:main'
         ]
     },
+    data_files=[
+        ('share/icons/hicolor/128x128/apps', [
+            'data/series_list_icon.png',
+        ]),
+    ]
 )

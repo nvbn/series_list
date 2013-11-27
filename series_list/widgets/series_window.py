@@ -1,3 +1,4 @@
+import os
 from PySide.QtGui import QMainWindow, QVBoxLayout, QWidget, QIcon
 from .. import const
 from .filter_widget import FilterWidget
@@ -15,8 +16,11 @@ class SeriesWindow(QMainWindow):
     def _init_window(self):
         """Init window attributes"""
         self.setWindowTitle('Series list')
-        icon = QIcon()
-        icon.addFile(const.ICON_PATH)
+        if os.path.exists(const.ICON_PATH):
+            icon = QIcon()
+            icon.addFile(const.ICON_PATH)
+        else:
+            icon = QIcon.fromTheme('series_list_icon')
         self.setWindowIcon(icon)
 
     def _init_interface(self):
