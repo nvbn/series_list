@@ -1,12 +1,12 @@
 import subprocess
 import os
 from PySide.QtCore import Slot
-from PySide.QtGui import QWidget, QPixmap, QApplication
+from PySide.QtGui import  QPixmap, QApplication, QFrame
 from ..interface.loader import WithUiMixin
 from ..models import SeriesEntry
 
 
-class SeriesEntryWidget(WithUiMixin, QWidget):
+class SeriesEntryWidget(WithUiMixin, QFrame):
     """Series entry widget"""
     ui = 'series_entry'
     cache = {}
@@ -23,6 +23,7 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
         super(SeriesEntryWidget, self).__init__(*args, **kwargs)
         self._set_model(model)
         self._init_events()
+        self.setFrameStyle(QFrame.StyledPanel)
 
     def _set_model(self, model):
         """Ste data from model to entry"""
