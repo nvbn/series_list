@@ -50,6 +50,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="download">
+         <property name="toolTip">
+          <string>Download video and subtitle</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -62,6 +65,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="openButton">
+         <property name="toolTip">
+          <string>Play downloaded video</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -74,6 +80,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="stopButton">
+         <property name="toolTip">
+          <string>Remove all downloaded content</string>
+         </property>
          <property name="text">
           <string/>
          </property>
