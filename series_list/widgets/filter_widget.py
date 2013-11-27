@@ -15,7 +15,7 @@ class FilterWidget(WithUiMixin, QWidget):
     def _init_events(self):
         """Init events and connect signals"""
         self.filterButton.clicked.connect(self._update_filter)
-        self.filterEdit.returnPressed.connect(self._update_filter)
+        self.filterEdit.textChanged.connect(self._update_filter)
 
     @Slot()
     def _update_filter(self):
