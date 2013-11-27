@@ -14,6 +14,13 @@ class BaseModel(object):
 
 class SeriesEntry(BaseModel):
     """Series entry model"""
+    cache = {}
+
+    @classmethod
+    def get_or_create(cls, **kwargs):
+        if not kwargs['magnet'] in cls.cache:
+            cls.cache[kwargs['magnet']] = cls(**kwargs)
+        return cls.cache[kwargs['magnet']]
 
     def __init__(self, **kwargs):
         super(SeriesEntry, self).__init__(**kwargs)

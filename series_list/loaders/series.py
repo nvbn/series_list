@@ -28,7 +28,7 @@ class EZTVLoader(object):
         """Parse received html"""
         soup = BeautifulSoup(html)
         for part in soup.findAll('tr', {'class': 'forum_header_border'}):
-            yield SeriesEntry(
+            yield SeriesEntry.get_or_create(
                 title=part.findAll('td')[1].find('a').text,
                 magnet=part.findAll('td')[2].find('a')['href'],
             )
