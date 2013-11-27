@@ -26,6 +26,7 @@ setup(
         'nose',
         'mock',
         'decorator',
+        'gevent',
     ],
     entry_points={
         'gui_scripts': [
