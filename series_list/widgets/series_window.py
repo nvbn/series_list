@@ -30,3 +30,4 @@ class SeriesWindow(QMainWindow):
         layout.addWidget(self.filter_widget)
         layout.addWidget(self.series_widget)
         self.setCentralWidget(widget)
+        widget.setContentsMargins(0, 0, 0, 0)
