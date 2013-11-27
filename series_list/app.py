@@ -5,6 +5,7 @@ import multiprocessing
 from PySide.QtCore import Slot, Signal, QTimer
 from PySide.QtGui import QApplication
 from .workers.downloads import DownloadsWorkerThread
+from .workers.series import SeriesListWorkerThread
 from .widgets.series_window import SeriesWindow
 from .widgets.series_entry import SeriesEntryWidget
 from .loaders.series import EZTVLoader
@@ -32,12 +33,15 @@ class SeriesListApp(QApplication):
 
     def _init_workers(self):
         """Init worker"""
+        self.series_worker = SeriesListWorkerThread()
+        self.series_worker.start()
         self.downloads_worker = DownloadsWorkerThread()
         self.downloads_worker.start()
 
     def _init_events(self):
         """Init events"""
         self.window.series_widget.need_more.connect(self._load_episodes)
+        self.series_worker.received.connect(self._episode_received)
         self.window.filter_widget.filter_changed.connect(self._filter_changed)
         self.downloads_worker.downloaded.connect(self._downloaded)
         self.downloads_worker.download_progress.connect(self._download_progress)
@@ -51,9 +55,10 @@ class SeriesListApp(QApplication):
         if page > 0 and self._filter:
             self.window.series_widget._hide_loader()
             return
-        for episode in self.eztv_loader.get_series(page, self._filter):
-            self._episode_received(episode, self.tick)
-            self.out_queue.put((episode, self.tick))
+
+        self.series_worker.need_series.emit(
+            page, self._filter, self.tick,
+        )
 
     @Slot(SeriesEntry, int)
     @ticked
@@ -61,6 +66,7 @@ class SeriesListApp(QApplication):
         """Episode received"""
         entry = SeriesEntryWidget.get_or_create(episode)
         self.window.series_widget.add_entry(entry)
+        self.out_queue.put((episode, self.tick))
 
     @Slot(SeriesEntry, int)
     def _downloaded(self, episode, tick):
