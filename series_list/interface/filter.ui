@@ -32,6 +32,9 @@
    </item>
    <item>
     <widget class="QPushButton" name="filterButton">
+     <property name="toolTip">
+      <string>Refresh results</string>
+     </property>
      <property name="text">
       <string/>
      </property>
