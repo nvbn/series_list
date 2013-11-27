@@ -61,7 +61,7 @@ class SeriesListApp(QApplication):
     @ticked
     def _episode_received(self, episode, tick):
         """Episode received"""
-        entry = SeriesEntryWidget(episode)
+        entry = SeriesEntryWidget.get_or_create(episode)
         self.window.series_widget.add_entry(entry)
         self.need_poster(episode)
         self.need_subtitle(episode)

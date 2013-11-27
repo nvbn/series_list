@@ -9,6 +9,15 @@ from ..models import SeriesEntry
 class SeriesEntryWidget(WithUiMixin, QWidget):
     """Series entry widget"""
     ui = 'series_entry'
+    cache = {}
+
+    @classmethod
+    def get_or_create(cls, model, *args, **kwargs):
+        """Get or create series entry widget"""
+        if not model in cls.cache:
+            cls.cache[model] = cls(model, *args, **kwargs)
+        cls.cache[model].show()
+        return cls.cache[model]
 
     def __init__(self, model, *args, **kwargs):
         super(SeriesEntryWidget, self).__init__(*args, **kwargs)
