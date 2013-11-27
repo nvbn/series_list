@@ -22,16 +22,17 @@ class DownloadsWorker(QObject):
     @ticked
     def _download(self, entry, tick):
         """Get series"""
-        proc = self.series.download(entry)
+        handler = self.series.download(entry)
         self.subtitles.download(entry.subtitle)
 
         @Slot()
         def _check_download():
+            print handler.percent
             if entry.stop_download:
-                proc.kill()
+                handler.remove()
                 if os.path.exists(entry.path):
                     os.unlink(entry.path)
-            if proc.poll() is not None or entry.stop_download:
+            if handler.finished or entry.stop_download:
                 self.downloaded.emit(entry, tick)
             else:
                 QTimer.singleShot(500, _check_download)
