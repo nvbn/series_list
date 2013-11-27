@@ -79,7 +79,6 @@ class SeriesListApp(QApplication):
         self.subtitle_received.emit(episode)
 
     @Slot(SeriesEntry, int)
-    @ticked
     def _downloaded(self, episode, tick):
         """Downloaded"""
         self.downloaded.emit(episode)
