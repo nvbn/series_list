@@ -30,8 +30,7 @@ class DownloadsWorker(QObject):
         def _check_download():
             if entry.stop_download:
                 handler.remove()
-                if os.path.exists(entry.path):
-                    os.unlink(entry.path)
+                entry.remove_file()
             if handler.finished or entry.stop_download:
                 self.downloaded.emit(entry, tick)
             else:

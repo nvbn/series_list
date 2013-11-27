@@ -47,6 +47,11 @@ class SeriesEntry(BaseModel):
     def path(self):
         return os.path.join(const.DOWNLOAD_PATH, self.file_name)
 
+    def remove_file(self):
+        """Remove downloaded file"""
+        if os.path.exists(self.path):
+            os.unlink(self.path)
+
 
 class Subtitle(BaseModel):
     """Subtitle model"""
