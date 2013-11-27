@@ -34,7 +34,7 @@ class DownloadsWorker(QObject):
             if handler.finished or entry.stop_download:
                 self.downloaded.emit(entry, tick)
             else:
-                QTimer.singleShot(500, _check_download)
+                QTimer.singleShot(100, _check_download)
             self.download_progress.emit(entry, handler.percent)
         _check_download()
 
