@@ -31,9 +31,11 @@ class SeriesWidget(WithUiMixin, QWidget):
     def add_entry(self, entry):
         """Add entry to series list"""
         self.series_layout.addWidget(entry)
+        self.loading.hide()
 
     def clear(self):
         """Clear series widget"""
         for index in range(self.series_layout.count()):
             self.series_layout.itemAt(index).widget().hide()
         self._page = 0
+        self.loading.show()

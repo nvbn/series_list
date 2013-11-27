@@ -28,7 +28,18 @@
         <height>247</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3"/>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="loading">
+         <property name="text">
+          <string>Loading...</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>
@@ -38,7 +49,9 @@
       <string>Load more</string>
      </property>
      <property name="icon">
-      <iconset theme="down"/>
+      <iconset theme="down">
+       <normaloff/>
+      </iconset>
      </property>
     </widget>
    </item>
