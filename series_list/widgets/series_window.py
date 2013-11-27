@@ -8,6 +8,7 @@ class SeriesWindow(QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super(SeriesWindow, self).__init__(*args, **kwargs)
+        self.setWindowTitle('Series list')
         self._init_interface()
 
     def _init_interface(self):
