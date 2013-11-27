@@ -97,16 +97,20 @@ class SeriesEntryWidget(WithUiMixin, QWidget):
     @Slot()
     def _stop(self):
         """Stop downloading"""
-        self.model.stop_download = True
-        self._downloading = False
-        self.progress.setValue(0)
+        if self._downloading:
+            self.model.stop_download = True
+            self._downloading = False
+            self.progress.setValue(0)
+        else:
+            self.model.remove_file()
+            self._update_download_status()
 
     @Slot()
     def _update_download_status(self):
         """Update download status"""
         if os.path.exists(self.model.path):
             self.download.hide()
-            self.stopButton.hide()
+            self.stopButton.show()
             self.openButton.show()
             self.progress.hide()
         elif self._downloading:

@@ -61,24 +61,24 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="stopButton">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset theme="stop">
-           <normaloff/>
-          </iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="openButton">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset theme="player_play">
+           <normaloff/>
+          </iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="stopButton">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="stop">
            <normaloff/>
           </iconset>
          </property>
