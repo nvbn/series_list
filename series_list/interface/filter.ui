@@ -26,7 +26,7 @@
    <item>
     <widget class="QLineEdit" name="filterEdit">
      <property name="placeholderText">
-      <string>Type filter</string>
+      <string>Enter search text here</string>
      </property>
     </widget>
    </item>
