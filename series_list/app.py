@@ -25,7 +25,7 @@ class SeriesListApp(QApplication):
         """Init application"""
         self.window = window
         self.eztv_loader = EZTVLoader()
-        self.tick = 0
+        self._tick = 0
         self._filter = ''
         self._init_workers()
         self._init_events()
@@ -87,7 +87,6 @@ class SeriesListApp(QApplication):
         """Filter changed"""
         self.window.series_widget.clear()
         self.tick += 1
-        self.shared_tick.value = self.tick
         self._filter = value
         self._load_episodes()
 
@@ -103,6 +102,15 @@ class SeriesListApp(QApplication):
                 self._update_received(*data)
             except Empty:
                 break
+
+    @property
+    def tick(self):
+        return self._tick
+
+    @tick.setter
+    def tick(self, value):
+        self._tick = value
+        self.shared_tick.value = value
 
 
 def main_gui(in_queue, out_queue, tick):
