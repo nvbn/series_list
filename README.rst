@@ -1,2 +1,26 @@
 Series list
 ===========
+
+Easy to use tool for automatically downloading series from https://eztv.it and english subtitles from http://www.addic7ed.com/
+
+Install in ubuntu
+-----------------
+
+Run in terminal:
+
+.. code-block:: bash
+
+    sudo add-apt-repository ppa:nvbn-rm/ppa
+    sudo apt-get update
+    sudo apt-get install series-list
+
+Install in other systems
+------------------------
+
+- Install `libtorrent <http://www.libtorrent.org/python_binding.html>`_
+- Clone repository
+- Install series_list with:
+
+.. code-block:: bash
+
+    python setup.py install
