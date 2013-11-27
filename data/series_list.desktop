@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=0.1
+Name=Series list
+GenericName=Series list
+Comment=Series list
+Exec=series_list
+Terminal=false
+Icon=series_list_icon.png
+Type=Application
+Categories=Network;

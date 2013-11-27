@@ -16,12 +16,15 @@ setup(
     url='',
     license='MIT',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
+    package_data={
+        '': ['*.ui'],
+    },
     include_package_data=True,
     zip_safe=False,
     install_requires=[
         'pyside',
         'requests',
-        'BeautifulSoup,'
+        'BeautifulSoup',
         'sure',
         'nose',
         'mock',
@@ -37,5 +40,6 @@ setup(
         ('share/icons/hicolor/128x128/apps', [
             'data/series_list_icon.png',
         ]),
+        ('share/applications', ['data/series_list.desktop']),
     ]
 )
