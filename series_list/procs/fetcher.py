@@ -12,7 +12,7 @@ def _fetch_one(episode, tick):
     return episode, tick
 
 
-def fetcher(in_queue, out_queue, current_tick):
+def fetcher_proc(in_queue, out_queue, current_tick):
     """Fetcher process"""
     import gevent
     from gevent.monkey import patch_socket
