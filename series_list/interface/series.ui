@@ -25,7 +25,7 @@
         <x>0</x>
         <y>0</y>
         <width>380</width>
-        <height>247</height>
+        <height>280</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -41,18 +41,6 @@
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="moreButton">
-     <property name="text">
-      <string>Load more</string>
-     </property>
-     <property name="icon">
-      <iconset theme="down">
-       <normaloff/>
-      </iconset>
-     </property>
     </widget>
    </item>
   </layout>

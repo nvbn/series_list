@@ -11,15 +11,30 @@ class SeriesWidget(WithUiMixin, QWidget):
     def __init__(self, *args, **kwargs):
         super(SeriesWidget, self).__init__(*args, **kwargs)
         self._page = 0
+        self._loading = False
         self._init_events()
 
     def _init_events(self):
         """Init events"""
-        self.moreButton.clicked.connect(self._need_more)
+        self.scrollArea.verticalScrollBar()\
+            .valueChanged.connect(self._on_scroll)
+
+    def _show_loader(self):
+        """Show loader"""
+        self._loading = True
+        self.series_layout.removeWidget(self.loading)
+        self.series_layout.addWidget(self.loading)
+        self.loading.show()
+
+    def _hide_loader(self):
+        """Hide loader"""
+        self._loading = False
+        self.loading.hide()
 
     @Slot()
     def _need_more(self):
         """Need more entries"""
+        self._show_loader()
         self._page += 1
         self.need_more.emit(self._page, None)
 
@@ -31,11 +46,17 @@ class SeriesWidget(WithUiMixin, QWidget):
     def add_entry(self, entry):
         """Add entry to series list"""
         self.series_layout.addWidget(entry)
-        self.loading.hide()
+        self._hide_loader()
 
     def clear(self):
         """Clear series widget"""
         for index in range(self.series_layout.count()):
             self.series_layout.itemAt(index).widget().hide()
         self._page = 0
-        self.loading.show()
+        self._show_loader()
+
+    @Slot(int)
+    def _on_scroll(self, value):
+        diff = self.scrollArea.verticalScrollBar().maximum() - value
+        if diff == 0 and not self._loading:
+            self._need_more()
