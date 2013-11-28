@@ -9,11 +9,11 @@ setup(
     description="List of series with subtitles",
     long_description="""\
 """,
-    classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+    classifiers=[],
     keywords='',
     author='Vladimir Iakovlev',
     author_email='nvbn.rm@gmail.com',
-    url='',
+    url='https://github.com/nvbn/series_list',
     license='MIT',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     package_data={
