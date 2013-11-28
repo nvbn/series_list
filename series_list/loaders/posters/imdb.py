@@ -4,10 +4,11 @@ import requests
 from ...settings import config
 from ..base import return_if_timeout
 from .. import library
+from .base import PostersLoader
 
 
 @library.posters
-class IMDBPosterLoader(object):
+class IMDBPosterLoader(PostersLoader):
     """IMDb poster loader"""
     default_poster = 'http://ia.media-imdb.com/images/G/01/imdb/'\
         'images/nopicture/32x44/film-3119741174._V379391527_.png'
