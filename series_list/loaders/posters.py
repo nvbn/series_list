@@ -2,6 +2,7 @@ from urllib import urlencode
 from BeautifulSoup import BeautifulSoup
 import requests
 from .. import const
+from .base import return_if_timeout
 
 
 class IMDBPosterLoader(object):
@@ -27,6 +28,7 @@ class IMDBPosterLoader(object):
         soup = BeautifulSoup(html)
         return soup.find('td', {'class': 'primary_photo'}).find('img')['src']
 
+    @return_if_timeout(default_poster)
     def get_poster(self, name):
         """Get poster"""
         html = self._fetch_html(name)
@@ -43,6 +45,7 @@ class IMDBPosterLoader(object):
             ).content
         return self.cache[url]
 
+    @return_if_timeout('get_default_poster_data', is_method=True)
     def get_poster_data(self, name):
         """Get poster data"""
         url = self.get_poster(name)

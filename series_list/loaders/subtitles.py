@@ -2,6 +2,7 @@ from urllib import urlencode
 from BeautifulSoup import BeautifulSoup
 import requests
 from .. import const
+from .base import return_if_timeout
 
 
 class Addic7edLoader(object):
@@ -36,6 +37,7 @@ class Addic7edLoader(object):
         relative = soup.find('a', {'class': 'buttonDownload'})['href']
         return u'http://www.addic7ed.com{}'.format(relative)
 
+    @return_if_timeout(None)
     def get_subtitle_url(self, name):
         """Get subtitle url"""
         # avoid recursive import

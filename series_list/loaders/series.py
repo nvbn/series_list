@@ -2,6 +2,7 @@ from BeautifulSoup import BeautifulSoup
 import requests
 from ..models import SeriesEntry
 from .. import const
+from .base import return_if_timeout
 
 
 class EZTVLoader(object):
@@ -34,6 +35,7 @@ class EZTVLoader(object):
                 magnet=part.findAll('td')[2].find('a')['href'],
             )
 
+    @return_if_timeout([])
     def get_series(self, page=0, filters=''):
         """Get series"""
         data = self._fetch_html(page, filters)
