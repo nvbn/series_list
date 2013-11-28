@@ -10,7 +10,7 @@ from ..widgets.series_entry import SeriesEntryWidget
 from ..loaders.series import EZTVLoader
 from ..models import SeriesEntry
 from ..utils import ticked
-from .. import const
+from ..settings import config
 
 
 class SeriesListApp(QApplication):
@@ -113,7 +113,7 @@ class SeriesListApp(QApplication):
 
 def gui_proc(in_queue, out_queue, tick):
     """Gut process"""
-    subprocess.call(['mkdir', '-p', const.DOWNLOAD_PATH])
+    subprocess.call(['mkdir', '-p', config.download_path])
     app = SeriesListApp(sys.argv)
     app.in_queue = in_queue
     app.out_queue = out_queue

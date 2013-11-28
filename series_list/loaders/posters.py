@@ -1,7 +1,7 @@
 from urllib import urlencode
 from BeautifulSoup import BeautifulSoup
 import requests
-from .. import const
+from ..settings import config
 from .base import return_if_timeout
 
 
@@ -20,7 +20,7 @@ class IMDBPosterLoader(object):
     def _fetch_html(self, name):
         """Fetch html"""
         return requests.get(
-            self._get_url(name), timeout=const.POSTER_TIMEOUT,
+            self._get_url(name), timeout=config.poster_timeout,
         ).content
 
     def _parse_html(self, html):
@@ -41,7 +41,7 @@ class IMDBPosterLoader(object):
         """Fetch poster data"""
         if not url in self.cache:
             self.cache[url] = requests.get(
-                url, timeout=const.POSTER_TIMEOUT,
+                url, timeout=config.poster_timeout,
             ).content
         return self.cache[url]
 

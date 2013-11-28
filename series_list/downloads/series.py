@@ -1,6 +1,6 @@
 import time
 import libtorrent
-from .. import const
+from ..settings import config
 
 
 class DownloadHandler(object):
@@ -33,7 +33,7 @@ class DownloadSeries(object):
         session = libtorrent.session()
         handle = libtorrent.add_magnet_uri(
             session, episode.magnet, {
-                'save_path': const.DOWNLOAD_PATH,
+                'save_path': config.download_path,
             }
         )
         while not handle.has_metadata():

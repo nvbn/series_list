@@ -1,7 +1,7 @@
 from urllib import urlencode
 from BeautifulSoup import BeautifulSoup
 import requests
-from .. import const
+from ..settings import config
 from .base import return_if_timeout
 
 
@@ -17,7 +17,7 @@ class Addic7edLoader(object):
     def _fetch_search(self, name):
         """Fetch search result"""
         return requests.get(
-            self._get_url(name), timeout=const.SUBTITLE_TIMEOUT,
+            self._get_url(name), timeout=config.subtitle_timeout,
         ).content
 
     def _get_episode_url(self, html):
@@ -29,7 +29,7 @@ class Addic7edLoader(object):
 
     def _fetch_episode(self, url):
         """Fetch episode"""
-        return requests.get(url, timeout=const.SUBTITLE_TIMEOUT).content
+        return requests.get(url, timeout=config.subtitle_timeout).content
 
     def _parse_episode(self, html):
         """Parse episode page"""

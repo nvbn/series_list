@@ -1,7 +1,7 @@
 from BeautifulSoup import BeautifulSoup
 import requests
 from ..models import SeriesEntry
-from .. import const
+from ..settings import config
 from .base import return_if_timeout
 
 
@@ -19,12 +19,12 @@ class EZTVLoader(object):
         """Fetch html"""
         url = self._get_url(page, filters)
         if filters == '':
-            return requests.get(url, timeout=const.SERIES_TIMEOUT).content
+            return requests.get(url, timeout=config.series_timeout).content
         else:
             return requests.post(url, {
                 'SearchString1': filters,
                 'Page': page,
-            }, timeout=const.SERIES_TIMEOUT).content
+            }, timeout=config.series_timeout).content
 
     def _parse_html(self, html):
         """Parse received html"""
