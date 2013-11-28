@@ -1,6 +1,7 @@
 from urllib import urlencode
 from BeautifulSoup import BeautifulSoup
 import requests
+from .. import const
 
 
 class Addic7edLoader(object):
@@ -14,7 +15,9 @@ class Addic7edLoader(object):
 
     def _fetch_search(self, name):
         """Fetch search result"""
-        return requests.get(self._get_url(name)).content
+        return requests.get(
+            self._get_url(name), timeout=const.SUBTITLE_TIMEOUT,
+        ).content
 
     def _get_episode_url(self, html):
         """Get episode url from html"""
@@ -25,7 +28,7 @@ class Addic7edLoader(object):
 
     def _fetch_episode(self, url):
         """Fetch episode"""
-        return requests.get(url).content
+        return requests.get(url, timeout=const.SUBTITLE_TIMEOUT).content
 
     def _parse_episode(self, html):
         """Parse episode page"""
