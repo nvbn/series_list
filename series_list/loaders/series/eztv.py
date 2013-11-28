@@ -1,9 +1,9 @@
 from BeautifulSoup import BeautifulSoup
 import requests
-from ..models import SeriesEntry
-from ..settings import config
-from .base import return_if_timeout
-from . import library
+from ...models import SeriesEntry
+from ...settings import config
+from ..base import return_if_timeout
+from .. import library
 
 
 @library.series

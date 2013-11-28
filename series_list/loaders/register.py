@@ -38,5 +38,9 @@ class Register(object):
     series = TypedRegister('series_loader')
     subtitles = TypedRegister('subtitles_loader')
 
+    def import_all(self):
+        """Import all loaders"""
+        from . import posters, series, subtitles
+
 
 library = Register()

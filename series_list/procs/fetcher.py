@@ -1,4 +1,5 @@
 from Queue import Empty
+from ..loaders import library
 
 
 def _fetch_one(episode, tick):
@@ -17,6 +18,8 @@ def fetcher_proc(in_queue, out_queue, current_tick):
     import gevent
     from gevent.monkey import patch_socket
     patch_socket()
+
+    library.import_all()
 
     while True:
         pull = []

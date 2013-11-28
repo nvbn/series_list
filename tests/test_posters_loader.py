@@ -1,7 +1,7 @@
 import sure
 from unittest import TestCase
 from mock import MagicMock
-from series_list.loaders.posters import IMDBPosterLoader
+from series_list.loaders.posters.imdb import IMDBPosterLoader
 from .base import get_fixture
 
 

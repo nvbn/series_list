@@ -112,6 +112,7 @@ class SeriesListApp(QApplication):
 
 def gui_proc(in_queue, out_queue, tick):
     """Gut process"""
+    library.import_all()
     app = SeriesListApp(sys.argv)
     app.in_queue = in_queue
     app.out_queue = out_queue

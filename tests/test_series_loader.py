@@ -1,7 +1,7 @@
 import sure
 from unittest import TestCase
 from mock import MagicMock
-from series_list.loaders.series import EZTVLoader
+from series_list.loaders.series.eztv import EZTVLoader
 from .base import get_fixture
 
 

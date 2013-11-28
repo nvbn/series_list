@@ -1,7 +1,7 @@
 import sure
 from unittest import TestCase
 from mock import MagicMock
-from series_list.loaders.subtitles import Addic7edLoader
+from series_list.loaders.subtitles.addicted import Addic7edLoader
 from .base import get_fixture
 
 
