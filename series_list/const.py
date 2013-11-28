@@ -14,3 +14,7 @@ SUBTITLE_TIMEOUT = 3
 POSTER_TIMEOUT = 1
 
 SETTINGS_PATH = os.path.expanduser('~/.config/series_list.json')
+
+POSTERS_LOADER = 'IMDBPosterLoader'
+SERIES_LOADER = 'EZTVLoader'
+SUBTITLES_LOADER = 'Addic7edLoader'

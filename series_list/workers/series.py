@@ -1,5 +1,5 @@
 from PySide.QtCore import Signal, QObject, Slot
-from ..loaders.series import EZTVLoader
+from ..loaders import library
 from ..models import SeriesEntry
 from ..utils import ticked
 from .base import BaseWorkerThread
@@ -12,14 +12,13 @@ class SeriesListWorker(QObject):
 
     def __init__(self, *args, **kwargs):
         super(SeriesListWorker, self).__init__(*args, **kwargs)
-        self.loader = EZTVLoader()
         self.need_series.connect(self._get_series)
 
     @Slot(int, unicode, int)
     @ticked
     def _get_series(self, page, filters, tick):
         """Get series"""
-        for episode in self.loader.get_series(page, filters):
+        for episode in library.series.get_series(page, filters):
             self.received.emit(episode, tick)
 
 

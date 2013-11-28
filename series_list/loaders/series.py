@@ -3,8 +3,10 @@ import requests
 from ..models import SeriesEntry
 from ..settings import config
 from .base import return_if_timeout
+from . import library
 
 
+@library.series
 class EZTVLoader(object):
     """eztv.it loader"""
 

@@ -3,8 +3,10 @@ from BeautifulSoup import BeautifulSoup
 import requests
 from ..settings import config
 from .base import return_if_timeout
+from . import library
 
 
+@library.posters
 class IMDBPosterLoader(object):
     """IMDb poster loader"""
     default_poster = 'http://ia.media-imdb.com/images/G/01/imdb/'\

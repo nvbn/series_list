@@ -1,4 +1,3 @@
-import os
 from PySide.QtCore import Signal, QObject, Slot, QTimer
 from ..downloads.series import DownloadSeries
 from ..downloads.subtitles import DownloadSubtitle

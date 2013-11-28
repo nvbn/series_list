@@ -20,9 +20,14 @@ class Config(object):
         return variable
 
     download_path = _variable('download_path', const.DOWNLOAD_PATH)
+
     series_timeout = _variable('series_timeout', const.SERIES_TIMEOUT)
     subtitle_timeout = _variable('subtitle_timeout', const.SUBTITLE_TIMEOUT)
     poster_timeout = _variable('poster_timeout', const.POSTER_TIMEOUT)
+
+    posters_loader = _variable('posters_loader', const.POSTERS_LOADER)
+    series_loader = _variable('series_loader', const.SERIES_LOADER)
+    subtitles_loader = _variable('subtitles_loader', const.SUBTITLES_LOADER)
 
     def _get_settings_dict(self):
         """Get settings dict"""

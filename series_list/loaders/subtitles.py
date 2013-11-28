@@ -3,8 +3,10 @@ from BeautifulSoup import BeautifulSoup
 import requests
 from ..settings import config
 from .base import return_if_timeout
+from . import library
 
 
+@library.subtitles
 class Addic7edLoader(object):
     """Subtitle loader from addicted"""
 

@@ -7,7 +7,7 @@ from ..workers.downloads import DownloadsWorkerThread
 from ..workers.series import SeriesListWorkerThread
 from ..widgets.series_window import SeriesWindow
 from ..widgets.series_entry import SeriesEntryWidget
-from ..loaders.series import EZTVLoader
+from ..loaders import library
 from ..models import SeriesEntry
 from ..utils import ticked
 from ..settings import config
@@ -22,7 +22,6 @@ class SeriesListApp(QApplication):
     def init(self, window):
         """Init application"""
         self.window = window
-        self.eztv_loader = EZTVLoader()
         self._tick = 0
         self._filter = ''
         self._init_workers()

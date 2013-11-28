@@ -1,6 +1,5 @@
 import os
-from .loaders.posters import IMDBPosterLoader
-from .loaders.subtitles import Addic7edLoader
+from .loaders import library
 from .settings import config
 
 
@@ -24,7 +23,7 @@ class SeriesEntry(BaseModel):
 
     def __init__(self, **kwargs):
         super(SeriesEntry, self).__init__(**kwargs)
-        self.poster = IMDBPosterLoader().get_default_poster_data()
+        self.poster = library.posters.get_default_poster_data()
         self.subtitle = None
         self.stop_download = False
 
@@ -33,11 +32,11 @@ class SeriesEntry(BaseModel):
 
     def load_poster(self):
         """Get poster from loader"""
-        self.poster = IMDBPosterLoader().get_poster_data(self.title)
+        self.poster = library.posters.get_poster_data(self.title)
 
     def load_subtitle(self):
         """Get subtitles from loader"""
-        self.subtitle = Addic7edLoader().get_subtitle_url(self.title)
+        self.subtitle = library.subtitles.get_subtitle_url(self.title)
 
     @property
     def file_name(self):
