@@ -4,10 +4,11 @@ import requests
 from ...settings import config
 from ..base import return_if_timeout
 from .. import library
+from .base import SubtitlesLoader
 
 
 @library.subtitles
-class Addic7edLoader(object):
+class Addic7edLoader(SubtitlesLoader):
     """Subtitle loader from addicted"""
 
     def _get_url(self, name):
