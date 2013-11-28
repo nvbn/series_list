@@ -1,6 +1,12 @@
 Series list
 ===========
 
+.. image:: https://travis-ci.org/nvbn/series_list.png?branch=develop 
+    :target: https://travis-ci.org/nvbn/series_list
+
+.. image:: https://coviolations.io/projects/nvbn/series_list/badge/? 
+    :target: https://coviolations.io/#/project/nvbn/series_list
+
 Easy to use tool for automatically downloading series from https://eztv.it and english subtitles from http://www.addic7ed.com/
 
 .. image:: https://github.com/nvbn/series_list/blob/develop/data/image_1.png?raw=true
