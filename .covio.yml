@@ -1,0 +1,5 @@
+violations:
+  pep8: pep8 .
+  sloccount: sloccount .
+  py_unittest: cat test_out
+  coverage: coverage report
