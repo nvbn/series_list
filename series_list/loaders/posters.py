@@ -1,6 +1,7 @@
 from urllib import urlencode
 from BeautifulSoup import BeautifulSoup
 import requests
+from .. import const
 
 
 class IMDBPosterLoader(object):
@@ -17,7 +18,9 @@ class IMDBPosterLoader(object):
 
     def _fetch_html(self, name):
         """Fetch html"""
-        return requests.get(self._get_url(name)).content
+        return requests.get(
+            self._get_url(name), timeout=const.POSTER_TIMEOUT,
+        ).content
 
     def _parse_html(self, html):
         """Extract image from html"""
@@ -35,7 +38,9 @@ class IMDBPosterLoader(object):
     def _fetch_poster_data(self, url):
         """Fetch poster data"""
         if not url in self.cache:
-            self.cache[url] = requests.get(url).content
+            self.cache[url] = requests.get(
+                url, timeout=const.POSTER_TIMEOUT,
+            ).content
         return self.cache[url]
 
     def get_poster_data(self, name):
