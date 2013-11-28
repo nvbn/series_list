@@ -1,7 +1,7 @@
 from Queue import Empty
 import sys
 import subprocess
-from PySide.QtCore import Slot, Signal, QTimer
+from PySide.QtCore import Slot, Signal, QTimer, QSettings
 from PySide.QtGui import QApplication
 from ..workers.downloads import DownloadsWorkerThread
 from ..workers.series import SeriesListWorkerThread
@@ -118,6 +118,7 @@ def gui_proc(in_queue, out_queue, tick):
     app.in_queue = in_queue
     app.out_queue = out_queue
     app.shared_tick = tick
+    app.settings = QSettings('Series List')
     window = SeriesWindow()
     window.show()
     app.init(window)
