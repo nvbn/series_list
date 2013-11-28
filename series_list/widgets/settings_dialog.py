@@ -10,6 +10,11 @@ class SettingsDialog(WithUiMixin, QDialog):
 
     def __init__(self, *args, **kwargs):
         super(SettingsDialog, self).__init__(*args, **kwargs)
+        self._timeouts = (
+            (self.posterTimeout, 'poster_timeout'),
+            (self.seriesTimeout, 'series_timeout'),
+            (self.subtitlesTimeout, 'subtitle_timeout'),
+        )
         self._set_initial_values()
         self._init_events()
 
@@ -38,18 +43,15 @@ class SettingsDialog(WithUiMixin, QDialog):
         else:
             return value
 
+    def _load_timeout(self, widget, value):
+        """Load timeout from value"""
+        widget.setValue(self._timeout_from_settings(value))
+
     def _set_initial_values(self):
         """Set initial values"""
         self._update_path(config.download_path)
-        self.posterTimeout.setValue(self._timeout_from_settings(
-            config.poster_timeout,
-        ))
-        self.seriesTimeout.setValue(self._timeout_from_settings(
-            config.series_timeout,
-        ))
-        self.subtitlesTimeout.setValue(self._timeout_from_settings(
-            config.subtitle_timeout,
-        ))
+        for widget, settings_name in self._timeouts:
+            self._load_timeout(widget, getattr(config, settings_name))
 
     def _timeout_to_settings(self, value):
         """Convert timeout to settings format"""
@@ -58,15 +60,14 @@ class SettingsDialog(WithUiMixin, QDialog):
         else:
             return value
 
+    def _save_timeout(self, widget, settings_name):
+        """Save timeout to settings"""
+        setattr(config, settings_name, self._timeout_to_settings(
+            widget.value(),
+        ))
+
     def _save_changes(self):
         """Save changes"""
         config.download_path = self._download_path
-        config.poster_timeout = self._timeout_to_settings(
-            self.posterTimeout.value(),
-        )
-        config.series_timeout = self._timeout_to_settings(
-            self.seriesTimeout.value(),
-        )
-        config.subtitle_timeout = self._timeout_to_settings(
-            self.subtitlesTimeout.value(),
-        )
+        for widget, settings_name in self._timeouts:
+            self._save_timeout(widget, settings_name)
