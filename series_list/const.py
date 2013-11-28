@@ -12,3 +12,5 @@ FAILED = 2
 SERIES_TIMEOUT = None
 SUBTITLE_TIMEOUT = 3
 POSTER_TIMEOUT = 1
+
+SETTINGS_PATH = os.path.expanduser('~/.config/series_list.json')
