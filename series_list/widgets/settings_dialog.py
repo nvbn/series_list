@@ -2,6 +2,7 @@ from PySide.QtCore import Slot
 from PySide.QtGui import QDialog, QFileDialog
 from ..interface.loader import WithUiMixin
 from ..settings import config
+from ..loaders import library
 
 
 class SettingsDialog(WithUiMixin, QDialog):
@@ -14,6 +15,11 @@ class SettingsDialog(WithUiMixin, QDialog):
             (self.posterTimeout, 'poster_timeout'),
             (self.seriesTimeout, 'series_timeout'),
             (self.subtitlesTimeout, 'subtitle_timeout'),
+        )
+        self._loaders = (
+            (self.postersProviders, 'posters_loader', library.posters),
+            (self.seriesProviders, 'series_loader', library.series),
+            (self.subtitlesProviders, 'subtitles_loader', library.subtitles),
         )
         self._set_initial_values()
         self._init_events()
@@ -47,11 +53,20 @@ class SettingsDialog(WithUiMixin, QDialog):
         """Load timeout from value"""
         widget.setValue(self._timeout_from_settings(value))
 
+    def _load_loader(self, widget, current, available):
+        """Load loader from settings"""
+        widget.addItems(available)
+        widget.setCurrentIndex(available.index(current))
+
     def _set_initial_values(self):
         """Set initial values"""
         self._update_path(config.download_path)
         for widget, settings_name in self._timeouts:
             self._load_timeout(widget, getattr(config, settings_name))
+        for widget, settings_name, register in self._loaders:
+            self._load_loader(
+                widget, getattr(config, settings_name), register.names,
+            )
 
     def _timeout_to_settings(self, value):
         """Convert timeout to settings format"""
@@ -66,8 +81,16 @@ class SettingsDialog(WithUiMixin, QDialog):
             widget.value(),
         ))
 
+    def _save_loader(self, widget, settings_name):
+        """Save loader to settings"""
+        setattr(config, settings_name, self._timeout_to_settings(
+            widget.currentText(),
+        ))
+
     def _save_changes(self):
         """Save changes"""
         config.download_path = self._download_path
         for widget, settings_name in self._timeouts:
             self._save_timeout(widget, settings_name)
+        for widget, settings_name, _ in self._loaders:
+            self._save_loader(widget, settings_name)
