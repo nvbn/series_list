@@ -1,7 +1,7 @@
 import os
 from .loaders.posters import IMDBPosterLoader
 from .loaders.subtitles import Addic7edLoader
-from . import const
+from .settings import config
 
 
 class BaseModel(object):
@@ -45,7 +45,7 @@ class SeriesEntry(BaseModel):
 
     @property
     def path(self):
-        return os.path.join(const.DOWNLOAD_PATH, self.file_name)
+        return os.path.join(config.download_path, self.file_name)
 
     def remove_file(self):
         """Remove downloaded file"""
@@ -66,4 +66,4 @@ class Subtitle(BaseModel):
 
     @property
     def path(self):
-        return os.path.join(const.DOWNLOAD_PATH, u'{}.srt'.format(self.name))
+        return os.path.join(config.download_path, u'{}.srt'.format(self.name))
