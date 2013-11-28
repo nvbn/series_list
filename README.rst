@@ -5,7 +5,7 @@ Series list
     :target: https://travis-ci.org/nvbn/series_list
 
 .. image:: https://coviolations.io/projects/nvbn/series_list/badge/? 
-    :target: https://coviolations.io/#/project/nvbn/series_list/
+    :target: https://coviolations.io/#/projects/nvbn/series_list/
 
 Easy to use tool for automatically downloading series from https://eztv.it and english subtitles from http://www.addic7ed.com/
 
