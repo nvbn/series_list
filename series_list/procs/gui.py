@@ -113,12 +113,12 @@ class SeriesListApp(QApplication):
 
 def gui_proc(in_queue, out_queue, tick):
     """Gut process"""
-    subprocess.call(['mkdir', '-p', config.download_path])
     app = SeriesListApp(sys.argv)
     app.in_queue = in_queue
     app.out_queue = out_queue
     app.shared_tick = tick
     app.settings = QSettings('Series List')
+    subprocess.call(['mkdir', '-p', config.download_path])
     window = SeriesWindow()
     window.show()
     app.init(window)
