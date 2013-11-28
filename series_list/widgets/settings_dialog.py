@@ -29,7 +29,7 @@ class SettingsDialog(WithUiMixin, QDialog):
     def _update_path(self, path):
         """Update download path"""
         self._download_path = path
-        self.downloadsPathLabel.setText('Downloads path:\n {}'.format(path))
+        self.downloadsPathLabel.setText(u'Downloads path:\n {}'.format(path))
 
     def _timeout_from_settings(self, value):
         """Timeout from settings"""
