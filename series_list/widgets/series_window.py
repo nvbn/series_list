@@ -4,6 +4,7 @@ from .. import const
 from ..interface.loader import WithUiMixin
 from .filter_widget import FilterWidget
 from .series_widget import SeriesWidget
+from .settings_dialog import SettingsDialog
 
 
 class SeriesWindow(WithUiMixin, QMainWindow):
@@ -12,6 +13,7 @@ class SeriesWindow(WithUiMixin, QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super(SeriesWindow, self).__init__(*args, **kwargs)
+        self._settings_dialog = None
         self._init_window()
         self._init_interface()
         self._init_events()
@@ -42,3 +44,9 @@ class SeriesWindow(WithUiMixin, QMainWindow):
     def _init_events(self):
         """Init events"""
         self.actionExit.triggered.connect(self.close)
+        self.actionSettings.triggered.connect(self._show_settings)
+
+    def _show_settings(self):
+        """Show settings dialog"""
+        settings_dialog = SettingsDialog(self)
+        settings_dialog.exec_()
