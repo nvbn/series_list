@@ -31,6 +31,11 @@ class TypedRegister(object):
         """Proxy to active loader"""
         return getattr(self._active, item)
 
+    @property
+    def names(self):
+        """Get names of registered loaders"""
+        return self._items.keys()
+
 
 class Register(object):
     """Loaders register"""

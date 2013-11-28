@@ -42,3 +42,7 @@ class TypedRegisterCase(TestCase):
     def test_proxy_calls(self):
         """Test proxy calls to active"""
         self.register.meow().should.be.equal(6)
+
+    def test_get_names(self):
+        """Test get names"""
+        self.register.names.should.be.equal(['Cat'])
