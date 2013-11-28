@@ -14,6 +14,7 @@ class SeriesWindow(WithUiMixin, QMainWindow):
         super(SeriesWindow, self).__init__(*args, **kwargs)
         self._init_window()
         self._init_interface()
+        self._init_events()
 
     def _init_window(self):
         """Init window attributes"""
@@ -37,3 +38,7 @@ class SeriesWindow(WithUiMixin, QMainWindow):
         layout.addWidget(self.series_widget)
         self.setCentralWidget(widget)
         widget.setContentsMargins(0, 0, 0, 0)
+
+    def _init_events(self):
+        """Init events"""
+        self.actionExit.triggered.connect(self.close)
