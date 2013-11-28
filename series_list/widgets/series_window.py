@@ -1,12 +1,14 @@
 import os
 from PySide.QtGui import QMainWindow, QVBoxLayout, QWidget, QIcon
 from .. import const
+from ..interface.loader import WithUiMixin
 from .filter_widget import FilterWidget
 from .series_widget import SeriesWidget
 
 
-class SeriesWindow(QMainWindow):
+class SeriesWindow(WithUiMixin, QMainWindow):
     """Series window"""
+    ui = 'window'
 
     def __init__(self, *args, **kwargs):
         super(SeriesWindow, self).__init__(*args, **kwargs)
