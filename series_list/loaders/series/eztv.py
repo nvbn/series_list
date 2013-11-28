@@ -4,10 +4,11 @@ from ...models import SeriesEntry
 from ...settings import config
 from ..base import return_if_timeout
 from .. import library
+from .base import SeriesLoader
 
 
 @library.series
-class EZTVLoader(object):
+class EZTVLoader(SeriesLoader):
     """eztv.it loader"""
 
     def _get_url(self, page, filters):
