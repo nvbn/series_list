@@ -1,7 +1,9 @@
 import os
+import subprocess
 from PySide.QtCore import Signal, Qt
 from PySide.QtGui import QMainWindow, QVBoxLayout, QWidget, QIcon
 from .. import const
+from ..settings import config
 from ..interface.loader import WithUiMixin
 from .filter_widget import FilterWidget
 from .series_widget import SeriesWidget
@@ -48,6 +50,7 @@ class SeriesWindow(WithUiMixin, QMainWindow):
         """Init events"""
         self.actionExit.triggered.connect(self.close)
         self.actionSettings.triggered.connect(self._show_settings)
+        self.actionOpenDownloads.triggered.connect(self._open_downloads)
         self.filter_widget.set_window_events(self)
 
     def _show_settings(self):
@@ -64,3 +67,7 @@ class SeriesWindow(WithUiMixin, QMainWindow):
         elif button == Qt.MouseButton.XButton2:
             self.need_next_query.emit()
             event.accept()
+
+    def _open_downloads(self):
+        """Open downloads path"""
+        subprocess.Popen(['xdg-open', config.download_path])

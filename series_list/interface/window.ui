@@ -28,6 +28,7 @@
      <string>Series List</string>
     </property>
     <addaction name="actionSettings"/>
+    <addaction name="actionOpenDownloads"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuSeries_list"/>
@@ -41,6 +42,11 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionOpenDownloads">
+   <property name="text">
+    <string>Open downloads path</string>
    </property>
   </action>
  </widget>
