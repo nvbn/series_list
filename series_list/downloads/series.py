@@ -39,4 +39,5 @@ class DownloadSeries(object):
         while not handle.has_metadata():
             time.sleep(0.5)
         handle.rename_file(0, episode.file_name)
+        handle.set_sequential_download(True)
         return DownloadHandler(session, handle)
