@@ -1,4 +1,5 @@
 import os
+from PySide.QtCore import Signal, Qt
 from PySide.QtGui import QMainWindow, QVBoxLayout, QWidget, QIcon
 from .. import const
 from ..interface.loader import WithUiMixin
@@ -10,6 +11,8 @@ from .settings_dialog import SettingsDialog
 class SeriesWindow(WithUiMixin, QMainWindow):
     """Series window"""
     ui = 'window'
+    need_previous_query = Signal()
+    need_next_query = Signal()
 
     def __init__(self, *args, **kwargs):
         super(SeriesWindow, self).__init__(*args, **kwargs)
@@ -45,8 +48,19 @@ class SeriesWindow(WithUiMixin, QMainWindow):
         """Init events"""
         self.actionExit.triggered.connect(self.close)
         self.actionSettings.triggered.connect(self._show_settings)
+        self.filter_widget.set_window_events(self)
 
     def _show_settings(self):
         """Show settings dialog"""
         settings_dialog = SettingsDialog(self)
         settings_dialog.exec_()
+
+    def mouseReleaseEvent(self, event):
+        """Process mouse back/forward gestures"""
+        button = event.button()
+        if button == Qt.MouseButton.XButton1:
+            self.need_previous_query.emit()
+            event.accept()
+        elif button == Qt.MouseButton.XButton2:
+            self.need_next_query.emit()
+            event.accept()

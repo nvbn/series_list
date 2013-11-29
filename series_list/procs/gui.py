@@ -1,7 +1,7 @@
 from Queue import Empty
 import sys
 import subprocess
-from PySide.QtCore import Slot, Signal, QTimer, QSettings
+from PySide.QtCore import Slot, Signal, QTimer
 from PySide.QtGui import QApplication
 from ..workers.downloads import DownloadsWorkerThread
 from ..workers.series import SeriesListWorkerThread
