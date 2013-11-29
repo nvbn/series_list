@@ -22,8 +22,8 @@ class DownloadsWorker(QObject):
     @ticked
     def _download(self, entry, tick):
         """Get series"""
-        handler = self.series.download(entry)
         self.subtitles.download(entry.subtitle)
+        handler = self.series.download(entry)
 
         @Slot()
         def _check_download():
