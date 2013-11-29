@@ -29,6 +29,8 @@ class Config(object):
     series_loader = _variable('series_loader', const.SERIES_LOADER)
     subtitles_loader = _variable('subtitles_loader', const.SUBTITLES_LOADER)
 
+    preview_minimum = _variable('preview_minimum', const.PREVIEW_MINIMUM)
+
     def _get_settings_dict(self):
         """Get settings dict"""
         if not os.path.exists(const.SETTINGS_PATH):

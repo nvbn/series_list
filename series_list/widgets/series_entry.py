@@ -1,9 +1,10 @@
 import subprocess
 import os
 from PySide.QtCore import Slot
-from PySide.QtGui import  QPixmap, QApplication, QFrame
+from PySide.QtGui import QPixmap, QApplication, QFrame
 from ..interface.loader import WithUiMixin
 from ..models import SeriesEntry
+from ..settings import config
 
 
 class SeriesEntryWidget(WithUiMixin, QFrame):
@@ -61,6 +62,7 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         if entry.magnet == self.model.magnet:
             self.model = entry
             self.progress.setValue(value)
+            self._update_preview_state()
 
     @Slot()
     def _set_poster_pixmap(self):
@@ -102,6 +104,14 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
             self.model.remove_file()
             self._update_download_status()
 
+    def _update_preview_state(self):
+        """Update preview state"""
+        if self._downloading:
+            if self.progress.value() >= config.preview_minimum:
+                self.openButton.show()
+            else:
+                self.openButton.hide()
+
     @Slot()
     def _update_download_status(self):
         """Update download status"""
@@ -113,8 +123,8 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         elif self._downloading:
             self.download.hide()
             self.stopButton.show()
-            self.openButton.hide()
             self.progress.show()
+            self._update_preview_state()
         else:
             self.download.show()
             self.stopButton.hide()
