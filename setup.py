@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-version = '1.0'
+version = '1.2'
 
 setup(
     name='series_list',
