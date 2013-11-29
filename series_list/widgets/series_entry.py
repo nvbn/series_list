@@ -1,9 +1,7 @@
 import subprocess
 import os
-from PySide.QtCore import Slot
 from PySide.QtGui import QPixmap, QApplication, QFrame
 from ..interface.loader import WithUiMixin
-from ..models import SeriesEntry
 from ..settings import config
 from .. import const
 
@@ -42,7 +40,6 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         QApplication.instance()\
             .download_progress.connect(self._maybe_progress)
 
-    @Slot(SeriesEntry)
     def _maybe_entry_updated(self, entry):
         """Maybe poster updated"""
         if entry.magnet == self.model.magnet:
@@ -50,14 +47,12 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
             self._update_subtitle()
             self._set_poster_pixmap()
 
-    @Slot(SeriesEntry)
     def _maybe_downloaded(self, entry):
         """Maybe downloaded updated"""
         if entry.magnet == self.model.magnet:
             self.model = entry
             self._update_download_status()
 
-    @Slot(SeriesEntry, float)
     def _maybe_progress(self, entry, value):
         """Maybe download progress"""
         if entry.magnet == self.model.magnet:
@@ -65,14 +60,12 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
             self.progress.setValue(value)
             self._update_preview_state()
 
-    @Slot()
     def _set_poster_pixmap(self):
         """Get poster pixmap"""
         pixmap = QPixmap()
         pixmap.loadFromData(self.model.poster)
         self.poster.setPixmap(pixmap)
 
-    @Slot()
     def _update_subtitle(self):
         """Update subtitle status"""
         if self.model.subtitle:
@@ -87,7 +80,6 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         self.openButton.clicked.connect(self._open)
         self.pauseButton.clicked.connect(self._pause)
 
-    @Slot()
     def _pause(self):
         """Pause or resume downloading"""
         if self.pauseButton.isChecked():
@@ -95,7 +87,6 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         else:
             self.model.pause_state = const.NEED_RESUME
 
-    @Slot()
     def _download(self):
         """Start downloading"""
         self._downloading = True
@@ -104,7 +95,6 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         self._update_download_status()
         self.pauseButton.setChecked(False)
 
-    @Slot()
     def _stop(self):
         """Stop downloading"""
         if self._downloading:
@@ -123,7 +113,6 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
             else:
                 self.openButton.hide()
 
-    @Slot()
     def _update_download_status(self):
         """Update download status"""
         if os.path.exists(self.model.path):
@@ -145,7 +134,6 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
             self.progress.hide()
             self.pauseButton.hide()
 
-    @Slot()
     def _open(self):
         """Open downloaded file"""
         subprocess.Popen(['xdg-open', self.model.path])

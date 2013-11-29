@@ -1,4 +1,4 @@
-from PySide.QtCore import Signal, QObject, Slot
+from PySide.QtCore import Signal, QObject
 from ..loaders import library
 from ..models import SeriesEntry
 from ..utils import ticked
@@ -14,7 +14,6 @@ class SeriesListWorker(QObject):
         super(SeriesListWorker, self).__init__(*args, **kwargs)
         self.need_series.connect(self._get_series)
 
-    @Slot(int, unicode, int)
     @ticked
     def _get_series(self, page, filters, tick):
         """Get series"""

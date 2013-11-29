@@ -1,4 +1,4 @@
-from PySide.QtCore import Signal, Slot
+from PySide.QtCore import Signal
 from PySide.QtGui import QWidget
 from ..interface.loader import WithUiMixin
 
@@ -26,13 +26,11 @@ class FilterWidget(WithUiMixin, QWidget):
         window.need_previous_query.connect(self._previous_query)
         window.need_next_query.connect(self._next_query)
 
-    @Slot()
     def _update_filter(self):
         """Update filter"""
         value = self.filterEdit.text()
         self.filter_changed.emit(value)
 
-    @Slot()
     def _previous_query(self):
         """Update with previous query"""
         if len(self._prevs):
@@ -41,7 +39,6 @@ class FilterWidget(WithUiMixin, QWidget):
             self._current = query
             self.filterEdit.setText(query)
 
-    @Slot()
     def _next_query(self):
         """Update with next query"""
         if len(self._nexts):
@@ -50,7 +47,6 @@ class FilterWidget(WithUiMixin, QWidget):
             self._current = query
             self.filterEdit.setText(query)
 
-    @Slot()
     def _update_history(self):
         """Update query history"""
         current = self.filterEdit.text()

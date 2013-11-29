@@ -1,7 +1,7 @@
 from Queue import Empty
 import sys
 import subprocess
-from PySide.QtCore import Slot, Signal, QTimer
+from PySide.QtCore import Signal, QTimer
 from PySide.QtGui import QApplication
 from ..workers.downloads import DownloadsWorkerThread
 from ..workers.series import SeriesListWorkerThread
@@ -46,7 +46,6 @@ class SeriesListApp(QApplication):
         self.timer.timeout.connect(self.check_queue)
         self.timer.start(50)
 
-    @Slot(int)
     def _load_episodes(self, page=0):
         """Load episodes"""
         if page > 0 and self._filter:
@@ -57,7 +56,6 @@ class SeriesListApp(QApplication):
             page, self._filter, self.tick,
         )
 
-    @Slot(SeriesEntry, int)
     @ticked
     def _episode_received(self, episode, tick):
         """Episode received"""
@@ -65,12 +63,10 @@ class SeriesListApp(QApplication):
         self.window.series_widget.add_entry(entry)
         self.out_queue.put((episode, self.tick))
 
-    @Slot(SeriesEntry, int)
     def _downloaded(self, episode, tick):
         """Downloaded"""
         self.downloaded.emit(episode)
 
-    @Slot(SeriesEntry, float)
     def _download_progress(self, episode, value):
         """Download progress"""
         self.download_progress.emit(episode, value)
@@ -79,7 +75,6 @@ class SeriesListApp(QApplication):
         """Send need_subtitle to worker"""
         self.downloads_worker.need_download.emit(episode, self.tick)
 
-    @Slot(unicode)
     def _filter_changed(self, value):
         """Filter changed"""
         self.window.series_widget.clear()

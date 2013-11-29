@@ -1,4 +1,4 @@
-from PySide.QtCore import Signal, Slot
+from PySide.QtCore import Signal
 from PySide.QtGui import QWidget
 from ..interface.loader import WithUiMixin
 
@@ -31,7 +31,6 @@ class SeriesWidget(WithUiMixin, QWidget):
         self._loading = False
         self.loading.hide()
 
-    @Slot()
     def _need_more(self):
         """Need more entries"""
         self._show_loader()
@@ -55,7 +54,6 @@ class SeriesWidget(WithUiMixin, QWidget):
         self._page = 0
         self._show_loader()
 
-    @Slot(int)
     def _on_scroll(self, value):
         diff = self.scrollArea.verticalScrollBar().maximum() - value
         if diff == 0 and not self._loading:

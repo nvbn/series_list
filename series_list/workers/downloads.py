@@ -1,4 +1,4 @@
-from PySide.QtCore import Signal, QObject, Slot, QTimer
+from PySide.QtCore import Signal, QObject, QTimer
 from ..downloads.series import DownloadSeries
 from ..downloads.subtitles import DownloadSubtitle
 from ..models import SeriesEntry
@@ -28,14 +28,12 @@ class DownloadsWorker(QObject):
             handler.resume()
             entry.pause_state = const.NORMAL
 
-    @Slot(int, unicode, int)
     @ticked
     def _download(self, entry, tick):
         """Get series"""
         self.subtitles.download(entry.subtitle)
         handler = self.series.download(entry)
 
-        @Slot()
         def _check_download():
             if entry.stop_download:
                 handler.remove()

@@ -1,4 +1,3 @@
-from PySide.QtCore import Slot
 from PySide.QtGui import QDialog, QFileDialog
 from ..interface.loader import WithUiMixin
 from ..settings import config
@@ -32,7 +31,6 @@ class SettingsDialog(WithUiMixin, QDialog):
         """Connect signals with slots"""
         self.changeDownloadsPath.clicked.connect(self._change_path)
 
-    @Slot()
     def _change_path(self):
         """Change downloads path"""
         self._update_path(QFileDialog.getExistingDirectory(self))
