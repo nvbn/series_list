@@ -67,6 +67,7 @@ class SettingsDialog(WithUiMixin, QDialog):
             self._load_loader(
                 widget, getattr(config, settings_name), register.names,
             )
+        self.previewPercent.setValue(config.preview_minimum)
 
     def _timeout_to_settings(self, value):
         """Convert timeout to settings format"""
@@ -94,3 +95,4 @@ class SettingsDialog(WithUiMixin, QDialog):
             self._save_timeout(widget, settings_name)
         for widget, settings_name, _ in self._loaders:
             self._save_loader(widget, settings_name)
+        config.preview_minimum = self.previewPercent.value()
