@@ -3,6 +3,7 @@ from ..downloads.series import DownloadSeries
 from ..downloads.subtitles import DownloadSubtitle
 from ..models import SeriesEntry
 from ..utils import ticked
+from .. import const
 from .base import BaseWorkerThread
 
 
@@ -18,6 +19,15 @@ class DownloadsWorker(QObject):
         self.series = DownloadSeries()
         self.need_download.connect(self._download)
 
+    def _update_pause_state(self, entry, handler):
+        """Update pause state"""
+        if entry.pause_state == const.NEED_PAUSE:
+            handler.pause()
+            entry.pause_state = const.NORMAL
+        elif entry.pause_state == const.NEED_RESUME:
+            handler.resume()
+            entry.pause_state = const.NORMAL
+
     @Slot(int, unicode, int)
     @ticked
     def _download(self, entry, tick):
@@ -30,6 +40,7 @@ class DownloadsWorker(QObject):
             if entry.stop_download:
                 handler.remove()
                 entry.remove_file()
+            self._update_pause_state(entry, handler)
             if handler.finished or entry.stop_download:
                 self.downloaded.emit(entry, tick)
             else:

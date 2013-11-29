@@ -24,6 +24,10 @@ class DownloadHandler(object):
         """Remove torrent"""
         self._session.remove_torrent(self._handle)
 
+    def __getattr__(self, item):
+        """Proxy to original handle"""
+        return getattr(self._handle, item)
+
 
 class DownloadSeries(object):
     """Download series"""

@@ -94,6 +94,31 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="pauseButton">
+         <property name="toolTip">
+          <string>Pause or resume downloading</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="player_pause"/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="stopButton">
          <property name="toolTip">
           <string>Remove all downloaded content</string>

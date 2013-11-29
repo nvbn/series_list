@@ -1,6 +1,7 @@
 import os
 from .loaders import library
 from .settings import config
+from . import const
 
 
 class BaseModel(object):
@@ -26,6 +27,7 @@ class SeriesEntry(BaseModel):
         self.poster = library.posters.get_default_poster_data()
         self.subtitle = None
         self.stop_download = False
+        self.pause_state = const.NORMAL
 
     def __repr__(self):
         return self.title

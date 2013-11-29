@@ -5,6 +5,7 @@ from PySide.QtGui import QPixmap, QApplication, QFrame
 from ..interface.loader import WithUiMixin
 from ..models import SeriesEntry
 from ..settings import config
+from .. import const
 
 
 class SeriesEntryWidget(WithUiMixin, QFrame):
@@ -84,6 +85,15 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         self.download.clicked.connect(self._download)
         self.stopButton.clicked.connect(self._stop)
         self.openButton.clicked.connect(self._open)
+        self.pauseButton.clicked.connect(self._pause)
+
+    @Slot()
+    def _pause(self):
+        """Pause or resume downloading"""
+        if self.pauseButton.isChecked():
+            self.model.pause_state = const.NEED_PAUSE
+        else:
+            self.model.pause_state = const.NEED_RESUME
 
     @Slot()
     def _download(self):
@@ -92,6 +102,7 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         self.model.stop_download = False
         QApplication.instance().need_download(self.model)
         self._update_download_status()
+        self.pauseButton.setChecked(False)
 
     @Slot()
     def _stop(self):
@@ -120,16 +131,19 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
             self.stopButton.show()
             self.openButton.show()
             self.progress.hide()
+            self.pauseButton.hide()
         elif self._downloading:
             self.download.hide()
             self.stopButton.show()
             self.progress.show()
+            self.pauseButton.show()
             self._update_preview_state()
         else:
             self.download.show()
             self.stopButton.hide()
             self.openButton.hide()
             self.progress.hide()
+            self.pauseButton.hide()
 
     @Slot()
     def _open(self):
