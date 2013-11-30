@@ -40,6 +40,7 @@ class SeriesListApp(QApplication):
         self.window.series_widget.need_more.connect(self._load_episodes)
         self.series_worker.received.connect(self._episode_received)
         self.series_worker.no_new_data.connect(self._nothing_received)
+        self.series_worker.something_wrong.connect(self._something_wrong)
         self.window.filter_widget.filter_changed.connect(self._filter_changed)
         self.downloads_worker.downloaded.connect(self._downloaded)
         self.downloads_worker.download_progress.connect(self._download_progress)
@@ -69,6 +70,11 @@ class SeriesListApp(QApplication):
     def _nothing_received(self, tick):
         """Nothing received"""
         self.window.series_widget.no_new_data()
+
+    @ticked
+    def _something_wrong(self, message, tick):
+        """handle faults"""
+        self.window.series_widget.something_wrong(message)
 
     def _downloaded(self, episode, tick):
         """Downloaded"""

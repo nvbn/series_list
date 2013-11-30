@@ -67,6 +67,16 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLabel" name="somethingWrong">
+         <property name="text">
+          <string>Somthing going wrong</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>

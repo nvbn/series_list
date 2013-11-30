@@ -10,6 +10,7 @@ class SeriesListWorker(QObject):
     need_series = Signal(int, unicode, int)
     received = Signal(SeriesEntry, int)
     no_new_data = Signal(int)
+    something_wrong = Signal(unicode, int)
 
     def __init__(self, *args, **kwargs):
         super(SeriesListWorker, self).__init__(*args, **kwargs)
@@ -18,7 +19,12 @@ class SeriesListWorker(QObject):
     @ticked
     def _get_series(self, page, filters, tick):
         """Get series"""
-        series = library.series.get_series(page, filters)
+        try:
+            series = library.series.get_series(page, filters)
+        except Exception:
+            self.something_wrong.emit(library.series.error_message, tick)
+            return
+
         if series:
             for episode in series:
                 self.received.emit(episode, tick)

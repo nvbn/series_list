@@ -3,6 +3,7 @@ import requests
 from ...models import SeriesEntry
 from ...settings import config
 from ..base import return_if_timeout
+from ..exceptions import LoaderFault
 from .. import library
 from .base import SeriesLoader
 
@@ -30,9 +31,15 @@ class EZTVLoader(SeriesLoader):
                 'Page': page,
             }, timeout=config.series_timeout).content
 
+    def _check_faults(self, soup):
+        """Check if eztv not work"""
+        if soup.find('b', {'text': 'OFFLINE'}):
+            raise LoaderFault(self)
+
     def _parse_html(self, html):
         """Parse received html"""
         soup = BeautifulSoup(html)
+        self._check_faults()
         for part in soup.findAll('tr', {'class': 'forum_header_border'}):
             yield SeriesEntry.get_or_create(
                 title=part.findAll('td')[1].find('a').text,

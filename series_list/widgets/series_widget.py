@@ -13,7 +13,12 @@ class SeriesWidget(WithUiMixin, QWidget):
         self._page = 0
         self._loading = False
         self._init_events()
+        self._init_interface()
+
+    def _init_interface(self):
+        """Init user interface"""
         self.nothingFound.hide()
+        self.somethingWrong.hide()
 
     def _init_events(self):
         """Init events"""
@@ -23,6 +28,7 @@ class SeriesWidget(WithUiMixin, QWidget):
     def _show_loader(self):
         """Show loader"""
         self.nothingFound.hide()
+        self.somethingWrong.hide()
         self._loading = True
         self.series_layout.removeWidget(self.loading)
         self.series_layout.addWidget(self.loading)
@@ -38,6 +44,13 @@ class SeriesWidget(WithUiMixin, QWidget):
         self._show_loader()
         self._page += 1
         self.need_more.emit(self._page, None)
+
+    def something_wrong(self, message):
+        """Handle faults"""
+        self._hide_loader()
+        self.nothingFound.hide()
+        self.somethingWrong.setText(message)
+        self.somethingWrong.show()
 
     def no_new_data(self):
         """No new data to add"""
