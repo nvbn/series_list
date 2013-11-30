@@ -30,15 +30,16 @@ class PirateBayLoader(SeriesLoader):
         """Parse received html"""
         soup = BeautifulSoup(html)
         table = soup.find('table', {'id': 'searchResult'})
-        for row in table.findAll('tr', {
-            'class': lambda cls: cls != 'header',
-        }):
-            detail = row.find('a', {'class': 'detLink'})
-            if detail:
-                yield SeriesEntry.get_or_create(
-                    title=detail.text,
-                    magnet=row.findAll('td')[1].findAll('a')[1]['href'],
-                )
+        if table:
+            for row in table.findAll('tr', {
+                'class': lambda cls: cls != 'header',
+            }):
+                detail = row.find('a', {'class': 'detLink'})
+                if detail:
+                    yield SeriesEntry.get_or_create(
+                        title=detail.text,
+                        magnet=row.findAll('td')[1].findAll('a')[1]['href'],
+                    )
 
     @return_if_timeout([])
     def get_series(self, page=0, filters=''):
