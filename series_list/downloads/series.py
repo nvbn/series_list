@@ -32,6 +32,18 @@ class DownloadHandler(object):
 class DownloadSeries(object):
     """Download series"""
 
+    def _move_biggest_file(self, handle, episode):
+        """Move biggest file"""
+        biggest_index, _ = max(enumerate(
+            handle.get_torrent_info().files(),
+        ), key=lambda item: item[1].size)
+        handle.rename_file(biggest_index, episode.file_name)
+
+    def _wait_metadata(self, handle):
+        """Wait while metadata receiving"""
+        while not handle.has_metadata():
+            time.sleep(0.5)
+
     def download(self, episode):
         """Download episode"""
         session = libtorrent.session()
@@ -40,8 +52,7 @@ class DownloadSeries(object):
                 'save_path': config.download_path,
             }
         )
-        while not handle.has_metadata():
-            time.sleep(0.5)
-        handle.rename_file(0, episode.file_name)
+        self._wait_metadata(handle)
+        self._move_biggest_file(handle, episode)
         handle.set_sequential_download(True)
         return DownloadHandler(session, handle)
