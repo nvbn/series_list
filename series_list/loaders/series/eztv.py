@@ -31,15 +31,14 @@ class EZTVLoader(SeriesLoader):
                 'Page': page,
             }, timeout=config.series_timeout).content
 
-    def _check_faults(self, soup):
+    def _check_faults(self, html):
         """Check if eztv not work"""
-        if soup.find('b', {'text': 'OFFLINE'}):
+        if html.find('<b style="color: #DD0000;">OFFLINE</b>') != -1:
             raise LoaderFault(self)
 
     def _parse_html(self, html):
         """Parse received html"""
         soup = BeautifulSoup(html)
-        self._check_faults()
         for part in soup.findAll('tr', {'class': 'forum_header_border'}):
             yield SeriesEntry.get_or_create(
                 title=part.findAll('td')[1].find('a').text,
@@ -50,4 +49,5 @@ class EZTVLoader(SeriesLoader):
     def get_series(self, page=0, filters=''):
         """Get series"""
         data = self._fetch_html(page, filters)
+        self._check_faults(data)
         return list(self._parse_html(data))
