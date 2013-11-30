@@ -39,6 +39,7 @@ class SeriesListApp(QApplication):
         """Init events"""
         self.window.series_widget.need_more.connect(self._load_episodes)
         self.series_worker.received.connect(self._episode_received)
+        self.series_worker.no_new_data.connect(self._nothing_received)
         self.window.filter_widget.filter_changed.connect(self._filter_changed)
         self.downloads_worker.downloaded.connect(self._downloaded)
         self.downloads_worker.download_progress.connect(self._download_progress)
@@ -50,7 +51,7 @@ class SeriesListApp(QApplication):
         """Load episodes"""
         if not library.series.can_change_page_with_filter:
             if page > 0 and self._filter:
-                self.window.series_widget._hide_loader()
+                self.window.series_widget.no_new_data()
                 return
 
         self.series_worker.need_series.emit(
@@ -63,6 +64,11 @@ class SeriesListApp(QApplication):
         entry = SeriesEntryWidget.get_or_create(episode)
         self.window.series_widget.add_entry(entry)
         self.out_queue.put((episode, self.tick))
+
+    @ticked
+    def _nothing_received(self, tick):
+        """Nothing received"""
+        self.window.series_widget.no_new_data()
 
     def _downloaded(self, episode, tick):
         """Downloaded"""

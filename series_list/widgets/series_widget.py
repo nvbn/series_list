@@ -37,6 +37,10 @@ class SeriesWidget(WithUiMixin, QWidget):
         self._page += 1
         self.need_more.emit(self._page, None)
 
+    def no_new_data(self):
+        """No new data to add"""
+        self._hide_loader()
+
     @property
     def series_layout(self):
         """Series layout"""
