@@ -33,6 +33,9 @@
          <property name="wordWrap">
           <bool>true</bool>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -81,7 +84,9 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="media-playback-start"/>
+          <iconset theme="media-playback-start">
+           <normaloff/>
+          </iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -100,7 +105,9 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="media-playback-pause"/>
+          <iconset theme="media-playback-pause">
+           <normaloff/>
+          </iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -125,7 +132,9 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="process-stop"/>
+          <iconset theme="process-stop">
+           <normaloff/>
+          </iconset>
          </property>
          <property name="iconSize">
           <size>
