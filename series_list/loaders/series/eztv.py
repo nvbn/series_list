@@ -10,6 +10,7 @@ from .base import SeriesLoader
 @library.series
 class EZTVLoader(SeriesLoader):
     """eztv.it loader"""
+    can_change_page_with_filter = False
 
     def _get_url(self, page, filters):
         """Get url for fetch"""

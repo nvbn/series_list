@@ -48,9 +48,10 @@ class SeriesListApp(QApplication):
 
     def _load_episodes(self, page=0):
         """Load episodes"""
-        if page > 0 and self._filter:
-            self.window.series_widget._hide_loader()
-            return
+        if not library.series.can_change_page_with_filter:
+            if page > 0 and self._filter:
+                self.window.series_widget._hide_loader()
+                return
 
         self.series_worker.need_series.emit(
             page, self._filter, self.tick,
