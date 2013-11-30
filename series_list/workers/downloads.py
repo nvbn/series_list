@@ -1,3 +1,4 @@
+import os
 from PySide.QtCore import Signal, QObject, QTimer
 from ..downloads.series import DownloadSeries
 from ..downloads.subtitles import DownloadSubtitle
@@ -31,10 +32,20 @@ class DownloadsWorker(QObject):
     @ticked
     def _download(self, entry, tick):
         """Get series"""
-        self.subtitles.download(entry.subtitle)
         handler = self.series.download(entry)
+        entry.subtitle.series = entry
+        if entry.subtitle.wait_for_file:
+            entry.subtitle.downloaded = False
+        else:
+            self.subtitles.download(entry.subtitle)
 
         def _check_download():
+            if (
+                entry.subtitle.wait_for_file and
+                not entry.subtitle.downloaded
+                and os.path.exists(entry.path)
+            ):
+                self.subtitles.download(entry.subtitle)
             if entry.stop_download:
                 handler.remove()
                 entry.remove_file()

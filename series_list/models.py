@@ -63,6 +63,10 @@ class SeriesEntry(BaseModel):
 class Subtitle(BaseModel):
     """Subtitle model"""
 
+    def __init__(self, **kwargs):
+        self.wait_for_file = False
+        super(Subtitle, self).__init__(**kwargs)
+
     def __repr__(self):
         return self.name
 

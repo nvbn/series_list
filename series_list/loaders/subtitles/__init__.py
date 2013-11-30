@@ -1,1 +1,1 @@
-from . import addicted
+from . import addicted, subliminal_loader
