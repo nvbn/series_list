@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>307</width>
+    <width>319</width>
     <height>87</height>
    </rect>
   </property>
@@ -81,9 +81,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="player_play">
-           <normaloff/>
-          </iconset>
+          <iconset theme="media-playback-start"/>
          </property>
          <property name="iconSize">
           <size>
@@ -102,7 +100,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="player_pause"/>
+          <iconset theme="media-playback-pause"/>
          </property>
          <property name="iconSize">
           <size>
@@ -127,9 +125,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="stop">
-           <normaloff/>
-          </iconset>
+          <iconset theme="process-stop"/>
          </property>
          <property name="iconSize">
           <size>
