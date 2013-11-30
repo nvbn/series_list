@@ -57,6 +57,16 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLabel" name="nothingFound">
+         <property name="text">
+          <string>Series not found</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>

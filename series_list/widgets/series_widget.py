@@ -13,6 +13,7 @@ class SeriesWidget(WithUiMixin, QWidget):
         self._page = 0
         self._loading = False
         self._init_events()
+        self.nothingFound.hide()
 
     def _init_events(self):
         """Init events"""
@@ -21,6 +22,7 @@ class SeriesWidget(WithUiMixin, QWidget):
 
     def _show_loader(self):
         """Show loader"""
+        self.nothingFound.hide()
         self._loading = True
         self.series_layout.removeWidget(self.loading)
         self.series_layout.addWidget(self.loading)
@@ -40,6 +42,8 @@ class SeriesWidget(WithUiMixin, QWidget):
     def no_new_data(self):
         """No new data to add"""
         self._hide_loader()
+        if self._page == 0:
+            self.nothingFound.show()
 
     @property
     def series_layout(self):
@@ -50,6 +54,7 @@ class SeriesWidget(WithUiMixin, QWidget):
         """Add entry to series list"""
         self.series_layout.addWidget(entry)
         self._hide_loader()
+        self.nothingFound.hide()
 
     def clear(self):
         """Clear series widget"""
