@@ -1,1 +1,1 @@
-from . import eztv
+from . import eztv, piratebay

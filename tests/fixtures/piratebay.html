@@ -1,0 +1,693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+	<title>The Pirate Bay - The galaxy's most resilient bittorrent site</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Search The Pirate Bay" />
+	<link rel="stylesheet" type="text/css" href="/static/css-new/pirate6.css"/>
+	<style type="text/css">
+		.searchBox{
+			margin: 6px;
+			width: 300px;
+			vertical-align: middle;
+			padding: 2px;
+		        background-image:url('/static/img/icon-https.gif');
+        		background-repeat:no-repeat;
+		        background-position: right;
+		}
+
+		.detLink {
+			font-size: 1.2em;
+			font-weight: 400;
+		}
+		.detDesc {
+			color: #4e5456;
+		}
+		.detDesc a:hover {
+			color: #000099;
+			text-decoration: underline;
+		}
+		.sortby {
+			text-align: left;
+			float: left;
+		}
+		.detName {
+			padding-top: 3px;
+			padding-bottom: 2px;
+		}
+		.viewswitch {
+			font-style: normal;
+			float: right;
+			text-align: right;
+			font-weight: normal;
+		}
+	</style>
+	<script src="/static/js/tpb.js" type="text/javascript"></script>
+
+        <style type="text/css">
+		table#sponsoredLinks a { border: 0; }
+		table#sponsoredLinks a:hover { text-decoration: underline; }
+                table#sponsoredLinks td.downbut a {border: none;}
+                table#sponsoredLinks {min-width: 400px; text-align: left; width: 100%; margin: 0 0 10px 0; border-left: solid 1px #ffffff;}
+                table#sponsoredLinks th {padding: 7px; background-color: #D2B9A6;}
+		table#sponsoredLinks td {padding: 2px 4px; background-color: #F6F1EE; font-weight: bold; font-style: italic; text-align: right; white-space: nowrap;}
+                table#sponsoredLinks td img {border: 0;}
+                table#sponsoredLinks td.first {font-style: normal; text-align: left;}
+                table#sponsoredLinks td.first img {margin: 0 5px 0 0; vertical-align: -7px;}
+                table#sponsoredLinks tr:hover td {background-color: #FFFFFF;}
+                table#sponsoredLinks td.downbut {width: 170px;}
+        </style>
+
+	<script language="javascript" type="text/javascript">if (top.location != self.location) {top.location.replace(self.location);}</script>
+</head>
+
+<body>
+
+	<div id="header">
+
+
+		<div class="ad">
+		 <iframe src="http://cdn1.adexprt.com/exo_na/top.html" width="468" height="60" frameborder="0" scrolling="no"></iframe>
+		</div>
+			<form method="get" id="q" action="/s/">
+			<a href="/" class="img"><img src="/static/img/tpblogo_sm_ny.gif" id="TPBlogo" alt="The Pirate Bay" /></a>
+			<b><a href="/" title="Search Torrents">Search Torrents</a></b>&nbsp;&nbsp;|&nbsp;
+			<a href="/browse" title="Browse Torrents">Browse Torrents</a>&nbsp;&nbsp;|&nbsp;
+			<a href="/recent" title="Recent Torrent">Recent Torrents</a>&nbsp;&nbsp;|&nbsp;
+			<a href="/tv" title="TV shows">TV shows</a>&nbsp;&nbsp;|&nbsp;
+			<a href="/music" title="Music">Music</a>&nbsp;&nbsp;|&nbsp;
+			<a href="/top" title="Top 100">Top 100</a>
+			<br /><input type="search" class="inputbox" title="Pirate Search" name="q" placeholder="Search here..." value="cat" /><input value="Pirate Search" type="submit" class="submitbutton" /><br />			<label for="audio" title="Audio"><input id="audio" name="audio" onclick="javascript:rmAll();" type="checkbox"/>Audio</label>
+			<label for="video" title="Video"><input id="video" name="video" onclick="javascript:rmAll();" type="checkbox"/>Video</label>
+			<label for="apps" title="Applications"><input id="apps" name="apps" onclick="javascript:rmAll();" type="checkbox"/>Applications</label>
+			<label for="games" title="Games"><input id="games" name="games" onclick="javascript:rmAll();" type="checkbox"/>Games</label>
+			<label for="other" title="Other"><input id="other" name="other" onclick="javascript:rmAll();" type="checkbox"/>Other</label>
+
+			<select id="category" name="category" onchange="javascript:setAll();">
+        	        	<option value="0">All</option>
+				<optgroup label="Audio">
+					<option value="101">Music</option>
+					<option value="102">Audio books</option>
+					<option value="103">Sound clips</option>
+					<option value="104">FLAC</option>
+					<option value="199">Other</option>
+				</optgroup>
+				<optgroup label="Video">
+					<option value="201">Movies</option>
+					<option value="202">Movies DVDR</option>
+					<option value="203">Music videos</option>
+					<option value="204">Movie clips</option>
+					<option value="205" selected="selected">TV shows</option>
+					<option value="206">Handheld</option>
+					<option value="207">HD - Movies</option>
+					<option value="208">HD - TV shows</option>
+					<option value="209">3D</option>
+					<option value="299">Other</option>
+				</optgroup>
+				<optgroup label="Applications">
+					<option value="301">Windows</option>
+					<option value="302">Mac</option>
+					<option value="303">UNIX</option>
+					<option value="304">Handheld</option>
+					<option value="305">IOS (iPad/iPhone)</option>
+					<option value="306">Android</option>
+					<option value="399">Other OS</option>
+				</optgroup>
+				<optgroup label="Games">
+					<option value="401">PC</option>
+					<option value="402">Mac</option>
+					<option value="403">PSx</option>
+					<option value="404">XBOX360</option>
+					<option value="405">Wii</option>
+					<option value="406">Handheld</option>
+					<option value="407">IOS (iPad/iPhone)</option>
+					<option value="408">Android</option>
+					<option value="499">Other</option>
+				</optgroup>
+				<optgroup label="Other">
+					<option value="601">E-books</option>
+					<option value="602">Comics</option>
+					<option value="603">Pictures</option>
+					<option value="604">Covers</option>
+					<option value="605">Physibles</option>
+					<option value="699">Other</option>
+				</optgroup>
+			</select>
+
+			<input type="hidden" name="page" value="0" />
+			<input type="hidden" name="orderby" value="99" />
+		</form>
+	</div><!-- // div:header -->
+
+	<h2><span>Search results: cat</span>&nbsp;Displaying hits from 1 to 30 (approx 213 found)</h2>
+<div id="SearchResults"><div id="content">
+			<div id="sky-right">
+				 <iframe src="http://cdn1.adexprt.com/exo_na/sky2.html" width="160" height="600" frameborder="0" scrolling="no" style="padding-top: 100px"></iframe>
+			</div>
+	<div id="main-content">
+
+		 <iframe src="http://cdn1.adexprt.com/exo_na/center.html" width="728" height="90" frameborder="0" scrolling="no"></iframe>
+	<table id="searchResult">
+	<thead id="tableHead">
+		<tr class="header">
+			<th><a href="/search/cat/0/13/205" title="Order by Type">Type</a></th>
+			<th><div class="sortby"><a href="/search/cat/0/1/205" title="Order by Name">Name</a> (Order by: <a href="/search/cat/0/3/205" title="Order by Uploaded">Uploaded</a>, <a href="/search/cat/0/5/205" title="Order by Size">Size</a>, <span style="white-space: nowrap;"><a href="/search/cat/0/11/205" title="Order by ULed by">ULed by</a></span>, <a href="/search/cat/0/7/205" title="Order by Seeders">SE</a>, <a href="/search/cat/0/9/205" title="Order by Leechers">LE</a>)</div><div class="viewswitch"> View: <a href="/switchview.php?view=s">Single</a> / Double&nbsp;</div></th>
+			<th><abbr title="Seeders"><a href="/search/cat/0/7/205" title="Order by Seeders">SE</a></abbr></th>
+			<th><abbr title="Leechers"><a href="/search/cat/0/9/205" title="Order by Leechers">LE</a></abbr></th>
+		</tr>
+	</thead>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9258632/Sam.and.Cat.S01E19.MyPoober.HDTV.XviD-AFG" class="detLink" title="Details for Sam.and.Cat.S01E19.MyPoober.HDTV.XviD-AFG">Sam.and.Cat.S01E19.MyPoober.HDTV.XviD-AFG</a>
+</div>
+<a href="magnet:?xt=urn:btih:a81d9b59dff7d2105aef3d00f15bc3221531db36&dn=Sam.and.Cat.S01E19.MyPoober.HDTV.XviD-AFG&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9258632/Sam.and.Cat.S01E19.MyPoober.HDTV.XviD-AFG.9258632.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-27&nbsp;23:54, Size 177.78&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">5</td>
+		<td align="right">4</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9258574/Sam.and.Cat.S01E19.MyPoober.480p.HDTV.x264-mSD" class="detLink" title="Details for Sam.and.Cat.S01E19.MyPoober.480p.HDTV.x264-mSD">Sam.and.Cat.S01E19.MyPoober.480p.HDTV.x264-mSD</a>
+</div>
+<a href="magnet:?xt=urn:btih:364e5739bb82abe0f66ef90c81f5acc5edfd3f0f&dn=Sam.and.Cat.S01E19.MyPoober.480p.HDTV.x264-mSD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9258574/Sam.and.Cat.S01E19.MyPoober.480p.HDTV.x264-mSD.9258574.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-27&nbsp;23:30, Size 130.35&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">2</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9251581/Steven_Universe_s01e06_Cat_Fingers.mp4" class="detLink" title="Details for Steven Universe s01e06 Cat Fingers.mp4">Steven Universe s01e06 Cat Fingers.mp4</a>
+</div>
+<a href="magnet:?xt=urn:btih:c66f99f37473c63d887f1fcf528c5233d1eebda8&dn=Steven+Universe+s01e06+Cat+Fingers.mp4&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a><img src="/static/img/11x11p.png" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-26&nbsp;13:51, Size 67.19&nbsp;MiB, ULed by <a class="detDesc" href="/user/jamesesw/" title="Browse jamesesw">jamesesw</a></font>
+		</td>
+		<td align="right">40</td>
+		<td align="right">2</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9247343/Sam.und.Cat.S01E08.WettKrabbelklettern.GERMAN.WS.HDTV.x264-aWake" class="detLink" title="Details for Sam.und.Cat.S01E08.WettKrabbelklettern.GERMAN.WS.HDTV.x264-aWake">Sam.und.Cat.S01E08.WettKrabbelklettern.GERMAN.WS.HDTV.x264-aWake</a>
+</div>
+<a href="magnet:?xt=urn:btih:b34b243bca0dbc8bc96c2c994e595798b2508dad&dn=Sam.und.Cat.S01E08.WettKrabbelklettern.GERMAN.WS.HDTV.x264-aWake&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9247343/Sam.und.Cat.S01E08.WettKrabbelklettern.GERMAN.WS.HDTV.x264-aWake.9247343.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-25&nbsp;16:34, Size 270.85&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">1</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9244057/Sam_and_Cat_S01E19_My_Poober_WEB-DL_x264-SHOWTiME" class="detLink" title="Details for Sam and Cat S01E19 My Poober WEB-DL x264-SHOWTiME">Sam and Cat S01E19 My Poober WEB-DL x264-SHOWTiME</a>
+</div>
+<a href="magnet:?xt=urn:btih:61708d3d0f45b3e1c1c789e84fc7bdba66a0e335&dn=Sam+and+Cat+S01E19+My+Poober+WEB-DL+x264-SHOWTiME&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a><img src="/static/img/icon_comment.gif" alt="This torrent has 7 comments." title="This torrent has 7 comments." /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-25&nbsp;01:03, Size 216.62&nbsp;MiB, ULed by <a class="detDesc" href="/user/locks04/" title="Browse locks04">locks04</a></font>
+		</td>
+		<td align="right">97</td>
+		<td align="right">12</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9227846/All_Purpose_Cultural_Cat_Girl_Nuku_Nuku_Dash" class="detLink" title="Details for All Purpose Cultural Cat Girl Nuku Nuku Dash">All Purpose Cultural Cat Girl Nuku Nuku Dash</a>
+</div>
+<a href="magnet:?xt=urn:btih:2dd71add55712177eeaffff3cecdece30d8eaa98&dn=All+Purpose+Cultural+Cat+Girl+Nuku+Nuku+Dash&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9227846/All_Purpose_Cultural_Cat_Girl_Nuku_Nuku_Dash.9227846.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><img src="/static/img/icon_image.gif" alt="This torrent has a cover image" title="This torrent has a cover image" /><img src="/static/img/11x11p.png" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-21&nbsp;11:06, Size 997.09&nbsp;MiB, ULed by <a class="detDesc" href="/user/Godson34126/" title="Browse Godson34126">Godson34126</a></font>
+		</td>
+		<td align="right">2</td>
+		<td align="right">0</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9227781/All_Purpose_Cultural_Cat_Girl_Nuku_Nuku" class="detLink" title="Details for All Purpose Cultural Cat Girl Nuku Nuku">All Purpose Cultural Cat Girl Nuku Nuku</a>
+</div>
+<a href="magnet:?xt=urn:btih:956199f5fd41400c1c95352fda46589d3b00a639&dn=All+Purpose+Cultural+Cat+Girl+Nuku+Nuku&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9227781/All_Purpose_Cultural_Cat_Girl_Nuku_Nuku.9227781.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><img src="/static/img/icon_image.gif" alt="This torrent has a cover image" title="This torrent has a cover image" /><img src="/static/img/11x11p.png" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-21&nbsp;10:50, Size 1.22&nbsp;GiB, ULed by <a class="detDesc" href="/user/Godson34126/" title="Browse Godson34126">Godson34126</a></font>
+		</td>
+		<td align="right">1</td>
+		<td align="right">1</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9173510/Sam.and.Cat.S01E17.Salmon.Cat.WEB-DL.x264-SHOWTiME.mp4" class="detLink" title="Details for Sam.and.Cat.S01E17.Salmon.Cat.WEB-DL.x264-SHOWTiME.mp4">Sam.and.Cat.S01E17.Salmon.Cat.WEB-DL.x264-SHOWTiME.mp4</a>
+</div>
+<a href="magnet:?xt=urn:btih:8e3189d1b5337babf8c142dcee84d946e9aeb305&dn=Sam.and.Cat.S01E17.Salmon.Cat.WEB-DL.x264-SHOWTiME.mp4&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a><img src="/static/img/icon_comment.gif" alt="This torrent has 1 comments." title="This torrent has 1 comments." /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-10&nbsp;19:02, Size 199.11&nbsp;MiB, ULed by <a class="detDesc" href="/user/locks04/" title="Browse locks04">locks04</a></font>
+		</td>
+		<td align="right">43</td>
+		<td align="right">7</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9227788/Sam.and.Cat.S01E18.Twinfection.480p.HDTV.x264-mSD" class="detLink" title="Details for Sam.and.Cat.S01E18.Twinfection.480p.HDTV.x264-mSD">Sam.and.Cat.S01E18.Twinfection.480p.HDTV.x264-mSD</a>
+</div>
+<a href="magnet:?xt=urn:btih:7d8614fc0ad059d4a87a380d1f03eef4c36e0ae0&dn=Sam.and.Cat.S01E18.Twinfection.480p.HDTV.x264-mSD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9227788/Sam.and.Cat.S01E18.Twinfection.480p.HDTV.x264-mSD.9227788.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-21&nbsp;10:52, Size 137.01&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">6</td>
+		<td align="right">2</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9226974/Sam.and.Cat.S01E18.Twinfection.HDTV.XviD-AFG" class="detLink" title="Details for Sam.and.Cat.S01E18.Twinfection.HDTV.XviD-AFG">Sam.and.Cat.S01E18.Twinfection.HDTV.XviD-AFG</a>
+</div>
+<a href="magnet:?xt=urn:btih:58b7e987cda7f15633717c0d5c0656824e8993a4&dn=Sam.and.Cat.S01E18.Twinfection.HDTV.XviD-AFG&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9226974/Sam.and.Cat.S01E18.Twinfection.HDTV.XviD-AFG.9226974.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-21&nbsp;07:52, Size 176.73&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">2</td>
+		<td align="right">1</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9207820/Sam.and.Cat.S01E18.Twinfection.HDTV.x264-QCF" class="detLink" title="Details for Sam.and.Cat.S01E18.Twinfection.HDTV.x264-QCF">Sam.and.Cat.S01E18.Twinfection.HDTV.x264-QCF</a>
+</div>
+<a href="magnet:?xt=urn:btih:1596d46c0abf02dd5eb1a20678c04fce31ba8dac&dn=Sam.and.Cat.S01E18.Twinfection.HDTV.x264-QCF&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a><img src="/static/img/icon_comment.gif" alt="This torrent has 3 comments." title="This torrent has 3 comments." /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-17&nbsp;22:34, Size 233.21&nbsp;MiB, ULed by <a class="detDesc" href="/user/locks04/" title="Browse locks04">locks04</a></font>
+		</td>
+		<td align="right">68</td>
+		<td align="right">7</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9203875/Sam.and.Cat.S01E17.SalmonCat.HDTV.XviD-AFG" class="detLink" title="Details for Sam.and.Cat.S01E17.SalmonCat.HDTV.XviD-AFG">Sam.and.Cat.S01E17.SalmonCat.HDTV.XviD-AFG</a>
+</div>
+<a href="magnet:?xt=urn:btih:af4a19843b5c8717afdddc144d71eeb97796acc6&dn=Sam.and.Cat.S01E17.SalmonCat.HDTV.XviD-AFG&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9203875/Sam.and.Cat.S01E17.SalmonCat.HDTV.XviD-AFG.9203875.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-16&nbsp;23:52, Size 176.24&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">4</td>
+		<td align="right">3</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9197349/Supernatural_[HDiTunes][VOSE][Sub_Cas]_9x06_Heaven_Cat_Wait" class="detLink" title="Details for Supernatural [HDiTunes][VOSE][Sub Cas] 9x06 Heaven Cat Wait">Supernatural [HDiTunes][VOSE][Sub Cas] 9x06 Heaven Cat Wait</a>
+</div>
+<a href="magnet:?xt=urn:btih:178ded30c888587a60a5c2f62220b6c8f414183f&dn=Supernatural+%5BHDiTunes%5D%5BVOSE%5D%5BSub+Cas%5D+9x06+Heaven+Cat+Wait&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9197349/Supernatural_[HDiTunes][VOSE][Sub_Cas]_9x06_Heaven_Cat_Wait.9197349.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><img src="/static/img/icon_image.gif" alt="This torrent has a cover image" title="This torrent has a cover image" /><img src="/static/img/11x11p.png" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-15&nbsp;11:36, Size 381.67&nbsp;MiB, ULed by <a class="detDesc" href="/user/JBilbo/" title="Browse JBilbo">JBilbo</a></font>
+		</td>
+		<td align="right">2</td>
+		<td align="right">1</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9197132/Chelsea.Lately.2013.09.26.Cat.Cora.480p.HDTV.x264-mSD" class="detLink" title="Details for Chelsea.Lately.2013.09.26.Cat.Cora.480p.HDTV.x264-mSD">Chelsea.Lately.2013.09.26.Cat.Cora.480p.HDTV.x264-mSD</a>
+</div>
+<a href="magnet:?xt=urn:btih:6a1266895c74dc376133b904248a27a71f77929a&dn=Chelsea.Lately.2013.09.26.Cat.Cora.480p.HDTV.x264-mSD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9197132/Chelsea.Lately.2013.09.26.Cat.Cora.480p.HDTV.x264-mSD.9197132.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-15&nbsp;10:13, Size 94.02&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">2</td>
+		<td align="right">1</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9197127/Chelsea.Lately.2013.09.26.Cat.Cora.HDTV.XviD-AFG" class="detLink" title="Details for Chelsea.Lately.2013.09.26.Cat.Cora.HDTV.XviD-AFG">Chelsea.Lately.2013.09.26.Cat.Cora.HDTV.XviD-AFG</a>
+</div>
+<a href="magnet:?xt=urn:btih:ea1c508e626f793fcd0f36e253952b3dc2bb8c46&dn=Chelsea.Lately.2013.09.26.Cat.Cora.HDTV.XviD-AFG&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9197127/Chelsea.Lately.2013.09.26.Cat.Cora.HDTV.XviD-AFG.9197127.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-15&nbsp;10:12, Size 221.96&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">6</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9154522/Sam.and.Cat.S01E10.Babysitting.Commercial.480p.HDTV.x264-mSD" class="detLink" title="Details for Sam.and.Cat.S01E10.Babysitting.Commercial.480p.HDTV.x264-mSD">Sam.and.Cat.S01E10.Babysitting.Commercial.480p.HDTV.x264-mSD</a>
+</div>
+<a href="magnet:?xt=urn:btih:30a42a6c72b4c62ad54e01d510d676bee363af22&dn=Sam.and.Cat.S01E10.Babysitting.Commercial.480p.HDTV.x264-mSD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9154522/Sam.and.Cat.S01E10.Babysitting.Commercial.480p.HDTV.x264-mSD.9154522.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-06&nbsp;15:36, Size 139.16&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">1</td>
+		<td align="right">1</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9154281/Sam.and.Cat.S01E10.Babysitting.Commercial.HDTV.XviD-AFG" class="detLink" title="Details for Sam.and.Cat.S01E10.Babysitting.Commercial.HDTV.XviD-AFG">Sam.and.Cat.S01E10.Babysitting.Commercial.HDTV.XviD-AFG</a>
+</div>
+<a href="magnet:?xt=urn:btih:fcfad166518b881a3891ab083080669274859472&dn=Sam.and.Cat.S01E10.Babysitting.Commercial.HDTV.XviD-AFG&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9154281/Sam.and.Cat.S01E10.Babysitting.Commercial.HDTV.XviD-AFG.9154281.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-06&nbsp;14:36, Size 185.65&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">3</td>
+		<td align="right">1</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9152694/Peg___Cat_(PBS_Kids)_Season_1__Episodes_01-09" class="detLink" title="Details for Peg + Cat (PBS Kids) Season 1, Episodes 01-09">Peg + Cat (PBS Kids) Season 1, Episodes 01-09</a>
+</div>
+<a href="magnet:?xt=urn:btih:9581c88ba371f7380235ff852b217637d6f0d92c&dn=Peg+%2B+Cat+%28PBS+Kids%29+Season+1%2C+Episodes+01-09&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9152694/Peg___Cat_(PBS_Kids)_Season_1__Episodes_01-09.9152694.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><img src="/static/img/icon_comment.gif" alt="This torrent has 5 comments." title="This torrent has 5 comments." /><img src="/static/img/icon_image.gif" alt="This torrent has a cover image" title="This torrent has a cover image" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-06&nbsp;07:48, Size 1.96&nbsp;GiB, ULed by <a class="detDesc" href="/user/NantoVision/" title="Browse NantoVision">NantoVision</a></font>
+		</td>
+		<td align="right">7</td>
+		<td align="right">3</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9144745/Sam.und.Cat.S01E05.ExtremSpeedSimsen.GERMAN.WS.HDTV.x264-aWake" class="detLink" title="Details for Sam.und.Cat.S01E05.ExtremSpeedSimsen.GERMAN.WS.HDTV.x264-aWake">Sam.und.Cat.S01E05.ExtremSpeedSimsen.GERMAN.WS.HDTV.x264-aWake</a>
+</div>
+<a href="magnet:?xt=urn:btih:51c11416da68add06770cbe51f9d574e3aed8f18&dn=Sam.und.Cat.S01E05.ExtremSpeedSimsen.GERMAN.WS.HDTV.x264-aWake&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9144745/Sam.und.Cat.S01E05.ExtremSpeedSimsen.GERMAN.WS.HDTV.x264-aWake.9144745.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-04&nbsp;13:41, Size 259.3&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">1</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9142665/Sam.and.Cat.S01E15.Dollsitting.HDTV.XviD-AFG" class="detLink" title="Details for Sam.and.Cat.S01E15.Dollsitting.HDTV.XviD-AFG">Sam.and.Cat.S01E15.Dollsitting.HDTV.XviD-AFG</a>
+</div>
+<a href="magnet:?xt=urn:btih:525361b52e35b094695ae646b28e631f10ed32ed&dn=Sam.and.Cat.S01E15.Dollsitting.HDTV.XviD-AFG&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9142665/Sam.and.Cat.S01E15.Dollsitting.HDTV.XviD-AFG.9142665.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><a href="/user/TvTeam"><img src="/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border='0' /></a><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 11-04&nbsp;03:11, Size 176.44&nbsp;MiB, ULed by <a class="detDesc" href="/user/TvTeam/" title="Browse TvTeam">TvTeam</a></font>
+		</td>
+		<td align="right">8</td>
+		<td align="right">2</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/8984769/BBC_The_Truth_About_Lions_Episode_1_of_2_The_Social_Cat" class="detLink" title="Details for BBC The Truth About Lions Episode 1 of 2 The Social Cat">BBC The Truth About Lions Episode 1 of 2 The Social Cat</a>
+</div>
+<a href="magnet:?xt=urn:btih:4f5bbbefac37fb9aae7c8716d1fe080d64e0e969&dn=BBC+The+Truth+About+Lions+Episode+1+of+2+The+Social+Cat&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/8984769/BBC_The_Truth_About_Lions_Episode_1_of_2_The_Social_Cat.8984769.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><img src="/static/img/icon_comment.gif" alt="This torrent has 2 comments." title="This torrent has 2 comments." /><img src="/static/img/icon_image.gif" alt="This torrent has a cover image" title="This torrent has a cover image" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 10-01&nbsp;16:33, Size 239.41&nbsp;MiB, ULed by <a class="detDesc" href="/user/mr.docs/" title="Browse mr.docs">mr.docs</a></font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">2</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/8952700/Devious.Maids.S01.HDTV.XviD-Cat" class="detLink" title="Details for Devious.Maids.S01.HDTV.XviD-Cat">Devious.Maids.S01.HDTV.XviD-Cat</a>
+</div>
+<a href="magnet:?xt=urn:btih:8a1ad6f7106a51e0f88497788839deb323e15794&dn=Devious.Maids.S01.HDTV.XviD-Cat&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/8952700/Devious.Maids.S01.HDTV.XviD-Cat.8952700.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><img src="/static/img/11x11p.png" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 09-23&nbsp;08:07, Size 4.32&nbsp;GiB, ULed by <i>Anonymous</i></font>
+		</td>
+		<td align="right">5</td>
+		<td align="right">1</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/8902297/Cat_Planet_Cuties" class="detLink" title="Details for Cat Planet Cuties">Cat Planet Cuties</a>
+</div>
+<a href="magnet:?xt=urn:btih:a5a90da2073a367575fe911e04257998de01d8c8&dn=Cat+Planet+Cuties&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/8902297/Cat_Planet_Cuties.8902297.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><img src="/static/img/11x11p.png" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 09-10&nbsp;16:57, Size 2.9&nbsp;GiB, ULed by <a class="detDesc" href="/user/cj1967pa/" title="Browse cj1967pa">cj1967pa</a></font>
+		</td>
+		<td align="right">4</td>
+		<td align="right">0</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/8900762/Mistresses.US.S01.HDTV.XviD-Cat" class="detLink" title="Details for Mistresses.US.S01.HDTV.XviD-Cat">Mistresses.US.S01.HDTV.XviD-Cat</a>
+</div>
+<a href="magnet:?xt=urn:btih:7de447c4f9aa75902aebbfb09cc6ed70a2dca82a&dn=Mistresses.US.S01.HDTV.XviD-Cat&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/8900762/Mistresses.US.S01.HDTV.XviD-Cat.8900762.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><img src="/static/img/11x11p.png" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 09-10&nbsp;09:21, Size 4.45&nbsp;GiB, ULed by <i>Anonymous</i></font>
+		</td>
+		<td align="right">6</td>
+		<td align="right">2</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9043267/Sam_and_Cat_S01E14" class="detLink" title="Details for Sam and Cat S01E14">Sam and Cat S01E14</a>
+</div>
+<a href="magnet:?xt=urn:btih:8f601788702dbd995c1373f698ebc66013dfa9e1&dn=Sam+and+Cat+S01E14&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a><img src="/static/img/icon_comment.gif" alt="This torrent has 2 comments." title="This torrent has 2 comments." /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 10-13&nbsp;18:39, Size 135.06&nbsp;MiB, ULed by <a class="detDesc" href="/user/mubshrali/" title="Browse mubshrali">mubshrali</a></font>
+		</td>
+		<td align="right">42</td>
+		<td align="right">5</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9014302/Sam_and_Cat_S01E13_Secret_Safe" class="detLink" title="Details for Sam and Cat S01E13 Secret Safe">Sam and Cat S01E13 Secret Safe</a>
+</div>
+<a href="magnet:?xt=urn:btih:e269a71ec2064dcc10ff12a0da92f62b61d6faf3&dn=Sam+and+Cat+S01E13+Secret+Safe&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a><img src="/static/img/icon_comment.gif" alt="This torrent has 2 comments." title="This torrent has 2 comments." /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 10-07&nbsp;17:33, Size 135.78&nbsp;MiB, ULed by <a class="detDesc" href="/user/mubshrali/" title="Browse mubshrali">mubshrali</a></font>
+		</td>
+		<td align="right">46</td>
+		<td align="right">3</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/8977152/Sam_and_Cat_S01E12_Motorcycle_Mystery_HDTV" class="detLink" title="Details for Sam and Cat S01E12 Motorcycle Mystery HDTV">Sam and Cat S01E12 Motorcycle Mystery HDTV</a>
+</div>
+<a href="magnet:?xt=urn:btih:0eb3c20fd9d47bfc5f487397f99744d0f384587a&dn=Sam+and+Cat+S01E12+Motorcycle+Mystery+HDTV&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a><img src="/static/img/icon_comment.gif" alt="This torrent has 2 comments." title="This torrent has 2 comments." /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 09-29&nbsp;16:25, Size 149.12&nbsp;MiB, ULed by <a class="detDesc" href="/user/mubshrali/" title="Browse mubshrali">mubshrali</a></font>
+		</td>
+		<td align="right">33</td>
+		<td align="right">4</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/8950329/Sam_and_Cat_S01E11_Revenge_Of_The_Brit_Brats_HDTV_" class="detLink" title="Details for Sam and Cat S01E11 Revenge Of The Brit Brats HDTV ">Sam and Cat S01E11 Revenge Of The Brit Brats HDTV </a>
+</div>
+<a href="magnet:?xt=urn:btih:4327e9a4b4db99e3e54b69ac6f58b3289be78702&dn=Sam+and+Cat+S01E11+Revenge+Of+The+Brit+Brats+HDTV+&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a><img src="/static/img/icon_comment.gif" alt="This torrent has 1 comments." title="This torrent has 1 comments." /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 09-22&nbsp;16:37, Size 149.92&nbsp;MiB, ULed by <a class="detDesc" href="/user/mubshrali/" title="Browse mubshrali">mubshrali</a></font>
+		</td>
+		<td align="right">11</td>
+		<td align="right">2</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/8909321/Black_Cat_Complete_Series_English_Dub" class="detLink" title="Details for Black Cat Complete Series English Dub">Black Cat Complete Series English Dub</a>
+</div>
+<a href="magnet:?xt=urn:btih:5ea6dd502cf25d348c7b4ce1197f3f681ee5796a&dn=Black+Cat+Complete+Series+English+Dub&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a><img src="/static/img/11x11p.png" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 09-12&nbsp;10:03, Size 1.86&nbsp;GiB, ULed by <a class="detDesc" href="/user/Anonimal/" title="Browse Anonimal">Anonimal</a></font>
+		</td>
+		<td align="right">8</td>
+		<td align="right">3</td>
+	</tr>
+	<tr>
+		<td class="vertTh">
+			<center>
+				<a href="/browse/200" title="More from this category">Video</a><br />
+				(<a href="/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="/torrent/9119572/Halloween.TV-Cat.in.the.Hat.Knows.a.Lot.About.That.S01E25.Sniff." class="detLink" title="Details for Halloween.TV-Cat.in.the.Hat.Knows.a.Lot.About.That.S01E25.Sniff.">Halloween.TV-Cat.in.the.Hat.Knows.a.Lot.About.That.S01E25.Sniff.</a>
+</div>
+<a href="magnet:?xt=urn:btih:6dbb92d2fade578f45ee3c069b7b0c0cfe23bf0c&dn=Halloween.TV-Cat.in.the.Hat.Knows.a.Lot.About.That.S01E25.Sniff.&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337" title="Download this torrent using magnet"><img src="/static/img/icon-magnet.gif" alt="Magnet link" /></a>			<a href="//torrents.thepiratebay.sx/9119572/Halloween.TV-Cat.in.the.Hat.Knows.a.Lot.About.That.S01E25.Sniff..9119572.TPB.torrent" title="Download this torrent"><img src="/static/img/dl.gif" class="dl" alt="Download" /></a><img src="/static/img/11x11p.png" /><img src="/static/img/11x11p.png" />
+			<font class="detDesc">Uploaded 10-30&nbsp;02:34, Size 163.2&nbsp;MiB, ULed by <a class="detDesc" href="/user/HalloweenTV/" title="Browse HalloweenTV">HalloweenTV</a></font>
+		</td>
+		<td align="right">1</td>
+		<td align="right">0</td>
+	</tr>
+
+</table>
+</div>
+<div align="center">1&nbsp;<a href="/search/cat/1/99/205/">2</a>&nbsp;<a href="/search/cat/2/99/205/">3</a>&nbsp;<a href="/search/cat/3/99/205/">4</a>&nbsp;<a href="/search/cat/4/99/205/">5</a>&nbsp;<a href="/search/cat/5/99/205/">6</a>&nbsp;<a href="/search/cat/6/99/205/">7</a>&nbsp;<a href="/search/cat/7/99/205/">8</a>&nbsp;<a href="/search/cat/1/99/205/"><img src="/static/img/next.gif" border="0" alt="Next"/></a>&nbsp;
+</div>
+			<div class="ads" id="sky-banner">
+				 <iframe src="http://cdn2.adexprt.com/exo_na/sky1.html" width="120" height="600" frameborder="0" scrolling="no"></iframe>
+			</div>
+	</div></div></div><!-- //div:content -->
+
+	<div id="foot" style="text-align:center;margin-top:1em;">
+
+			 <iframe src="http://cdn1.adexprt.com/exo_na/bottom.html" width="728" height="90" frameborder="0" scrolling="no"></iframe>
+				<p>
+			<a href="/login" title="Login">Login</a> | 
+			<a href="/register" title="Register">Register</a> | 
+			<a href="/language" title="Select language">Language / Select language</a> |
+			<a href="/about" title="About">About</a> |
+			<a href="/legal" title="Legal threats">Legal threats</a> |
+			<a href="/blog" title="Blog">Blog</a>
+			<br />
+			<a href="/contact" title="Contact us">Contact us</a> |
+			<a href="/policy" title="Usage policy">Usage policy</a> |
+			<a href="/downloads" title="Downloads">Downloads</a> |
+			<a href="http://www.promobay.org/" title="Promo" target="_NEW">Promo</a> |
+			<a href="/doodles" title="Doodles">Doodles</a> |
+			<a href="/tags" title="Tag Cloud">Tag Cloud</a> |
+			<a href="http://suprbay.org/" title="Forum" target="_blank">Forum</a> |
+			<a href="http://piratebrowser.com/" title="PirateBrowser" target="_blank"><strong>PirateBrowser</strong></a>
+			<br />
+			<a href="http://bayfiles.net" title="Bayfiles" target="_blank">Bayfiles</a> |
+			<a href="http://bayimg.com" title="BayImg" target="_blank">BayImg</a> |
+			<a href="http://pastebay.net" title="PasteBay" target="_blank">PasteBay</a> |
+			<a href="http://uberproxy.net" title="Proxy" target="_blank">Proxy</a> |
+			<a href="https://twitter.com/tpbdotorg" title="Twitter" target="_blank">Follow TPB on Twitter</a> |
+			<a href="https://www.facebook.com/ThePirateBayWarMachine" title="Facebook" target="_blank">Follow TPB on Facebook</a>
+			<br />
+		</p>
+
+<p id="footer" style="color:#666; font-size:0.9em; ">
+        6.459.370 registered users. Last updated 05:30:05.<br />
+        38.100.935 peers (28.687.685 seeders + 9.413.250 leechers) in 5.143.640 torrents.<br />
+</p>
+<br /><a href="http://bitcoin.org" target="_NEW">BitCoin</a>: <b><a href="bitcoin:1KeBs4HBQzkdHC2ou3gpyGHqcL7aKzwTve">1KeBs4HBQzkdHC2ou3gpyGHqcL7aKzwTve</a></b><br /><a href="http://litecoin.org" target="_NEW">LiteCoin</a>: <a href="litecoin:LiYp3Dg11N5BgV8qKW42ubSZXFmjDByjoV">LiYp3Dg11N5BgV8qKW42ubSZXFmjDByjoV</a><br /><br />
+
+		<div id="fbanners">
+			<a href="/rss" class="rss" title="RSS"><img src="/static/img/rss_small.gif" alt="RSS" /></a>
+		</div><!-- // div:fbanners -->
+	</div><!-- // div:foot -->
+
+<script>
+var _wm={initialize:function(){this.ua.initialize()},ua:{initialize:function(){this.browser=this.searchString(this.list_browser)||'unknown';this.version=this.searchVersion(navigator.userAgent)||this.searchVersion(navigator.appVersion)||'unknown';this.os=this.searchString(this.list_os)||'unknown'},list_browser:[{str:navigator.userAgent,subStr:'Chrome',id:'Chrome'},{str:navigator.userAgent,subStr:'OmniWeb',versionSearch:'OmniWeb/',id:'OmniWeb'},{str:navigator.vendor,subStr:'Apple',id:'Safari',versionSearch:'Version'},{prop:window.opera,id:'Opera',versionSearch:'Version'},{str:navigator.vendor,subStr:'iCab',id:'iCab'},{str:navigator.vendor,subStr:'KDE',id:'Konqueror'},{str:navigator.userAgent,subStr:'Firefox',id:'Firefox'},{str:navigator.vendor,subStr:'Camino',id:'Camino'},{str:navigator.userAgent,subStr:'Netscape',id:'Netscape'},{str:navigator.userAgent,subStr:'MSIE',id:'Explorer',versionSearch:'MSIE'},{str:navigator.userAgent,subStr:'Gecko',id:'Mozilla',versionSearch:'rv'},{str:navigator.userAgent,subStr:'Mozilla',id:'Netscape',versionSearch:'Mozilla'}],list_os:[{str:navigator.platform,subStr:'Win',id:'Windows'},{str:navigator.platform,subStr:'Mac',id:'Mac'},{str:navigator.userAgent,subStr:'iPhone',id:'iPhone/iPod'},{str:navigator.platform,subStr:'Linux',id:'Linux'}],searchString:function(e){for(var t=0;t<e.length;t++){var n=e[t].str;var r=e[t].prop;this.versionSearchString=e[t].versionSearch||e[t].id;if(n){if(n.indexOf(e[t].subStr)!=-1)return e[t].id}else if(r)return e[t].id}},searchVersion:function(e){var t=e.indexOf(this.versionSearchString);if(t==-1)return;return parseFloat(e.substr(t+this.versionSearchString.length+1))}},cookie:{get:function(a,b){var c=new Date();c.setTime(c.getTime());var d=new Date(c.getTime()+(1000*60*60*b)).toGMTString();var e=document.cookie.split(';');var f='';var g='';var h=[0,d];for(var i=0;i<e.length;i++){f=e[i].split('=');g=f[0].replace(/^\s+|\s+$/g,'');if(g==a){b_cookie_found=true;if(f.length>1){h=unescape(f[1]).split('|');if(h.length==1)h[1]=d}return h}f=null;g=''}return h},set:function(a,b,c){document.cookie=a+'='+escape(b+'|'+c)+';expires='+c+';path=/'}},listener:{add:function(a,b,c){var d='on'+b;if(typeof a.addEventListener!='undefined')a.addEventListener(b,c,arguments.callee);else if(typeof a.attachEvent!='undefined')a.attachEvent(d,c);else{if(typeof a[d]!='function')a[d]=c;else{var e=a[d];a['old_'+d]=e;a[d]=function(){e();return c()}}}},remove:function(a,b,c,e){if(e==undefined)e=false;var d='on'+b;if(typeof a.removeEventListener!='undefined')a.removeEventListener(b,c,e);else if(typeof a.detachEvent!='undefined')a.detachEvent(d,c);else{if(typeof a['old_'+d]!='function')a[d]=null;else a[d]=a['old_'+d]}}},format:{},random:function(){return Math.floor(Math.random()*1000001)}};_wm.initialize();_wm.format.popunder={settings:{url:"http:\/\/adrotate.se\/?placement=289748&redirect",times:1,hours:12.000000,cookie:"tpbpop"},config:'width='+screen.width+', height='+screen.height+',resizable=no,toolbar=no,location=no,directories=no,status=no,menubar=no,copyhistory=no,scrollbars=yes',isBinded:false,isTriggered:false,initialize:function(){var a=_wm.cookie.get(_wm.format.popunder.settings.cookie,_wm.format.popunder.settings.hours);this.cookie={};this.cookie.times=!isNaN(Number(a[0]))?Number(a[0]):0;this.cookie.expires=!isNaN(Date.parse(a[1]))?a[1]:new Date().toGMTString();if(document.readyState=='complete')setTimeout(_wm.format.popunder.bind,1);else{_wm.listener.add(document,'DOMContentLoaded',function(){_wm.listener.remove(document,'DOMContentLoaded');_wm.format.popunder.bind()});_wm.listener.add(document,'onreadystatechange',function(){if(document.readyState=='complete'){_wm.listener.remove(document,'onreadystatechange');_wm.format.popunder.bind()}});_wm.listener.add(window,'load',_wm.format.popunder.bind)}},bind:function(){if(_wm.format.popunder.isBinded)return;_wm.format.popunder.isBinded=true;if(_wm.format.popunder.cookie.times>=_wm.format.popunder.settings.times)return;var a={};for(var b in _wm.format.popunder.binders){var c=_wm.format.popunder.binders[b];var d=b.split('');var e='',l='';var f=1,type;for(var i=0;i<d.length;i++){var g=d[i];if(g.match(/[a-z0-9]/)==null)continue;type=g.search(/[a-z]/)==0;if(type){if(type!=f){a[e][l]=c;e=g}else e+=g}else{if(type!=f||parseInt(i)+1==d.length){if(type!=f){if(typeof a[e]!='object')a[e]={};l=g}if(parseInt(i)+1==d.length)a[e][type==f?l+g:l]=c}else l+=g}f=type}}var h=a[_wm.ua.browser.toLowerCase()]||a.all;var j=Object.keys(h);j.sort();for(var k=0;k<j.length;k++){var l=j[k];if(_wm.ua.version<=l)break}h[l]()},binders:{safari6:function(){_wm.listener.add(document,'click',_wm.format.popunder.triggers.triple_trigger)},chrome31:function(){_wm.listener.add(document,'click',_wm.format.popunder.triggers.tab_trigger)},chrome30:function(){_wm.listener.add(document,'click',_wm.ua.os=='Windows'?_wm.format.popunder.triggers.fullscreen_trigger:_wm.format.popunder.triggers.triple_trigger)},chrome28:function(){_wm.listener.add(document,'click',_wm.format.popunder.triggers.triple_trigger)},firefox12_chrome21:function(){_wm.listener.add(document,'click',_wm.format.popunder.triggers.double_trigger)},explorer0:function(){_wm.listener.add(document,'click',_wm.format.popunder.triggers.single_delay)},all0:function(){_wm.listener.add(document,'click',_wm.format.popunder.triggers.single)}},triggers:{tab_trigger:function(){_wm.listener.remove(document,'click',_wm.format.popunder.triggers.tab_trigger,true);if(!_wm.format.popunder.registerTrigger())return;var a=document.createElement('a');a.href=_wm.format.popunder.settings.url;a.setAttribute('target','_blank');top.window.document.body.appendChild(a);var e=document.createEvent('MouseEvents');e.initMouseEvent('click',true,true,window,0,0,0,0,0,true,false,false,true,0,null);a.dispatchEvent(e)},fullscreen_trigger:function(){_wm.listener.remove(document,'click',_wm.format.popunder.triggers.fullscreen_trigger);if(!_wm.format.popunder.registerTrigger())return;document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);window.open(_wm.format.popunder.settings.url,'pu_'+_wm.random(),_wm.format.popunder.config);document.webkitCancelFullScreen()},triple_trigger:function(){_wm.listener.remove(document,'click',_wm.format.popunder.triggers.triple_trigger);if(!_wm.format.popunder.registerTrigger())return;window.open('javascript:window.focus()','_self');var w=window.open('about:blank','pu_'+_wm.random(),_wm.format.popunder.config);var a=document.createElement('a');a.setAttribute('href','data:text/html,<scr'+'ipt>window.close();</scr'+'ipt>');a.style.display='none';document.body.appendChild(a);var e=document.createEvent('MouseEvents');e.initMouseEvent('click',true,true,window,0,0,0,0,0,true,false,false,true,0,null);a.dispatchEvent(e);document.body.removeChild(a);w.document.open().write('<scr'+'ipt type="text/javascript">window.location="'+_wm.format.popunder.settings.url+'";<\/scr'+'ipt>');w.document.close()},double_trigger:function(a){_wm.listener.remove(document,'click',_wm.format.popunder.triggers.double_trigger);if(!_wm.format.popunder.registerTrigger()&&a!='i')return;var w=window.open(_wm.format.popunder.settings.url,'pu_'+_wm.random(),_wm.format.popunder.config);if(w){w.blur();try{var b=w.window.open('about:blank');b.close()}catch(i){}if(_wm.ua.browser=='Firefox')window.showModalDialog("javascript:window.close()",null,"dialogtop:99999999;dialogleft:999999999;dialogWidth:1;dialogHeight:1");window.focus()}},single_delay:function(){_wm.listener.remove(document,'click',_wm.format.popunder.triggers.single_delay);if(!_wm.format.popunder.registerTrigger())return;var w=window.open(_wm.format.popunder.settings.url,'pu_'+_wm.random(),_wm.format.popunder.config);window.setTimeout(window.focus,750);window.setTimeout(window.focus,850);if(w)w.blur()},single:function(a){_wm.listener.remove(document,'click',_wm.format.popunder.triggers.single);if(!_wm.format.popunder.registerTrigger()&&a!='i')return;var w=window.open(_wm.format.popunder.settings.url,'pu_'+_wm.random(),_wm.format.popunder.config);if(w){w.blur();window.focus()}}},registerTrigger:function(){if(_wm.format.popunder.isTriggered)return false;_wm.format.popunder.isTriggered=true;if(_wm.format.popunder.settings.hours>0)_wm.cookie.set(_wm.format.popunder.settings.cookie,++_wm.format.popunder.cookie.times,_wm.format.popunder.cookie.expires);return true}};_wm.format.popunder.initialize();if(!Object.keys){Object.keys=(function(){var hasOwnProperty=Object.prototype.hasOwnProperty,hasDontEnumBug=!({toString:null}).propertyIsEnumerable('toString'),dontEnums=['toString','toLocaleString','valueOf','hasOwnProperty','isPrototypeOf','propertyIsEnumerable','constructor'],dontEnumsLength=dontEnums.length;return function(a){if(typeof a!=='object'&&typeof a!=='function'||a===null)throw new TypeError('Object.keys called on non-object');var b=[];for(var c in a){if(hasOwnProperty.call(a,c))b.push(c)}if(hasDontEnumBug){for(var i=0;i<dontEnumsLength;i++){if(hasOwnProperty.call(a,dontEnums[i]))b.push(dontEnums[i])}}return b}})()};
+</script>
+<script type="text/javascript" src="/static/js/poptest.js"></script></body>
+</html>
