@@ -16,7 +16,7 @@ class PirateBayLoader(SeriesLoader):
         if filters == '':
             return 'http://thepiratebay.sx/browse/205/{}/3'.format(page)
         else:
-            return 'http://thepiratebay.sx/search/{}/{}/99/205'.format(
+            return u'http://thepiratebay.sx/search/{}/{}/99/205'.format(
                 filters, page,
             )
 

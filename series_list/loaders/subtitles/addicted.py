@@ -14,7 +14,7 @@ class Addic7edLoader(SubtitlesLoader):
     def _get_url(self, name):
         """Get url for name"""
         return u'http://www.addic7ed.com/search.php?{}'.format(
-            urlencode({'search': name, 'Submit': 'Search'}),
+            urlencode({'search': name.encode('utf8'), 'Submit': 'Search'}),
         )
 
     def _fetch_search(self, name):

@@ -16,8 +16,8 @@ class IMDBPosterLoader(PostersLoader):
 
     def _get_url(self, name):
         """Get url for fetching"""
-        return 'http://www.imdb.com/find?{}'.format(
-            urlencode({'q': name, 's': 'all'}),
+        return u'http://www.imdb.com/find?{}'.format(
+            urlencode({'q': name.encode('utf8'), 's': 'all'}),
         )
 
     def _fetch_html(self, name):
