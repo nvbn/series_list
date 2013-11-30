@@ -8,3 +8,7 @@ class SubtitlesLoader(object):
     @abc.abstractmethod
     def get_subtitle_url(self, name):
         """Get subtitle url by episode name"""
+
+    @abc.abstractmethod
+    def download(self, model):
+        """Download subtitles"""

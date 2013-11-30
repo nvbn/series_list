@@ -55,3 +55,10 @@ class Addic7edLoader(SubtitlesLoader):
             refer=episode_url,
             name=name,
         )
+
+    def download(self, model):
+        """Download subtitles"""
+        with open(model.path, 'w') as file_o:
+            file_o.write(requests.get(
+                model.url, headers={'Referer': model.refer},
+            ).content)
