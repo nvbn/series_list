@@ -2,6 +2,7 @@ from urllib import urlencode
 from BeautifulSoup import BeautifulSoup
 import requests
 from ...settings import config
+from ...models import Subtitle
 from ..base import return_if_timeout
 from .. import library
 from .base import SubtitlesLoader
@@ -43,9 +44,6 @@ class Addic7edLoader(SubtitlesLoader):
     @return_if_timeout(None)
     def get_subtitle_url(self, name):
         """Get subtitle url"""
-        # avoid recursive import
-        from ...models import Subtitle
-
         search = self._fetch_search(name)
         try:
             episode_url = self._get_episode_url(search)
