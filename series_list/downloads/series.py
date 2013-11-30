@@ -34,9 +34,10 @@ class DownloadSeries(object):
 
     def _move_biggest_file(self, handle, episode):
         """Move biggest file"""
-        biggest_index, _ = max(enumerate(
+        biggest_index, biggest = max(enumerate(
             handle.get_torrent_info().files(),
         ), key=lambda item: item[1].size)
+        episode.extension = biggest.path.split('.')[-1]
         handle.rename_file(biggest_index, episode.file_name)
 
     def _wait_metadata(self, handle):

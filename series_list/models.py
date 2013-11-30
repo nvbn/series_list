@@ -28,6 +28,7 @@ class SeriesEntry(BaseModel):
         self.subtitle = None
         self.stop_download = False
         self.pause_state = const.NORMAL
+        self.extension = 'avi'
 
     def __repr__(self):
         return self.title
@@ -42,7 +43,7 @@ class SeriesEntry(BaseModel):
 
     @property
     def file_name(self):
-        return u'{}.avi'.format(self.title)
+        return u'{}.{}'.format(self.title, self.extension)
 
     @property
     def path(self):
