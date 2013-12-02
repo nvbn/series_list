@@ -1,0 +1,14 @@
+dependencies:
+  - python-requests
+  - python-beautifulsoup
+  - python-requests
+  - python-gevent
+  - python-decorator
+  - python-libtorrent
+  - python-pyside
+  - subliminal
+releases:
+  - saucy
+  - precise
+  - quantal
+  - raring
