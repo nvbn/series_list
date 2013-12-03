@@ -25,11 +25,31 @@ class SubliminalLoader(SubtitlesLoader):
             self._get_search_page_url(name), timeout=config.subtitle_timeout,
         ).content
 
-    def _get_episode_url(self, html):
+    def _create_words_set(self, name):
+        """Create words set"""
+        return set(''.join([
+            char if char.isalpha() or char.isdigit() else ' '
+            for char in name.lower()
+        ]).split(' '))
+
+    def _check_similarity(self, name_set, box_set):
+        """Check similarity of name sets"""
+        return len(box_set.intersection(name_set)) \
+            - len(box_set.difference(name_set))
+
+    def _get_episode_url(self, html, name):
         """Get episode url"""
         soup = BeautifulSoup(html)
-        url = soup.find('div', {'class': 'boxRowsInner'})\
-            .find('a', {'class': 'red'})['href']
+        name_set = self._create_words_set(name)
+        boxes = soup.findAll('div', {'class': 'boxRowsInner'})
+        max_match = max(boxes, key=lambda box: self._check_similarity(
+            name_set, self._create_words_set(
+                box.find('a', {
+                    'class': 'blue',
+                }).text,
+            ),
+        ))
+        url = max_match.find('a', {'class': 'red'})['href']
         return u'{}English/'.format(url)
 
     def _fetch_episode(self, url):
@@ -49,7 +69,7 @@ class SubliminalLoader(SubtitlesLoader):
         """Always return ok"""
         html = self._fetch_search_page(name)
         try:
-            episode_url = self._get_episode_url(html)
+            episode_url = self._get_episode_url(html, name)
         except AttributeError:
             return None
         episode_html = self._fetch_episode(episode_url)
