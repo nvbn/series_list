@@ -12,6 +12,8 @@ before_install:
   - git clone https://github.com/Diaoul/subliminal.git
   - cd subliminal
   - pip install .
+  - cd ..
+  - rm -rf subliminal
 install:
   - pip install -U .
 script:
