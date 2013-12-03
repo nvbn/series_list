@@ -14,5 +14,6 @@ install:
 script:
   - nosetests --with-coverage 2>test_out
 after_script:
+  - cat test_out
   - coverage report
   - covio
