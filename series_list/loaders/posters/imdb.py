@@ -1,4 +1,5 @@
 from urllib import urlencode
+import re
 from BeautifulSoup import BeautifulSoup
 import requests
 from ...settings import config
@@ -14,10 +15,18 @@ class IMDBPosterLoader(PostersLoader):
         'images/nopicture/32x44/film-3119741174._V379391527_.png'
     cache = {}
 
+    def _prepare_name(self, name):
+        """Prepare name for searching subtitles"""
+        name = name.replace('.', ' ')
+        return re.sub(r'(.*) S\d+E\d+.*', '\\1', name)
+
     def _get_url(self, name):
         """Get url for fetching"""
         return u'http://www.imdb.com/find?{}'.format(
-            urlencode({'q': name.encode('utf8'), 's': 'all'}),
+            urlencode({
+                'q': self._prepare_name(name.encode('utf8')),
+                's': 'all',
+            }),
         )
 
     def _fetch_html(self, name):
