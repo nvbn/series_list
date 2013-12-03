@@ -9,6 +9,9 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - cat setup.py|grep -v pyside > new_setup.py
   - mv new_setup.py setup.py
+  - git clone https://github.com/Diaoul/subliminal.git
+  - cd subliminal
+  - pip install .
 install:
   - pip install -U .
 script:
