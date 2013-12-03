@@ -2,6 +2,7 @@ from functools import partial
 import requests
 from BeautifulSoup import BeautifulSoup
 from babelfish import Language
+from subliminal.api import save_subtitles
 import subliminal
 from ...models import Subtitle
 from ...settings import config
@@ -74,4 +75,4 @@ class SubliminalLoader(SubtitlesLoader):
         subtitles = subliminal.download_best_subtitles(
             {video}, {Language('eng')},
         )
-        subliminal.save_subtitles(subtitles, True, config.download_path)
+        save_subtitles(subtitles, True, config.download_path)
