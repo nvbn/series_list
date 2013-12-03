@@ -17,7 +17,7 @@ SETTINGS_PATH = os.path.expanduser('~/.config/series_list.json')
 
 POSTERS_LOADER = 'IMDBPosterLoader'
 SERIES_LOADER = 'EZTVLoader'
-SUBTITLES_LOADER = 'Addic7edLoader'
+SUBTITLES_LOADER = 'SubliminalLoader'
 
 PREVIEW_MINIMUM = 10
 
