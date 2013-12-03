@@ -2,7 +2,10 @@ from functools import partial
 import requests
 from BeautifulSoup import BeautifulSoup
 from babelfish import Language
-from subliminal.api import save_subtitles
+try:
+    from subliminal.api import save_subtitles
+except ImportError:
+    from subliminal import save_subtitles
 import subliminal
 from ...models import Subtitle
 from ...settings import config
