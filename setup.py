@@ -30,7 +30,7 @@ setup(
         'mock',
         'decorator',
         'gevent',
-        'subliminal',
+        'subliminal >= 0.7',
     ],
     entry_points={
         'gui_scripts': [
