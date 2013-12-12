@@ -1,6 +1,7 @@
 import os
 from PySide.QtUiTools import QUiLoader
 from PySide.QtCore import QMetaObject
+from PySide.QtGui import QIcon
 
 
 class UiLoader(QUiLoader):
@@ -76,7 +77,26 @@ def load_ui(uifile, baseinstance=None):
 class WithUiMixin(object):
     """With ui mixin"""
     ui = None
+    icons = {}
 
     def __init__(self, *args, **kwargs):
         super(WithUiMixin, self).__init__(*args, **kwargs)
         load_ui('{}.ui'.format(self.ui), self)
+        self._init_icons()
+
+    def _get_icon(self, icons):
+        """Get icon"""
+        if len(icons):
+            icon, other = icons[0], icons[1:]
+            fallback = self._get_icon(other)
+            if fallback:
+                return QIcon.fromTheme(icon, fallback=fallback)
+            else:
+                return QIcon.fromTheme(icon)
+        else:
+            return None
+
+    def _init_icons(self):
+        """Init icons"""
+        for element, icons in self.icons.items():
+            getattr(self, element).setIcon(self._get_icon(icons))
