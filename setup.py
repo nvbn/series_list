@@ -41,6 +41,15 @@ setup(
         ('share/icons/hicolor/128x128/apps', [
             'data/series_list_icon.png',
         ]),
+        ('share/icons/hicolor/16x16/actions', [
+            'data/fallback_icons/16/series-list-refresh.svg',
+        ]),
+        ('share/icons/hicolor/24x24/actions', [
+            'data/fallback_icons/24/series-list-download.svg',
+            'data/fallback_icons/24/series-list-open.svg',
+            'data/fallback_icons/24/series-list-pause.svg',
+            'data/fallback_icons/24/series-list-stop.svg',
+        ]),
         ('share/applications', ['data/series_list.desktop']),
     ]
 )
