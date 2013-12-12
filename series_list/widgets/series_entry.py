@@ -10,6 +10,12 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
     """Series entry widget"""
     ui = 'series_entry'
     cache = {}
+    icons = {
+        'stopButton': ('process-stop', 'series-list-stop'),
+        'pauseButton': ('media-playback-pause', 'series-list-pause'),
+        'openButton': ('media-playback-start', 'series-list-open'),
+        'download': ('application-x-bittorrent', 'series-list-download'),
+    }
 
     @classmethod
     def get_or_create(cls, model, *args, **kwargs):

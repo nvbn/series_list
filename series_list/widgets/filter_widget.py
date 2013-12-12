@@ -6,6 +6,9 @@ from ..interface.loader import WithUiMixin
 class FilterWidget(WithUiMixin, QWidget):
     """Filter widget"""
     ui = 'filter'
+    icons = {
+        'filterButton': ('view-refresh', 'series-list-refresh'),
+    }
     filter_changed = Signal(unicode)
 
     def __init__(self, *args, **kwargs):
