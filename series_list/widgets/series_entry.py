@@ -122,7 +122,7 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
 
     def _update_download_status(self):
         """Update download status"""
-        if os.path.exists(self.model.path) and not self.model.stop_download:
+        if self.model.exists and not self.model.stop_download:
             self.download.hide()
             self.stopButton.show()
             self.openButton.show()

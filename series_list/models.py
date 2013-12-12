@@ -1,4 +1,5 @@
 import os
+from glob import glob
 from .loaders import library
 from .settings import config
 from . import const
@@ -58,6 +59,15 @@ class SeriesEntry(BaseModel):
         """Update from other model"""
         self.poster = other.poster
         self.subtitle = other.subtitle
+
+    @property
+    def exists(self):
+        """Is video downloaded"""
+        pattern = '{}*'.format(self.path[:-len(self.extension)])
+        return len(filter(
+            lambda name: not name.endswith('.srt'),
+            glob(pattern),
+        ))
 
 
 class Subtitle(BaseModel):
