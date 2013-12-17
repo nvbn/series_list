@@ -52,22 +52,32 @@ class SeriesEntry(BaseModel):
 
     def remove_file(self):
         """Remove downloaded file"""
-        if os.path.exists(self.path):
-            os.unlink(self.path)
+        try:
+            name = self._get_probably_name()
+        except IndexError:
+            return
+        full_path = os.path.join(os.path.dirname(self.path), name)
+        os.unlink(full_path)
 
     def update(self, other):
         """Update from other model"""
         self.poster = other.poster
         self.subtitle = other.subtitle
 
+    def _get_probably_name(self):
+        """Get probably name"""
+        pattern = '{}*'.format(self.path[:-len(self.extension)])
+        return filter(
+            lambda name: not name.endswith('.srt'), glob(pattern),
+        )[0]
+
     @property
     def exists(self):
         """Is video downloaded"""
-        pattern = '{}*'.format(self.path[:-len(self.extension)])
-        return len(filter(
-            lambda name: not name.endswith('.srt'),
-            glob(pattern),
-        ))
+        try:
+            return bool(self._get_probably_name())
+        except IndexError:
+            return False
 
 
 class Subtitle(BaseModel):
