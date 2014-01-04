@@ -14,9 +14,9 @@ class PirateBayLoader(SeriesLoader):
     def _get_url(self, page, filters):
         """Get url for fetching"""
         if filters == '':
-            return 'http://thepiratebay.sx/browse/205/{}/3'.format(page)
+            return 'http://thepiratebay.se/browse/205/{}/3'.format(page)
         else:
-            return u'http://thepiratebay.sx/search/{}/{}/99/205'.format(
+            return u'http://thepiratebay.se/search/{}/{}/99/205'.format(
                 filters, page,
             )
 
