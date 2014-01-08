@@ -13,7 +13,7 @@ class EZTVLoader(SeriesLoader):
     can_change_page_with_filter = False
     hosts = [
         'http://eztv.it/',
-        'http://185.19.104.70/'
+        'http://185.19.104.70/',
     ]
 
     def _get_url(self, page, filters):

@@ -48,7 +48,7 @@ class SubliminalLoader(SubtitlesLoader):
 
     def _fetch_episode(self, url):
         """Fetch episode page"""
-        return requests.get(url).content
+        return requests.get(url, allow_redirects=False).content
 
     def _check_subtitles_exists(self, html):
         """Check subtitles exists"""
