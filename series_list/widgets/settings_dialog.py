@@ -14,6 +14,7 @@ class SettingsDialog(WithUiMixin, QDialog):
             (self.posterTimeout, 'poster_timeout'),
             (self.seriesTimeout, 'series_timeout'),
             (self.subtitlesTimeout, 'subtitle_timeout'),
+            (self.retryCount, 'max_retry'),
         )
         self._loaders = (
             (self.postersProviders, 'posters_loader', library.posters),
