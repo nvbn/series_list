@@ -11,6 +11,9 @@ from .base import PostersLoader
 @library.posters
 class IMDBPosterLoader(PostersLoader):
     """IMDb poster loader"""
+    hosts = [
+        'http://www.imdb.com/',
+    ]
     default_poster = 'http://ia.media-imdb.com/images/G/01/imdb/'\
         'images/nopicture/32x44/film-3119741174._V379391527_.png'
     cache = {}
@@ -22,8 +25,8 @@ class IMDBPosterLoader(PostersLoader):
 
     def _get_url(self, name):
         """Get url for fetching"""
-        return u'http://www.imdb.com/find?{}'.format(
-            urlencode({
+        return u'{}find?{}'.format(
+            self.host, urlencode({
                 'q': self._prepare_name(name.encode('utf8')),
                 's': 'all',
             }),

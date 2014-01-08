@@ -1,9 +1,10 @@
 import abc
+from ...settings import config
+from ..base import BaseLoader
 
 
-class PostersLoader(object):
+class PostersLoader(BaseLoader):
     """Abstract posters loader"""
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def get_poster(self, name):
@@ -16,3 +17,8 @@ class PostersLoader(object):
     @abc.abstractmethod
     def get_default_poster_data(self):
         """Get fetched default poster"""
+
+    @property
+    def timeout(self):
+        """Timeout for downloading posters"""
+        return config.poster_timeout
