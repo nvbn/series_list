@@ -1,3 +1,4 @@
+import traceback
 from PySide.QtCore import Signal, QObject
 from ..loaders import library
 from ..models import SeriesEntry
@@ -21,7 +22,9 @@ class SeriesListWorker(QObject):
         """Get series"""
         try:
             series = library.series.get_series(page, filters)
-        except Exception:
+        except Exception as e:
+            print e
+            traceback.print_exc()
             self.something_wrong.emit(library.series.error_message, tick)
             return
 
