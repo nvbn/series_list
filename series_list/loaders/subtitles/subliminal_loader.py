@@ -46,9 +46,15 @@ class SubliminalLoader(SubtitlesLoader):
         url = max_match.find('a', {'class': 'red'})['href']
         return u'{}English/'.format(url)
 
-    def _fetch_episode(self, url):
+    def _fetch_episode(self, url, retry=0):
         """Fetch episode page"""
-        return requests.get(url, allow_redirects=False).content
+        if retry > config.max_retry:
+            return ''
+        response = requests.get(url, allow_redirects=False)
+        if response.status_code == 200:
+            return response.content
+        else:
+            return self._fetch_episode(url, retry + 1)
 
     def _check_subtitles_exists(self, html):
         """Check subtitles exists"""

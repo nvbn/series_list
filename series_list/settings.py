@@ -31,6 +31,8 @@ class Config(object):
 
     preview_minimum = _variable('preview_minimum', const.PREVIEW_MINIMUM)
 
+    max_retry = _variable('max_retry', const.MAX_RETRY)
+
     def _get_settings_dict(self):
         """Get settings dict"""
         if not os.path.exists(const.SETTINGS_PATH):
