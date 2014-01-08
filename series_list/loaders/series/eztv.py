@@ -1,7 +1,6 @@
 from BeautifulSoup import BeautifulSoup
 import requests
 from ...models import SeriesEntry
-from ...settings import config
 from ..base import return_if_timeout
 from ..exceptions import LoaderFault
 from .. import library
@@ -12,24 +11,28 @@ from .base import SeriesLoader
 class EZTVLoader(SeriesLoader):
     """eztv.it loader"""
     can_change_page_with_filter = False
+    hosts = [
+        'http://eztv.it/',
+        'http://185.19.104.70/'
+    ]
 
     def _get_url(self, page, filters):
         """Get url for fetch"""
         if filters == '':
-            return 'http://eztv.it/page_{}'.format(page)
+            return '{}page_{}'.format(self.host, page)
         else:
-            return 'http://eztv.it/search/'
+            return '{}search/'.format(self.host)
 
     def _fetch_html(self, page, filters):
         """Fetch html"""
         url = self._get_url(page, filters)
         if filters == '':
-            return requests.get(url, timeout=config.series_timeout).content
+            return requests.get(url, timeout=self.timeout).content
         else:
             return requests.post(url, {
                 'SearchString1': filters,
                 'Page': page,
-            }, timeout=config.series_timeout).content
+            }, timeout=self.timeout).content
 
     def _check_faults(self, html):
         """Check if eztv not work"""

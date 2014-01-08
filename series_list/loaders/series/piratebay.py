@@ -1,7 +1,6 @@
 from BeautifulSoup import BeautifulSoup
 import requests
 from ...models import SeriesEntry
-from ...settings import config
 from ..base import return_if_timeout
 from .. import library
 from .base import SeriesLoader
@@ -10,20 +9,23 @@ from .base import SeriesLoader
 @library.series
 class PirateBayLoader(SeriesLoader):
     """Loader from pirate bay"""
+    hosts = [
+        'http://thepiratebay.se/',
+    ]
 
     def _get_url(self, page, filters):
         """Get url for fetching"""
         if filters == '':
-            return 'http://thepiratebay.se/browse/205/{}/3'.format(page)
+            return '{}browse/205/{}/3'.format(self.host, page)
         else:
-            return u'http://thepiratebay.se/search/{}/{}/99/205'.format(
-                filters, page,
+            return u'{}search/{}/{}/99/205'.format(
+                self.host, filters, page,
             )
 
     def _fetch_html(self, page, filters):
         """Fetch html"""
         return requests.get(
-            self._get_url(page, filters), timeout=config.series_timeout,
+            self._get_url(page, filters), timeout=self.timeout,
         ).content
 
     def _parse_html(self, html):

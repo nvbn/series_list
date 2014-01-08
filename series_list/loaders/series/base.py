@@ -1,9 +1,10 @@
 import abc
+from ...settings import config
+from ..base import BaseLoader
 
 
-class SeriesLoader(object):
+class SeriesLoader(BaseLoader):
     """Abstract series loader"""
-    __metaclass__ = abc.ABCMeta
     can_change_page_with_filter = True
 
     @abc.abstractmethod
@@ -16,3 +17,8 @@ class SeriesLoader(object):
         return u'Something wrong with {}, ' \
                u'try switch to another series provider'\
             .format(type(self).__name__)
+
+    @property
+    def timeout(self):
+        """Timeout for series loader"""
+        return config.series_timeout
