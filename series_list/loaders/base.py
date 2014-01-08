@@ -1,6 +1,35 @@
+import abc
 from copy import copy
-from requests import Timeout
+import requests
 from decorator import decorator
+from ..utils import lazy_for_all
+from .exceptions import LoaderFault
+
+
+class BaseLoader(object):
+    """Base loader class"""
+    __metaclass__ = abc.ABCMeta
+    hosts = []
+
+    @abc.abstractproperty
+    def timeout(self):
+        """Timeout for loader"""
+
+    @lazy_for_all
+    def host(self):
+        """Return first reachable host"""
+        for host in self.hosts:
+            if self._check_host(host):
+                return host
+        raise LoaderFault('No working hosts')
+
+    def _check_host(self, host):
+        """Check is host available"""
+        try:
+            requests.head(host, timeout=self.timeout)
+            return True
+        except requests.ConnectionError:
+            return False
 
 
 def return_if_timeout(return_value_or_method, is_method=False):
@@ -9,7 +38,7 @@ def return_if_timeout(return_value_or_method, is_method=False):
     def return_if_timeout_decorator(fnc, *args, **kwargs):
         try:
             return fnc(*args, **kwargs)
-        except Timeout:
+        except requests.Timeout:
             if is_method:
                 return getattr(args[0], return_value_or_method)()
             else:
