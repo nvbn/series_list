@@ -1,9 +1,10 @@
 import abc
+from ...settings import config
+from ..base import BaseLoader
 
 
-class SubtitlesLoader(object):
+class SubtitlesLoader(BaseLoader):
     """Abstract subtitles loader"""
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def get_subtitle_url(self, name):
@@ -12,3 +13,8 @@ class SubtitlesLoader(object):
     @abc.abstractmethod
     def download(self, model):
         """Download subtitles"""
+
+    @property
+    def timeout(self):
+        """Timeout for subtitles"""
+        return config.subtitle_timeout

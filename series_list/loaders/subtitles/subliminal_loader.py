@@ -17,17 +17,20 @@ from .base import SubtitlesLoader
 @library.subtitles
 class SubliminalLoader(SubtitlesLoader):
     """Subliminal loader with subtitleseeker checker"""
+    hosts = [
+        'http://www.subtitleseeker.com/',
+    ]
 
     def _get_search_page_url(self, name):
         """Get search page url"""
-        return u'http://www.subtitleseeker.com/search/TV_EPISODES/{}'.format(
-            name,
+        return u'{}search/TV_EPISODES/{}'.format(
+            self.host, name,
         )
 
     def _fetch_search_page(self, name):
         """Fetch search page"""
         return requests.get(
-            self._get_search_page_url(name), timeout=config.subtitle_timeout,
+            self._get_search_page_url(name), timeout=self.timeout,
         ).content
 
     def _get_episode_url(self, html, name):
