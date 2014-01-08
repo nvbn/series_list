@@ -44,7 +44,10 @@ class SeriesEntry(BaseModel):
 
     @property
     def file_name(self):
-        return u'{}.{}'.format(self.title, self.extension)
+        try:
+            return self._get_probably_name()
+        except IndexError:
+            return u'{}.{}'.format(self.title, self.extension)
 
     @property
     def path(self):
@@ -66,7 +69,9 @@ class SeriesEntry(BaseModel):
 
     def _get_probably_name(self):
         """Get probably name"""
-        pattern = '{}*'.format(self.path[:-len(self.extension)])
+        pattern = '{}*'.format(os.path.join(
+            config.download_path, self.title,
+        ))
         return filter(
             lambda name: not name.endswith('.srt'), glob(pattern),
         )[0]
