@@ -23,3 +23,13 @@ def _lazy_for_all(fnc, self):
         setattr(cls, attr, fnc(self))
     return getattr(cls, attr)
 lazy_for_all = lambda fnc: property(_lazy_for_all(fnc))
+
+
+@decorator
+def _lazy(fnc, self):
+    """Lazy property for instance"""
+    attr = '_{}'.format(fnc.__name__)
+    if not hasattr(self, attr):
+        setattr(self, attr, fnc(self))
+    return getattr(self, attr)
+lazy = lambda fnc: property(_lazy(fnc))
