@@ -1,4 +1,4 @@
-from PySide.QtCore import Signal
+from PySide.QtCore import Signal, Qt
 from PySide.QtGui import QWidget
 from ..interface.loader import WithUiMixin
 
@@ -51,12 +51,14 @@ class SeriesWidget(WithUiMixin, QWidget):
         self.nothingFound.hide()
         self.somethingWrong.setText(message)
         self.somethingWrong.show()
+        self._update_alignment()
 
     def no_new_data(self):
         """No new data to add"""
         self._hide_loader()
         if self._page == 0:
             self.nothingFound.show()
+        self._update_alignment()
 
     @property
     def series_layout(self):
@@ -68,15 +70,24 @@ class SeriesWidget(WithUiMixin, QWidget):
         self.series_layout.addWidget(entry)
         self._hide_loader()
         self.nothingFound.hide()
+        self._update_alignment(is_add=True)
 
     def clear(self):
         """Clear series widget"""
         for index in range(self.series_layout.count()):
             self.series_layout.itemAt(index).widget().hide()
         self._page = 0
+        self._update_alignment()
         self._show_loader()
 
     def _on_scroll(self, value):
         diff = self.scrollArea.verticalScrollBar().maximum() - value
         if diff == 0 and not self._loading:
             self._need_more()
+
+    def _update_alignment(self, is_add=False):
+        """Update alignment"""
+        if self._page == 0 and not is_add:
+            self.series_layout.setAlignment(Qt.AlignVCenter)
+        else:
+            self.series_layout.setAlignment(Qt.AlignTop)
