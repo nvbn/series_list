@@ -23,7 +23,7 @@ class SeriesListApp(QApplication):
     def init(self, window):
         """Init application"""
         self.window = window
-        self._tick = 0
+        self.tick = 0
         self._filter = ''
         self._init_workers()
         self._init_events()
@@ -60,19 +60,22 @@ class SeriesListApp(QApplication):
     def _load_episodes(self, page=0):
         """Load episodes"""
         if self._can_load_episodes(page):
+            tick = self.tick
             episodes = yield proxy.episodes.get_episodes(
                 page=page, filters=self._filter,
             )
             for episode in episodes:
-                self._episode_received(SeriesEntry.get_or_create(**episode))
+                self._episode_received(
+                    SeriesEntry.get_or_create(**episode), tick,
+                )
 
-    def _episode_received(self, episode):
+    @ticked
+    def _episode_received(self, episode, tick):
         """Episode received"""
         entry = SeriesEntryWidget.get_or_create(episode)
         self.window.series_widget.add_entry(entry)
         episode.load_poster()
         episode.load_subtitle()
-        self.entry_updated.emit(episode)
 
     @ticked
     def _nothing_received(self, tick):
@@ -110,36 +113,6 @@ class SeriesListApp(QApplication):
 
     def check_queue(self):
         current_actor().loop_tick()
-        # while True:
-        #     try:
-        #         data = self.in_queue.get_nowait()
-        #         self._update_received(*data)
-        #     except Empty:
-        #         break
-
-    @property
-    def tick(self):
-        return self._tick
-
-    @tick.setter
-    def tick(self, value):
-        return
-        self._tick = value
-        self.shared_tick.value = value
-
-
-def gui_proc(in_queue, out_queue, tick):
-    """Gut process"""
-    library.import_all()
-    app = SeriesListApp(sys.argv)
-    app.in_queue = in_queue
-    app.out_queue = out_queue
-    app.shared_tick = tick
-    subprocess.call(['mkdir', '-p', config.download_path])
-    window = SeriesWindow()
-    window.show()
-    app.init(window)
-    app.exec_()
 
 
 class GuiActor(Actor):

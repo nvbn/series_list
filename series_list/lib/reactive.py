@@ -11,7 +11,8 @@ class Observable(object):
         super(Observable, self).__setattr__(key, value)
         if not key.startswith('_'):
             for observer in self._observers[key]:
-                observer()
+                observer(value)
 
     def subscribe(self, key, callback):
         self._observers[key].append(callback)
+        callback(getattr(self, key, None))

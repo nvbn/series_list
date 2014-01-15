@@ -7,16 +7,15 @@ from .lib.reactive import Observable
 from . import const
 
 
-class BaseModel(Observable):
+class BaseModel(object):
     """Base model"""
 
     def __init__(self, **kwargs):
-        super(BaseModel, self).__init__()
         for key, value in kwargs.items():
             setattr(self, key, value)
 
 
-class SeriesEntry(BaseModel):
+class SeriesEntry(Observable, BaseModel):
     """Series entry model"""
     cache = {}
 
@@ -27,7 +26,8 @@ class SeriesEntry(BaseModel):
         return cls.cache[kwargs['magnet']]
 
     def __init__(self, **kwargs):
-        super(SeriesEntry, self).__init__(**kwargs)
+        Observable.__init__(self)
+        BaseModel.__init__(self, **kwargs)
         self.poster = library.posters.get_default_poster_data()
         self.subtitle = None
         self.stop_download = False
@@ -93,9 +93,10 @@ class SeriesEntry(BaseModel):
 class Subtitle(BaseModel):
     """Subtitle model"""
 
-    def __init__(self, **kwargs):
-        self.wait_for_file = False
-        super(Subtitle, self).__init__(**kwargs)
+    def __init__(self, wait_for_file=False, **kwargs):
+        super(Subtitle, self).__init__(
+            wait_for_file=wait_for_file, **kwargs
+        )
 
     def __repr__(self):
         return self.name

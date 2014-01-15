@@ -37,11 +37,7 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         self.title.setText(model.title)
         self.model.subscribe('poster', self._set_poster_pixmap)
         self.model.subscribe('subtitle', self._update_subtitle)
-        self._set_poster_pixmap()
-        self._update_subtitle()
         self._update_download_status()
-        QApplication.instance()\
-            .entry_updated.connect(self._maybe_entry_updated)
         QApplication.instance()\
             .downloaded.connect(self._maybe_downloaded)
         QApplication.instance()\
@@ -51,8 +47,6 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         """Maybe poster updated"""
         if entry.magnet == self.model.magnet:
             self.model.update(entry)
-            self._update_subtitle()
-            self._set_poster_pixmap()
 
     def _maybe_downloaded(self, entry):
         """Maybe downloaded updated"""
@@ -67,15 +61,15 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
             self.progress.setValue(value)
             self._update_preview_state()
 
-    def _set_poster_pixmap(self):
+    def _set_poster_pixmap(self, poster):
         """Get poster pixmap"""
         pixmap = QPixmap()
-        pixmap.loadFromData(self.model.poster)
+        pixmap.loadFromData(poster)
         self.poster.setPixmap(pixmap)
 
-    def _update_subtitle(self):
+    def _update_subtitle(self, subtitle):
         """Update subtitle status"""
-        if self.model.subtitle:
+        if subtitle:
             self.download.setEnabled(True)
         else:
             self.download.setEnabled(False)
