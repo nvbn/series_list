@@ -9,7 +9,6 @@ class SubtitlesActor(Actor):
         library.import_all()
         super(SubtitlesActor, self).run()
 
-    def set_subtitles(self, episode):
+    def get_subtitles(self, title):
         """Get subtitles for episodes"""
-        episode.load_subtitle()
-        return episode
+        return library.subtitles.get_subtitle_url(title)

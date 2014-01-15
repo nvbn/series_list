@@ -9,7 +9,6 @@ class PostersActor(Actor):
         library.import_all()
         super(PostersActor, self).run()
 
-    def set_poster(self, episode):
+    def get_poster(self, title):
         """Get poster for episodes"""
-        episode.load_poster()
-        return episode
+        return library.posters.get_poster_data(title)

@@ -38,7 +38,7 @@ class PirateBayLoader(SeriesLoader):
             }):
                 detail = row.find('a', {'class': 'detLink'})
                 if detail:
-                    yield SeriesEntry.get_or_create(
+                    yield dict(
                         title=detail.text,
                         magnet=row.findAll('td')[1].findAll('a')[1]['href'],
                     )

@@ -1,5 +1,6 @@
 import os
 from glob import glob
+from .lib.async import async, proxy
 from .loaders import library
 from .settings import config
 from . import const
@@ -34,13 +35,16 @@ class SeriesEntry(BaseModel):
     def __repr__(self):
         return self.title
 
+    @async
     def load_poster(self):
         """Get poster from loader"""
-        self.poster = library.posters.get_poster_data(self.title)
+        self.poster = yield proxy.posters.get_poster(title=self.title)
+        print self.poster
 
+    @async
     def load_subtitle(self):
         """Get subtitles from loader"""
-        self.subtitle = library.subtitles.get_subtitle_url(self.title)
+        self.subtitle = yield proxy.subtitles.get_subtitles(title=self.title)
 
     @property
     def file_name(self):
