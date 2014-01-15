@@ -1,3 +1,4 @@
+from .lib.actors import actors
 from .procs.gui import GuiActor
 from .procs.episodes import EpisodeActor
 from .procs.subtitles import SubtitlesActor
@@ -15,7 +16,8 @@ def main():
     subtitles.start()
     posters.start()
     gui.join()
-    gui.terminate()
+    for actor in actors.values():
+        actor.terminate()
 
 
 if __name__ == '__main__':
