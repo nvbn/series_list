@@ -11,6 +11,8 @@ from ..loaders import library
 from ..models import SeriesEntry
 from ..utils import ticked
 from ..settings import config
+from ..lib.actors import Actor, current_actor
+from ..lib.async import async, proxy
 
 
 class SeriesListApp(QApplication):
@@ -59,12 +61,15 @@ class SeriesListApp(QApplication):
             page, self._filter, self.tick,
         )
 
+    @async
     @ticked
     def _episode_received(self, episode, tick):
         """Episode received"""
         entry = SeriesEntryWidget.get_or_create(episode)
         self.window.series_widget.add_entry(entry)
-        self.out_queue.put((episode, self.tick))
+        episode = yield proxy.fetcher.fill(episode=episode)
+        self.entry_updated.emit(episode)
+        # self.out_queue.put((episode, self.tick))
 
     @ticked
     def _nothing_received(self, tick):
@@ -101,12 +106,13 @@ class SeriesListApp(QApplication):
         self.entry_updated.emit(episode)
 
     def check_queue(self):
-        while True:
-            try:
-                data = self.in_queue.get_nowait()
-                self._update_received(*data)
-            except Empty:
-                break
+        current_actor().loop_tick()
+        # while True:
+        #     try:
+        #         data = self.in_queue.get_nowait()
+        #         self._update_received(*data)
+        #     except Empty:
+        #         break
 
     @property
     def tick(self):
@@ -114,6 +120,7 @@ class SeriesListApp(QApplication):
 
     @tick.setter
     def tick(self, value):
+        return
         self._tick = value
         self.shared_tick.value = value
 
@@ -130,3 +137,21 @@ def gui_proc(in_queue, out_queue, tick):
     window.show()
     app.init(window)
     app.exec_()
+
+
+class GuiActor(Actor):
+    use_nowait = True
+    self_loop = True
+
+    def run(self):
+        super(GuiActor, self).run()
+        library.import_all()
+        app = SeriesListApp(sys.argv)
+        # app.in_queue = in_queue
+        # app.out_queue = out_queue
+        # app.shared_tick = tick
+        subprocess.call(['mkdir', '-p', config.download_path])
+        window = SeriesWindow()
+        window.show()
+        app.init(window)
+        app.exec_()
