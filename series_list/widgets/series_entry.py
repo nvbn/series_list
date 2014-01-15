@@ -35,6 +35,8 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         self.model = model
         self._downloading = False
         self.title.setText(model.title)
+        self.model.subscribe('poster', self._set_poster_pixmap)
+        self.model.subscribe('subtitle', self._update_subtitle)
         self._set_poster_pixmap()
         self._update_subtitle()
         self._update_download_status()

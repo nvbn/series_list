@@ -3,13 +3,15 @@ from glob import glob
 from .lib.async import async, proxy
 from .loaders import library
 from .settings import config
+from .lib.reactive import Observable
 from . import const
 
 
-class BaseModel(object):
+class BaseModel(Observable):
     """Base model"""
 
     def __init__(self, **kwargs):
+        super(BaseModel, self).__init__()
         for key, value in kwargs.items():
             setattr(self, key, value)
 
@@ -39,7 +41,6 @@ class SeriesEntry(BaseModel):
     def load_poster(self):
         """Get poster from loader"""
         self.poster = yield proxy.posters.get_poster(title=self.title)
-        print self.poster
 
     @async
     def load_subtitle(self):
