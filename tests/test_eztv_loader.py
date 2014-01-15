@@ -28,13 +28,13 @@ class EZTVLoaderCase(TestCase):
 
     def test_have_correct_title(self):
         """Test have correct title"""
-        self.loader.get_series()[0].title.should.be\
+        self.loader.get_series()[0]['title'].should.be\
             .equal('Wildest Islands 2of8 Carribean 720p x'
                    '264 AC3 HDTV-MVGroup')
 
     def test_have_correct_magnet(self):
         """Test have correct magnet"""
-        self.loader.get_series()[0].magnet.should.be\
+        self.loader.get_series()[0]['magnet'].should.be\
             .equal('magnet:?xt=urn:btih:FE1AC8B268B008C18120403357E4C06301012'
                    '953&dn=Wildest.Islands.2of8.Carribean.720p.x264.AC3.HDTV'
                    '-MVGroup&tr=http://www.mvgroup.org:2710/announce&tr=udp:'

@@ -28,12 +28,12 @@ class PirateBayLoaderCase(TestCase):
 
     def test_have_correct_title(self):
         """Test have correct title"""
-        self.loader.get_series()[0].title.should.be\
+        self.loader.get_series()[0]['title'].should.be\
             .equal('Sam.and.Cat.S01E19.MyPoober.HDTV.XviD-AFG')
 
     def test_have_correct_magnet(self):
         """Test have correct magnet"""
-        self.loader.get_series()[0].magnet.should.be\
+        self.loader.get_series()[0]['magnet'].should.be\
             .equal('magnet:?xt=urn:btih:a81d9b59dff7d2105aef3d00f15bc3221531d'
                    'b36&dn=Sam.and.Cat.S01E19.MyPoober.HDTV.XviD-AFG&tr=udp%3'
                    'A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftra'
