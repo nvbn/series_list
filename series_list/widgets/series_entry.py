@@ -43,11 +43,6 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         QApplication.instance()\
             .download_progress.connect(self._maybe_progress)
 
-    def _maybe_entry_updated(self, entry):
-        """Maybe poster updated"""
-        if entry.magnet == self.model.magnet:
-            self.model.update(entry)
-
     def _maybe_downloaded(self, entry):
         """Maybe downloaded updated"""
         if entry.magnet == self.model.magnet:

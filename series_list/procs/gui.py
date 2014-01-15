@@ -3,7 +3,6 @@ import subprocess
 from PySide.QtCore import Signal, QTimer
 from PySide.QtGui import QApplication
 from ..workers.downloads import DownloadsWorkerThread
-from ..workers.series import SeriesListWorkerThread
 from ..widgets.series_window import SeriesWindow
 from ..widgets.series_entry import SeriesEntryWidget
 from ..loaders import library
@@ -18,7 +17,6 @@ class SeriesListApp(QApplication):
     """Series list application"""
     downloaded = Signal(SeriesEntry)
     download_progress = Signal(SeriesEntry, float)
-    entry_updated = Signal(SeriesEntry)
 
     def init(self, window):
         """Init application"""
@@ -31,22 +29,17 @@ class SeriesListApp(QApplication):
 
     def _init_workers(self):
         """Init worker"""
-        self.series_worker = SeriesListWorkerThread()
-        self.series_worker.start()
         self.downloads_worker = DownloadsWorkerThread()
         self.downloads_worker.start()
 
     def _init_events(self):
         """Init events"""
         self.window.series_widget.need_more.connect(self._load_episodes)
-        self.series_worker.received.connect(self._episode_received)
-        self.series_worker.no_new_data.connect(self._nothing_received)
-        self.series_worker.something_wrong.connect(self._something_wrong)
         self.window.filter_widget.filter_changed.connect(self._filter_changed)
         self.downloads_worker.downloaded.connect(self._downloaded)
         self.downloads_worker.download_progress.connect(self._download_progress)
         self.timer = QTimer(self)
-        self.timer.timeout.connect(self.check_queue)
+        self.timer.timeout.connect(lambda: current_actor().loop_tick())
         self.timer.start(50)
 
     def _can_load_episodes(self, page):
@@ -64,6 +57,8 @@ class SeriesListApp(QApplication):
             episodes = yield proxy.episodes.get_episodes(
                 page=page, filters=self._filter,
             )
+            if not len(episodes):
+                self._nothing_received(tick)
             for episode in episodes:
                 self._episode_received(
                     SeriesEntry.get_or_create(**episode), tick,
@@ -105,14 +100,6 @@ class SeriesListApp(QApplication):
         self.tick += 1
         self._filter = value
         self._load_episodes()
-
-    @ticked
-    def _update_received(self, episode, tick):
-        """Update received"""
-        self.entry_updated.emit(episode)
-
-    def check_queue(self):
-        current_actor().loop_tick()
 
 
 class GuiActor(Actor):
