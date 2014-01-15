@@ -1,9 +1,10 @@
-from ..lib.actors import Actor
+from ..lib.green import GreenActor
 from ..loaders import library
 
 
-class EpisodeActor(Actor):
+class EpisodeActor(GreenActor):
     """Episode actor"""
+    max_wait = 1
 
     def run(self):
         library.import_all()

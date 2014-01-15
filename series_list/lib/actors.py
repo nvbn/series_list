@@ -47,13 +47,18 @@ class Actor(Process):
         try:
             msg_type, seed, sender, msg = self._get_input()
         except Empty:
-            return
+            return False
+
         if msg_type == 'call':
-            result = self.on_message(msg[0], **msg[1])
-            actors[sender].respond(seed, result)
+            self._on_call(sender, seed, msg)
         elif msg_type == 'result':
             self._callbacks[seed](msg)
             del self._callbacks[seed]
+        return True
+
+    def _on_call(self, sender, seed, msg):
+        result = self.on_message(msg[0], **msg[1])
+        actors[sender].respond(seed, result)
 
     def _get_seed(self):
         """Get new seed each time"""

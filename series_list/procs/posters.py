@@ -1,8 +1,8 @@
-from ..lib.actors import Actor
+from ..lib.green import GreenActor
 from ..loaders import library
 
 
-class PostersActor(Actor):
+class PostersActor(GreenActor):
     """Posters actor"""
 
     def run(self):

@@ -1,8 +1,8 @@
-from ..lib.actors import Actor
+from ..lib.green import GreenActor
 from ..loaders import library
 
 
-class SubtitlesActor(Actor):
+class SubtitlesActor(GreenActor):
     """Subtitles actor"""
 
     def run(self):
