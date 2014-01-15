@@ -50,26 +50,30 @@ class SeriesListApp(QApplication):
         self.timer.timeout.connect(self.check_queue)
         self.timer.start(50)
 
-    def _load_episodes(self, page=0):
-        """Load episodes"""
+    def _can_load_episodes(self, page):
         if not library.series.can_change_page_with_filter:
             if page > 0 and self._filter:
                 self.window.series_widget.no_new_data()
-                return
-
-        self.series_worker.need_series.emit(
-            page, self._filter, self.tick,
-        )
+                return False
+        return True
 
     @async
-    @ticked
-    def _episode_received(self, episode, tick):
+    def _load_episodes(self, page=0):
+        """Load episodes"""
+        if self._can_load_episodes(page):
+            episodes = yield proxy.episodes.get_episodes(
+                page=page, filters=self._filter,
+            )
+            for episode in episodes:
+                self._episode_received(episode)
+
+    @async
+    def _episode_received(self, episode):
         """Episode received"""
         entry = SeriesEntryWidget.get_or_create(episode)
         self.window.series_widget.add_entry(entry)
         episode = yield proxy.fetcher.fill(episode=episode)
         self.entry_updated.emit(episode)
-        # self.out_queue.put((episode, self.tick))
 
     @ticked
     def _nothing_received(self, tick):
@@ -147,9 +151,6 @@ class GuiActor(Actor):
         super(GuiActor, self).run()
         library.import_all()
         app = SeriesListApp(sys.argv)
-        # app.in_queue = in_queue
-        # app.out_queue = out_queue
-        # app.shared_tick = tick
         subprocess.call(['mkdir', '-p', config.download_path])
         window = SeriesWindow()
         window.show()

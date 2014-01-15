@@ -47,8 +47,8 @@ class FetcherActor(Actor):
         library.import_all()
         super(FetcherActor, self).run()
 
-    def on_message(self, msg, **data):
-        if msg == 'fill':
-            data['episode'].load_poster()
-            data['episode'].load_subtitle()
-            return data['episode']
+    def fill(self, episode):
+        print 'FILLLLLLLLLLLL'
+        episode.load_poster()
+        episode.load_subtitle()
+        return episode

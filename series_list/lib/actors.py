@@ -68,6 +68,7 @@ class Actor(Process):
 
     def on_message(self, msg, **data):
         """On message received"""
+        return getattr(self, msg)(**data)
 
     def send(self, msg, callback=lambda *args, **kwargs: None, **data):
         """Send message to actor"""
