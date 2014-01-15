@@ -11,6 +11,7 @@ from ..utils import ticked
 from ..settings import config
 from ..lib.actors import Actor, current_actor
 from ..lib.async import async, proxy
+from .. import const
 
 
 class SeriesListApp(QApplication):
@@ -23,6 +24,7 @@ class SeriesListApp(QApplication):
         self.window = window
         self.tick = 0
         self._filter = ''
+        self._cached_episodes = []
         self._init_workers()
         self._init_events()
         self._load_episodes()
@@ -44,7 +46,7 @@ class SeriesListApp(QApplication):
 
     def _can_load_episodes(self, page):
         if not library.series.can_change_page_with_filter:
-            if page > 0 and self._filter:
+            if page > 0 and self._filter and not len(self._cached_episodes):
                 self.window.series_widget.no_new_data()
                 return False
         return True
@@ -54,11 +56,18 @@ class SeriesListApp(QApplication):
         """Load episodes"""
         if self._can_load_episodes(page):
             tick = self.tick
-            episodes = yield proxy.episodes.get_episodes(
-                page=page, filters=self._filter,
-            )
+            if len(self._cached_episodes):
+                episodes = self._cached_episodes[:const.MAX_LIMIT]
+                self._cached_episodes = self._cached_episodes[const.MAX_LIMIT:]
+            else:
+                episodes = yield proxy.episodes.get_episodes(
+                    page=page, filters=self._filter,
+                )
             if not len(episodes):
                 self._nothing_received(tick)
+            if len(episodes) > const.MAX_LIMIT:
+                self._cached_episodes = episodes[const.MAX_LIMIT:]
+                episodes = episodes[:const.MAX_LIMIT]
             for episode in episodes:
                 self._episode_received(
                     SeriesEntry.get_or_create(**episode), tick,
@@ -99,6 +108,7 @@ class SeriesListApp(QApplication):
         self.window.series_widget.clear()
         self.tick += 1
         self._filter = value
+        self._cached_episodes = []
         self._load_episodes()
 
 
