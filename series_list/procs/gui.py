@@ -72,7 +72,8 @@ class SeriesListApp(QApplication):
         """Episode received"""
         entry = SeriesEntryWidget.get_or_create(episode)
         self.window.series_widget.add_entry(entry)
-        episode = yield proxy.fetcher.fill(episode=episode)
+        episode = yield proxy.subtitles.set_subtitles(episode=episode)
+        episode = yield proxy.posters.set_poster(episode=episode)
         self.entry_updated.emit(episode)
 
     @ticked
