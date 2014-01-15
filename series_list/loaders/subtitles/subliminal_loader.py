@@ -74,7 +74,7 @@ class SubliminalLoader(SubtitlesLoader):
             return None
         episode_html = self._fetch_episode(episode_url)
         if self._check_subtitles_exists(episode_html):
-            return Subtitle(
+            return dict(
                 name=name,
                 wait_for_file=True,
             )

@@ -53,7 +53,7 @@ class Addic7edLoader(SubtitlesLoader):
         except AttributeError:
             return None
         episode = self._fetch_episode(episode_url)
-        return Subtitle(
+        return dict(
             url=self._parse_episode(episode),
             refer=episode_url,
             name=name,

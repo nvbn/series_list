@@ -9,7 +9,7 @@ class NoSubtitlesLoader(SubtitlesLoader):
 
     def get_subtitle_url(self, name):
         """Always return ok"""
-        return Subtitle(
+        return dict(
             name=name,
             wait_for_file=True,
         )

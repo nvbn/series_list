@@ -45,7 +45,8 @@ class SeriesEntry(Observable, BaseModel):
     @async
     def load_subtitle(self):
         """Get subtitles from loader"""
-        self.subtitle = yield proxy.subtitles.get_subtitles(title=self.title)
+        subtitle = yield proxy.subtitles.get_subtitles(title=self.title)
+        self.subtitle = Subtitle(**subtitle) if subtitle else None
 
     @property
     def file_name(self):
