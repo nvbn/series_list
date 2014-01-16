@@ -1,13 +1,10 @@
 from ..lib.green import GreenActor
 from ..loaders import library
+from .base import WithLibraryMixin
 
 
-class PostersActor(GreenActor):
+class PostersActor(WithLibraryMixin, GreenActor):
     """Posters actor"""
-
-    def run(self):
-        library.import_all()
-        super(PostersActor, self).run()
 
     def get_poster(self, title):
         """Get poster for episodes"""

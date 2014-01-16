@@ -5,6 +5,7 @@ from ..loaders import library
 from ..models import Subtitle
 from ..settings import config
 from .. import const
+from .base import WithLibraryMixin
 
 
 class VideoDownloadHandler(object):
@@ -66,13 +67,12 @@ class VideoDownloadHandler(object):
         return getattr(self._handle, item)
 
 
-class DownloadActor(Actor):
+class DownloadActor(WithLibraryMixin, Actor):
     """Actor for downloading content"""
     self_loop = True
 
     def run(self):
         super(DownloadActor, self).run()
-        library.import_all()
         self._handlers = {}
         while True:
             self.loop_tick()

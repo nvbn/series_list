@@ -1,14 +1,11 @@
 from ..lib.green import GreenActor
 from ..loaders import library
+from .base import WithLibraryMixin
 
 
-class EpisodeActor(GreenActor):
+class EpisodeActor(WithLibraryMixin, GreenActor):
     """Episode actor"""
     max_wait = 1
-
-    def run(self):
-        library.import_all()
-        super(EpisodeActor, self).run()
 
     def get_episodes(self, page, filters):
         """Get episodes"""

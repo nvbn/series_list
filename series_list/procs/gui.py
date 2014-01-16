@@ -11,6 +11,7 @@ from ..lib.async import ticked
 from ..lib.actors import Actor, current_actor
 from ..lib.async import async, proxy
 from .. import const
+from .base import WithLibraryMixin
 
 
 class SeriesListApp(QApplication):
@@ -98,13 +99,12 @@ class SeriesListApp(QApplication):
         self._load_episodes()
 
 
-class GuiActor(Actor):
+class GuiActor(WithLibraryMixin, Actor):
     use_nowait = True
     self_loop = True
 
     def run(self):
         super(GuiActor, self).run()
-        library.import_all()
         app = SeriesListApp(sys.argv)
         subprocess.call(['mkdir', '-p', config.download_path])
         window = SeriesWindow()

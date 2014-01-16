@@ -1,13 +1,10 @@
 from ..lib.green import GreenActor
 from ..loaders import library
+from .base import WithLibraryMixin
 
 
-class SubtitlesActor(GreenActor):
+class SubtitlesActor(WithLibraryMixin, GreenActor):
     """Subtitles actor"""
-
-    def run(self):
-        library.import_all()
-        super(SubtitlesActor, self).run()
 
     def get_subtitles(self, title):
         """Get subtitles for episodes"""
