@@ -1,5 +1,5 @@
 import subprocess
-from PySide.QtGui import QPixmap, QApplication, QFrame
+from PySide.QtGui import QPixmap, QFrame
 from ..lib.ui import WithUiMixin
 from ..settings import config
 from .. import const
@@ -37,24 +37,8 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
         self.title.setText(model.title)
         self.model.subscribe('poster', self._set_poster_pixmap)
         self.model.subscribe('subtitle', self._update_subtitle)
-        self._update_download_status()
-        QApplication.instance()\
-            .downloaded.connect(self._maybe_downloaded)
-        QApplication.instance()\
-            .download_progress.connect(self._maybe_progress)
-
-    def _maybe_downloaded(self, entry):
-        """Maybe downloaded updated"""
-        if entry.magnet == self.model.magnet:
-            self.model = entry
-            self._update_download_status()
-
-    def _maybe_progress(self, entry, value):
-        """Maybe download progress"""
-        if entry.magnet == self.model.magnet:
-            self.model = entry
-            self.progress.setValue(value)
-            self._update_preview_state()
+        self.model.subscribe('download_state', self._update_download_status)
+        self.model.subscribe('download_percent', self._update_download_percent)
 
     def _set_poster_pixmap(self, poster):
         """Get poster pixmap"""
@@ -78,53 +62,47 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
 
     def _pause(self):
         """Pause or resume downloading"""
-        if self.pauseButton.isChecked():
-            self.model.pause_state = const.NEED_PAUSE
+        if self.model.download_state == const.DOWNLOAD_PAUSED:
+            self.model.resume_download()
         else:
-            self.model.pause_state = const.NEED_RESUME
+            self.model.pause_download()
 
     def _download(self):
         """Start downloading"""
-        self._downloading = True
-        self.model.stop_download = False
-        QApplication.instance().need_download(self.model)
-        self._update_download_status()
-        self.pauseButton.setChecked(False)
+        self.model.download()
 
     def _stop(self):
         """Stop downloading"""
-        if self._downloading:
-            self.model.stop_download = True
-            self._downloading = False
-            self.progress.setValue(0)
-            self._update_download_status()
-        else:
+        if self.model.download_state == const.DOWNLOAD_FINISHED:
             self.model.remove_file()
-            self._update_download_status()
+        else:
+            self.model.stop_download()
 
-    def _update_preview_state(self):
-        """Update preview state"""
-        if self._downloading:
-            if self.progress.value() >= config.preview_minimum:
-                self.openButton.show()
-            else:
-                self.openButton.hide()
+    def _update_download_percent(self, percent):
+        """Update download percent"""
+        self.progress.setValue(percent)
+        if percent >= config.preview_minimum:
+            self.openButton.show()
+        else:
+            self.openButton.hide()
 
-    def _update_download_status(self):
+    def _update_download_status(self, state):
         """Update download status"""
-        if self.model.exists and not self.model.stop_download:
+        if state == const.DOWNLOAD_FINISHED:
             self.download.hide()
             self.stopButton.show()
             self.openButton.show()
             self.progress.hide()
             self.pauseButton.hide()
-        elif self._downloading:
+            self.openButton.show()
+        elif state in (const.DOWNLOADING, const.DOWNLOAD_PAUSED):
             self.download.hide()
             self.stopButton.show()
             self.progress.show()
             self.pauseButton.show()
-            self._update_preview_state()
+            self.pauseButton.setChecked(state == const.DOWNLOAD_PAUSED)
         else:
+            self.progress.setValue(0)
             self.download.show()
             self.stopButton.hide()
             self.openButton.hide()

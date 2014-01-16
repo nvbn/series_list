@@ -7,7 +7,6 @@ try:
 except ImportError:
     from subliminal import save_subtitles
 import subliminal
-from ...models import Subtitle
 from ...settings import config
 from .. import library
 from ..base import return_if_timeout, similarity
@@ -83,7 +82,7 @@ class SubliminalLoader(SubtitlesLoader):
 
     def download(self, model):
         """Download subtitles using subliminal"""
-        video = subliminal.scan_video(model.series.path)
+        video = subliminal.scan_video(model.series_path)
         subtitles = subliminal.download_best_subtitles(
             {video}, {Language('eng')},
         )
