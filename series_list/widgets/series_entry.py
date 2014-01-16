@@ -80,18 +80,18 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
 
     def _update_download_percent(self, percent):
         """Update download percent"""
-        self.progress.setValue(percent)
-        if percent >= config.preview_minimum:
-            self.openButton.show()
-        else:
-            self.openButton.hide()
+        if self.model.download_state == const.DOWNLOADING:
+            self.progress.setValue(percent)
+            if percent >= config.preview_minimum:
+                self.openButton.show()
+            else:
+                self.openButton.hide()
 
     def _update_download_status(self, state):
         """Update download status"""
         if state == const.DOWNLOAD_FINISHED:
             self.download.hide()
             self.stopButton.show()
-            self.openButton.show()
             self.progress.hide()
             self.pauseButton.hide()
             self.openButton.show()
@@ -105,9 +105,9 @@ class SeriesEntryWidget(WithUiMixin, QFrame):
             self.progress.setValue(0)
             self.download.show()
             self.stopButton.hide()
-            self.openButton.hide()
             self.progress.hide()
             self.pauseButton.hide()
+            self.openButton.hide()
 
     def _open(self):
         """Open downloaded file"""

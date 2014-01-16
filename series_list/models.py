@@ -53,7 +53,8 @@ class SeriesEntry(Observable, BaseModel):
                 if self.download_percent == const.NO_PERCENT:
                     self._make_stopped()
                     break
-            self.download_state = const.DOWNLOAD_FINISHED
+            if self.download_state != const.NO_DOWNLOAD:
+                self.download_state = const.DOWNLOAD_FINISHED
 
     @async
     def pause_download(self):
