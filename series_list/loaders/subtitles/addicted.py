@@ -1,7 +1,6 @@
 from urllib import urlencode
 from BeautifulSoup import BeautifulSoup
 import requests
-from ...models import Subtitle
 from ..base import return_if_timeout
 from .. import library
 from .base import SubtitlesLoader

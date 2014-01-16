@@ -1,4 +1,3 @@
-from ...models import Subtitle
 from .. import library
 from .base import SubtitlesLoader
 

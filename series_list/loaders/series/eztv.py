@@ -1,6 +1,5 @@
 from BeautifulSoup import BeautifulSoup
 import requests
-from ...models import SeriesEntry
 from ..base import return_if_timeout
 from ..exceptions import LoaderFault
 from .. import library
