@@ -7,8 +7,8 @@ from ..widgets.series_window import SeriesWindow
 from ..widgets.series_entry import SeriesEntryWidget
 from ..loaders import library
 from ..models import SeriesEntry
-from ..utils import ticked
 from ..settings import config
+from ..lib.async import ticked
 from ..lib.actors import Actor, current_actor
 from ..lib.async import async, proxy
 from .. import const

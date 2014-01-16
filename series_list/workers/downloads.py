@@ -3,7 +3,7 @@ from PySide.QtCore import Signal, QObject, QTimer
 from ..downloads.series import DownloadSeries
 from ..downloads.subtitles import DownloadSubtitle
 from ..models import SeriesEntry
-from ..utils import ticked
+from ..lib.async import ticked
 from .. import const
 from .base import BaseWorkerThread
 
