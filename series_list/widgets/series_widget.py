@@ -1,6 +1,6 @@
 from PySide.QtCore import Signal, Qt
 from PySide.QtGui import QWidget
-from ..interface.loader import WithUiMixin
+from ..lib.ui import WithUiMixin
 
 
 class SeriesWidget(WithUiMixin, QWidget):

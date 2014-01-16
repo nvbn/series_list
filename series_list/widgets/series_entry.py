@@ -1,6 +1,6 @@
 import subprocess
 from PySide.QtGui import QPixmap, QApplication, QFrame
-from ..interface.loader import WithUiMixin
+from ..lib.ui import WithUiMixin
 from ..settings import config
 from .. import const
 

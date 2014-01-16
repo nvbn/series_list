@@ -1,5 +1,5 @@
 from PySide.QtGui import QDialog, QFileDialog
-from ..interface.loader import WithUiMixin
+from ..lib.ui import WithUiMixin
 from ..settings import config
 from ..loaders import library
 

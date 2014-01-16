@@ -68,7 +68,7 @@ def load_ui(uifile, baseinstance=None):
     """
     loader = UiLoader(baseinstance)
     widget = loader.load(os.path.join(
-        os.path.dirname(__file__), uifile,
+        os.path.dirname(__file__), '..', 'interface', uifile,
     ))
     QMetaObject.connectSlotsByName(widget)
     return widget

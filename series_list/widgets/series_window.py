@@ -4,7 +4,7 @@ from PySide.QtCore import Signal, Qt
 from PySide.QtGui import QMainWindow, QVBoxLayout, QWidget, QIcon
 from .. import const
 from ..settings import config
-from ..interface.loader import WithUiMixin
+from ..lib.ui import WithUiMixin
 from .filter_widget import FilterWidget
 from .series_widget import SeriesWidget
 from .settings_dialog import SettingsDialog
