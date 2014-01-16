@@ -49,18 +49,27 @@ class SeriesListApp(QApplication):
                 episodes = self._cached_episodes[:const.MAX_LIMIT]
                 self._cached_episodes = self._cached_episodes[const.MAX_LIMIT:]
             else:
-                episodes = yield proxy.episodes.get_episodes(
-                    page=page, filters=self._filter,
-                )
-            if not len(episodes):
-                self._nothing_received(tick)
-            if len(episodes) > const.MAX_LIMIT:
-                self._cached_episodes = episodes[const.MAX_LIMIT:]
-                episodes = episodes[:const.MAX_LIMIT]
-            for episode in episodes:
-                self._episode_received(
-                    SeriesEntry.get_or_create(**episode), tick,
-                )
+                try:
+                    episodes = yield proxy.episodes.get_episodes(
+                        page=page, filters=self._filter,
+                    )
+                except Exception:
+                    self._something_wrong(library.series.error_message, tick)
+                    raise StopIteration()
+            self._prepare_episodes(episodes, tick)
+
+    @ticked
+    def _prepare_episodes(self, episodes, tick):
+        """Prepare received episodes"""
+        if not len(episodes):
+            self._nothing_received(tick)
+        if len(episodes) > const.MAX_LIMIT:
+            self._cached_episodes = episodes[const.MAX_LIMIT:]
+            episodes = episodes[:const.MAX_LIMIT]
+        for episode in episodes:
+            self._episode_received(
+                SeriesEntry.get_or_create(**episode), tick,
+            )
 
     @ticked
     def _episode_received(self, episode, tick):

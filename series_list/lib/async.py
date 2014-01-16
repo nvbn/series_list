@@ -13,7 +13,9 @@ def async(fnc, *args, **kwargs):
             type(result) is tuple and len(result) and
             issubclass(result[0], Exception)
         ):
-            raise result[0](result[1])
+            gen.throw(result[0](result[1]))
+            return
+
         try:
             actor, msg, data = gen.send(result)
             actor.send(msg, perform, **data)
