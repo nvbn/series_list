@@ -1,6 +1,7 @@
 from Queue import Empty
 from multiprocessing import Queue, Process
 import threading
+import traceback
 
 
 actors = {}
@@ -57,8 +58,11 @@ class Actor(Process):
         return True
 
     def _on_call(self, sender, seed, msg):
-        result = self.on_message(msg[0], **msg[1])
-        actors[sender].respond(seed, result)
+        try:
+            result = self.on_message(msg[0], **msg[1])
+            actors[sender].respond(seed, result)
+        except Exception:
+            traceback.print_exc()
 
     def _get_seed(self):
         """Get new seed each time"""
