@@ -4,24 +4,19 @@ from .subliminal_loader import SubliminalLoader
 from .addicted import Addic7edLoader
 
 
-def to_hashable(model):
-    """Make model hashable"""
-    return frozenset(model.items())
-
-
 def composition(*loaders):
     """Create composition of loaders"""
-    relations = {}
-
     def get_subtitle_url(self, name):
         for loader in loaders:
             result = loader().get_subtitle_url(name)
             if result:
-                relations[to_hashable(result)] = loader
+                result['loader_name'] = loader.__name__
                 return result
 
     def download(self, model):
-        relations[to_hashable(model)]().download(model)
+        for loader in loaders:
+            if loader.__name__ == model.loader_name:
+                loader().download(model)
 
     return type(
         'Or'.join(loader.__name__ for loader in loaders),
