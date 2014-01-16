@@ -51,7 +51,7 @@ class SeriesEntry(Observable, BaseModel):
                     )
                     subtitles_loaded = True
                 if self.download_percent == const.NO_PERCENT:
-                    self.download_state = const.NO_DOWNLOAD
+                    self._make_stopped()
                     break
             self.download_state = const.DOWNLOAD_FINISHED
 
@@ -67,10 +67,15 @@ class SeriesEntry(Observable, BaseModel):
         self.download_state = const.DOWNLOADING
         yield proxy.download.resume(uri=self.magnet)
 
+    def _make_stopped(self):
+        """Make downloading stopped"""
+        self.download_percent = 0
+        self.download_state = const.NO_DOWNLOAD
+
     @async
     def stop_download(self):
         """Stop downloading"""
-        self.download_state = const.NO_DOWNLOAD
+        self._make_stopped()
         yield proxy.download.stop(uri=self.magnet)
 
     @async
@@ -103,7 +108,7 @@ class SeriesEntry(Observable, BaseModel):
             return
         full_path = os.path.join(os.path.dirname(self.path), name)
         os.unlink(full_path)
-        self.download_state = const.NO_DOWNLOAD
+        self._make_stopped()
 
     def update(self, other):
         """Update from other model"""

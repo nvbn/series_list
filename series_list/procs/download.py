@@ -102,7 +102,7 @@ class DownloadActor(Actor):
         """Get downloading percent"""
         try:
             return self._handlers[uri].percent
-        except IndexError:
+        except KeyError:
             return const.NO_PERCENT
 
     def stop(self, uri):
