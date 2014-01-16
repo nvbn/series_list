@@ -101,7 +101,6 @@ class DownloadActor(Actor):
     def get_percent(self, uri):
         """Get downloading percent"""
         try:
-            print self._handlers[uri].percent
             return self._handlers[uri].percent
         except IndexError:
             return const.NO_PERCENT

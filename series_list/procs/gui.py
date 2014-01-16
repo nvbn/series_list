@@ -2,7 +2,6 @@ import sys
 import subprocess
 from PySide.QtCore import Signal, QTimer
 from PySide.QtGui import QApplication
-from ..workers.downloads import DownloadsWorkerThread
 from ..widgets.series_window import SeriesWindow
 from ..widgets.series_entry import SeriesEntryWidget
 from ..loaders import library
@@ -16,8 +15,6 @@ from .. import const
 
 class SeriesListApp(QApplication):
     """Series list application"""
-    downloaded = Signal(SeriesEntry)
-    download_progress = Signal(SeriesEntry, float)
 
     def init(self, window):
         """Init application"""
@@ -25,21 +22,13 @@ class SeriesListApp(QApplication):
         self.tick = 0
         self._filter = ''
         self._cached_episodes = []
-        self._init_workers()
         self._init_events()
         self._load_episodes()
-
-    def _init_workers(self):
-        """Init worker"""
-        self.downloads_worker = DownloadsWorkerThread()
-        self.downloads_worker.start()
 
     def _init_events(self):
         """Init events"""
         self.window.series_widget.need_more.connect(self._load_episodes)
         self.window.filter_widget.filter_changed.connect(self._filter_changed)
-        self.downloads_worker.downloaded.connect(self._downloaded)
-        self.downloads_worker.download_progress.connect(self._download_progress)
         self.timer = QTimer(self)
         self.timer.timeout.connect(lambda: current_actor().loop_tick())
         self.timer.start(50)
@@ -90,18 +79,6 @@ class SeriesListApp(QApplication):
     def _something_wrong(self, message, tick):
         """handle faults"""
         self.window.series_widget.something_wrong(message)
-
-    def _downloaded(self, episode, tick):
-        """Downloaded"""
-        self.downloaded.emit(episode)
-
-    def _download_progress(self, episode, value):
-        """Download progress"""
-        self.download_progress.emit(episode, value)
-
-    def need_download(self, episode):
-        """Send need_subtitle to worker"""
-        self.downloads_worker.need_download.emit(episode, self.tick)
 
     def _filter_changed(self, value):
         """Filter changed"""
