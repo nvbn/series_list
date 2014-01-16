@@ -44,7 +44,10 @@ class SeriesEntry(Observable, BaseModel):
                 self.download_percent = yield proxy.download.get_percent(
                     uri=self.magnet,
                 )
-                if self.exists and not subtitles_loaded:
+                if (
+                    self.exists and not subtitles_loaded
+                    and self.download_percent > config.preview_minimum / 2
+                ):
                     self.subtitle.series_path = self.path
                     yield proxy.download.download_subtitle(
                         subtitle=self.subtitle.as_dict,
