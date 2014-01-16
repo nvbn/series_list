@@ -4,15 +4,8 @@ from .lib.async import async, proxy
 from .loaders import library
 from .settings import config
 from .lib.reactive import Observable
+from .lib.models import BaseModel
 from . import const
-
-
-class BaseModel(object):
-    """Base model"""
-
-    def __init__(self, **kwargs):
-        for key, value in kwargs.items():
-            setattr(self, key, value)
 
 
 class SeriesEntry(Observable, BaseModel):
