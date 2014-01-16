@@ -1,7 +1,7 @@
 import json
 import os
-from ..utils import lazy
 from .. import const
+from .lazy import lazy
 
 
 class Var(object):

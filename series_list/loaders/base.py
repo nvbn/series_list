@@ -2,7 +2,7 @@ import abc
 from copy import copy
 import requests
 from decorator import decorator
-from ..utils import lazy_for_all
+from ..lib.lazy import lazy_for_all
 from .exceptions import LoaderFault
 
 
