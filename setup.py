@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-version = '7.0'
+version = '7.1'
 
 setup(
     name='series_list',
