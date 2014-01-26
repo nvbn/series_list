@@ -93,6 +93,7 @@ class DownloadActor(WithLibraryMixin, Actor):
 
     def pause(self, uri):
         """Pause downloading"""
+        print 'a u pause?################################', uri
         return self._handlers[uri].pause()
 
     def resume(self, uri):
