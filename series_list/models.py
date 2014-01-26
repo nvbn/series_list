@@ -88,7 +88,7 @@ class SeriesEntry(Observable, BaseModel):
         try:
             self.poster = yield proxy.posters.get_poster(title=self.title)
         except Exception:
-            return
+            pass
 
     @async
     def load_subtitle(self):
