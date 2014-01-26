@@ -23,6 +23,7 @@ class SeriesListApp(QApplication):
         self.tick = 0
         self._filter = ''
         self._cached_episodes = []
+        self._is_loading = False
         self._init_events()
         self._load_episodes()
 
@@ -39,6 +40,8 @@ class SeriesListApp(QApplication):
             if page > 0 and self._filter and not len(self._cached_episodes):
                 self.window.series_widget.no_new_data()
                 return False
+        if page > 0 and self._is_loading:
+            return False
         return True
 
     @async
@@ -46,18 +49,25 @@ class SeriesListApp(QApplication):
         """Load episodes"""
         if self._can_load_episodes(page):
             tick = self.tick
-            if len(self._cached_episodes):
-                episodes = self._cached_episodes[:const.MAX_LIMIT]
-                self._cached_episodes = self._cached_episodes[const.MAX_LIMIT:]
-            else:
-                try:
-                    episodes = yield proxy.episodes.get_episodes(
-                        page=page, filters=self._filter,
-                    )
-                except Exception:
-                    self._something_wrong(library.series.error_message, tick)
-                    raise StopIteration()
-            self._prepare_episodes(episodes, tick)
+            try:
+                self._is_loading = False
+                if len(self._cached_episodes):
+                    episodes = self._cached_episodes[:const.MAX_LIMIT]
+                    self._cached_episodes =\
+                        self._cached_episodes[const.MAX_LIMIT:]
+                else:
+                    try:
+                        episodes = yield proxy.episodes.get_episodes(
+                            page=page, filters=self._filter,
+                        )
+                    except Exception:
+                        self._something_wrong(
+                            library.series.error_message, tick,
+                        )
+                        raise StopIteration()
+                self._prepare_episodes(episodes, tick)
+            finally:
+                self._is_loading = False
 
     @ticked
     def _prepare_episodes(self, episodes, tick):
