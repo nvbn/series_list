@@ -85,12 +85,18 @@ class SeriesEntry(Observable, BaseModel):
     @async
     def load_poster(self):
         """Get poster from loader"""
-        self.poster = yield proxy.posters.get_poster(title=self.title)
+        try:
+            self.poster = yield proxy.posters.get_poster(title=self.title)
+        except Exception:
+            return
 
     @async
     def load_subtitle(self):
         """Get subtitles from loader"""
-        subtitle = yield proxy.subtitles.get_subtitles(title=self.title)
+        try:
+            subtitle = yield proxy.subtitles.get_subtitles(title=self.title)
+        except Exception:
+            subtitle = None
         self.subtitle = Subtitle(**subtitle) if subtitle else None
 
     @property
