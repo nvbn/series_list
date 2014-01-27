@@ -71,7 +71,7 @@ class SeriesListApp(QApplication):
                         self._something_wrong(
                             library.series.error_message, tick,
                         )
-                        raise StopIteration()
+                        return
                 self._prepare_episodes(episodes, tick)
 
     @ticked
