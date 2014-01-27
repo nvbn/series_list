@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 import sys
 import subprocess
 from PySide.QtCore import Signal, QTimer
@@ -44,13 +45,19 @@ class SeriesListApp(QApplication):
             return False
         return True
 
+    @contextmanager
+    def loading(self):
+        """Loading lock"""
+        self._is_loading = True
+        yield
+        self._is_loading = False
+
     @async
     def _load_episodes(self, page=0):
         """Load episodes"""
         if self._can_load_episodes(page):
             tick = self.tick
-            try:
-                self._is_loading = False
+            with self.loading():
                 if len(self._cached_episodes):
                     episodes = self._cached_episodes[:const.MAX_LIMIT]
                     self._cached_episodes =\
@@ -66,8 +73,6 @@ class SeriesListApp(QApplication):
                         )
                         raise StopIteration()
                 self._prepare_episodes(episodes, tick)
-            finally:
-                self._is_loading = False
 
     @ticked
     def _prepare_episodes(self, episodes, tick):
