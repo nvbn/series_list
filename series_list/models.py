@@ -127,7 +127,7 @@ class SeriesEntry(Observable, BaseModel):
 
     def _get_probably_name(self):
         """Get probably name"""
-        pattern = '{}*'.format(os.path.join(
+        pattern = u'{}*'.format(os.path.join(
             config.download_path, self.title,
         ))
         return filter(

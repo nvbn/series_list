@@ -19,15 +19,13 @@ class VideoDownloadHandler(object):
     def start(self):
         """Start downloading"""
         self._session = libtorrent.session()
-        self._handle = libtorrent.add_magnet_uri(
-            self._session, self._uri, {
-                'save_path': config.download_path,
-            }
-        )
+        self._handle = self._session.add_torrent({
+            'url': self._uri,
+            'save_path': config.download_path,
+        })
         self._wait_metadata()
         self._move_biggest_file()
         self._handle.set_sequential_download(True)
-        print 'ok, i start'
 
     def _wait_metadata(self):
         """Wait while metadata receiving"""
