@@ -17,6 +17,7 @@ class GreenActor(Actor):
         import gevent
         import gevent.monkey
         gevent.monkey.patch_socket()
+        gevent.monkey.patch_ssl()
 
         self._update_last_call()
         self._buffer = []
