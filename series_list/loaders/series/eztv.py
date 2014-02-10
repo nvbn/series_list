@@ -11,6 +11,7 @@ class EZTVLoader(SeriesLoader):
     """eztv.it loader"""
     can_change_page_with_filter = False
     hosts = [
+        'https://eztv-proxy.net/',
         'http://eztv.it/',
         'http://185.19.104.70/',
     ]
@@ -46,6 +47,13 @@ class EZTVLoader(SeriesLoader):
                 title=part.findAll('td')[1].find('a').text,
                 magnet=part.findAll('td')[2].find('a')['href'],
             )
+
+    @property
+    def request_params(self):
+        """Add verify=false to request params"""
+        params = {'verify': False}
+        params.update(super(EZTVLoader, self).request_params)
+        return params
 
     @return_if_timeout([])
     def get_series(self, page=0, filters=''):

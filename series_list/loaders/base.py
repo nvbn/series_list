@@ -33,8 +33,7 @@ class BaseLoader(object):
         try:
             requests.head(host, **self.request_params)
             return True
-        except requests.ConnectionError as e:
-            print e
+        except requests.ConnectionError:
             return False
 
 
