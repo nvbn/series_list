@@ -13,8 +13,10 @@ class IMDBPosterLoader(PostersLoader):
     hosts = [
         'http://www.imdb.com/',
     ]
-    default_poster = 'http://ia.media-imdb.com/images/G/01/imdb/'\
+    default_poster = (
+        'http://ia.media-imdb.com/images/G/01/imdb/'
         'images/nopicture/32x44/film-3119741174._V379391527_.png'
+    )
     cache = {}
 
     def _prepare_name(self, name):
@@ -34,7 +36,7 @@ class IMDBPosterLoader(PostersLoader):
     def _fetch_html(self, name):
         """Fetch html"""
         return requests.get(
-            self._get_url(name), timeout=self.timeout,
+            self._get_url(name), **self.request_params
         ).content
 
     def _parse_html(self, html):
@@ -55,7 +57,7 @@ class IMDBPosterLoader(PostersLoader):
         """Fetch poster data"""
         if not url in self.cache:
             self.cache[url] = requests.get(
-                url, timeout=self.timeout,
+                url, **self.request_params
             ).content
         return self.cache[url]
 

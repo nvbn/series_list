@@ -26,12 +26,12 @@ class EZTVLoader(SeriesLoader):
         """Fetch html"""
         url = self._get_url(page, filters)
         if filters == '':
-            return requests.get(url, timeout=self.timeout).content
+            return requests.get(url, **self.request_params).content
         else:
             return requests.post(url, {
                 'SearchString1': filters,
                 'Page': page,
-            }, timeout=self.timeout).content
+            }, **self.request_params).content
 
     def _check_faults(self, html):
         """Check if eztv not work"""

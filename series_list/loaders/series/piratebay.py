@@ -24,7 +24,7 @@ class PirateBayLoader(SeriesLoader):
     def _fetch_html(self, page, filters):
         """Fetch html"""
         return requests.get(
-            self._get_url(page, filters), timeout=self.timeout,
+            self._get_url(page, filters), **self.request_params
         ).content
 
     def _parse_html(self, html):

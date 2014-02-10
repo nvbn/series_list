@@ -23,7 +23,7 @@ class Addic7edLoader(SubtitlesLoader):
     def _fetch_search(self, name):
         """Fetch search result"""
         return requests.get(
-            self._get_url(name), timeout=self.timeout,
+            self._get_url(name), **self.request_params
         ).content
 
     def _get_episode_url(self, html):
@@ -35,7 +35,7 @@ class Addic7edLoader(SubtitlesLoader):
 
     def _fetch_episode(self, url):
         """Fetch episode"""
-        return requests.get(url, timeout=self.timeout).content
+        return requests.get(url, **self.request_params).content
 
     def _parse_episode(self, html):
         """Parse episode page"""
@@ -63,4 +63,5 @@ class Addic7edLoader(SubtitlesLoader):
         with open(model.path, 'w') as file_o:
             file_o.write(requests.get(
                 model.url, headers={'Referer': model.refer},
+                **self.request_params
             ).content)

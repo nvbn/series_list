@@ -29,7 +29,7 @@ class SubliminalLoader(SubtitlesLoader):
     def _fetch_search_page(self, name):
         """Fetch search page"""
         return requests.get(
-            self._get_search_page_url(name), timeout=self.timeout,
+            self._get_search_page_url(name), **self.request_params
         ).content
 
     def _get_episode_url(self, html, name):
@@ -49,7 +49,9 @@ class SubliminalLoader(SubtitlesLoader):
         """Fetch episode page"""
         if retry > config.max_retry:
             return ''
-        response = requests.get(url, allow_redirects=False)
+        response = requests.get(
+            url, allow_redirects=False, **self.request_params
+        )
         if response.status_code == 200:
             return response.content
         else:

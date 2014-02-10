@@ -23,12 +23,18 @@ class BaseLoader(object):
                 return host
         raise LoaderFault('No working hosts')
 
+    @property
+    def request_params(self):
+        """Get request.<method> params"""
+        return {'timeout': self.timeout}
+
     def _check_host(self, host):
         """Check is host available"""
         try:
-            requests.head(host, timeout=self.timeout)
+            requests.head(host, **self.request_params)
             return True
-        except requests.ConnectionError:
+        except requests.ConnectionError as e:
+            print e
             return False
 
 
