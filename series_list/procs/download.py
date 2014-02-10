@@ -27,6 +27,7 @@ class VideoDownloadHandler(object):
         self._wait_metadata()
         self._move_biggest_file()
         self._handle.set_sequential_download(True)
+        print 'ok, i start'
 
     def _wait_metadata(self):
         """Wait while metadata receiving"""
