@@ -19,6 +19,7 @@ class VideoDownloadHandler(object):
     def start(self):
         """Start downloading"""
         self._session = libtorrent.session()
+        self._configure_session()
         self._handle = self._session.add_torrent({
             'url': self._uri,
             'save_path': config.download_path,
@@ -26,6 +27,17 @@ class VideoDownloadHandler(object):
         self._wait_metadata()
         self._move_biggest_file()
         self._handle.set_sequential_download(True)
+
+    def _configure_session(self):
+        """Configure session"""
+        if config.upnp:
+            self._session.start_upnp()
+        if config.natpmp:
+            self._session.start_natpmp()
+        if config.lsd:
+            self._session.start_lsd()
+        if config.dht:
+            self._session.start_dht()
 
     def _wait_metadata(self):
         """Wait while metadata receiving"""
