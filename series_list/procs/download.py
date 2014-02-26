@@ -38,6 +38,9 @@ class VideoDownloadHandler(object):
             self._session.start_lsd()
         if config.dht:
             self._session.start_dht()
+        self._session.add_extension(libtorrent.create_metadata_plugin)
+        self._session.add_extension(libtorrent.create_ut_metadata_plugin)
+        self._session.add_extension(libtorrent.create_ut_pex_plugin)
 
     def _wait_metadata(self):
         """Wait while metadata receiving"""
