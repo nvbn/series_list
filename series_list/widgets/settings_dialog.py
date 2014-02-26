@@ -21,6 +21,13 @@ class SettingsDialog(WithUiMixin, QDialog):
             (self.seriesProviders, 'series_loader', library.series),
             (self.subtitlesProviders, 'subtitles_loader', library.subtitles),
         )
+        self._flags = (
+            (self.dht, 'dht'),
+            (self.extensions, 'libtorrent_extensions'),
+            (self.lsd, 'lsd'),
+            (self.natpmp, 'natpmp'),
+            (self.upnp, 'upnp'),
+        )
         self._set_initial_values()
         self._init_events()
 
@@ -57,6 +64,10 @@ class SettingsDialog(WithUiMixin, QDialog):
         widget.addItems(available)
         widget.setCurrentIndex(available.index(current))
 
+    def _load_flag(self, widget, current):
+        """Load flag value"""
+        widget.setChecked(current)
+
     def _set_initial_values(self):
         """Set initial values"""
         self._update_path(config.download_path)
@@ -66,6 +77,8 @@ class SettingsDialog(WithUiMixin, QDialog):
             self._load_loader(
                 widget, getattr(config, settings_name), register.names,
             )
+        for widget, settings_name in self._flags:
+            self._load_flag(widget, getattr(config, settings_name))
         self.previewPercent.setValue(config.preview_minimum)
 
     def _timeout_to_settings(self, value):
@@ -87,6 +100,10 @@ class SettingsDialog(WithUiMixin, QDialog):
             widget.currentText(),
         ))
 
+    def _save_flag(self, widget, settings_name):
+        """Safe flag state"""
+        setattr(config, settings_name, widget.isChecked())
+
     def _save_changes(self):
         """Save changes"""
         config.download_path = self._download_path
@@ -94,4 +111,6 @@ class SettingsDialog(WithUiMixin, QDialog):
             self._save_timeout(widget, settings_name)
         for widget, settings_name, _ in self._loaders:
             self._save_loader(widget, settings_name)
+        for widget, settings_name in self._flags:
+            self._save_flag(widget, settings_name)
         config.preview_minimum = self.previewPercent.value()
