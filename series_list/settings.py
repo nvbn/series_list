@@ -22,6 +22,7 @@ class Config(BaseConfig):
     natpmp = Var(const.NATPMP_DEFAULT)
     lsd = Var(const.LSD_DEFAULT)
     dht = Var(const.DHT_DEFAULT)
+    libtorrent_extensions = Var(const.LIBTORRENT_EXTENSIONS_DEFAULT)
 
 
 config = Config()
