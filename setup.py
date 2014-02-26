@@ -1,7 +1,22 @@
+import sys
 from setuptools import setup, find_packages
 
 
 version = '7.3'
+
+requirements = [
+    'requests',
+    'BeautifulSoup',
+    'sure',
+    'nose',
+    'mock',
+    'decorator',
+    'gevent',
+    'subliminal >= 0.7',
+]
+
+if not 'develop' in sys.argv:
+    requirements.append('pyside')
 
 setup(
     name='series_list',
@@ -21,17 +36,7 @@ setup(
     },
     include_package_data=True,
     zip_safe=False,
-    install_requires=[
-        'pyside',
-        'requests',
-        'BeautifulSoup',
-        'sure',
-        'nose',
-        'mock',
-        'decorator',
-        'gevent',
-        'subliminal >= 0.7',
-    ],
+    install_requires=requirements,
     entry_points={
         'gui_scripts': [
             'series_list=series_list.app:main'
