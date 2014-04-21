@@ -8,6 +8,7 @@ dependencies:
   - python-pyside
   - subliminal
 releases:
+  - trusty
   - saucy
   - precise
   - quantal

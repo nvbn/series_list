@@ -2,7 +2,7 @@ import sys
 from setuptools import setup, find_packages
 
 
-version = '7.4'
+version = '7.5'
 
 requirements = [
     'requests',
